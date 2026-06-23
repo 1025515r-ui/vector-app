@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starting the Rainbows: VECTOR — Діагностика педагогічного впливу</title>
+<meta name="description" content="ВЕКТОР динаміки педагогічного впливу — перший у світі інструмент, де авторський сценарій діагностичного дня є умовою прояву навички дитини. Для педагогів, методистів, керівників ЗДО.">
+<style>
+/* ═══ Starting the Rainbows UA — Design System ═══ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple:   #7B2D8B;  --purple-l: #F3E8F7;  --purple-m: #D4A8E0;
+  --green:    #3AAA5C;  --green-l:  #E8F7ED;
+  --blue:     #1565C0;  --blue-l:   #E3EEFF;
+  --dark:     #0f172a;  --ink:      #1a1a2e;
+  --muted:    #64748b;  --border:   #e2e8f0;
+  --bg:       #f8fafc;  --white:    #ffffff;
+  --orange:   #b45309;  --orange-l: #fffbeb;
+}
+
+body { font-family: 'Segoe UI', system-ui, Arial, sans-serif; background: #fff; color: var(--ink); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-mark { width: 36px; height: 36px; background: linear-gradient(135deg,var(--purple),var(--green));
+  border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.nav-name { font-weight: 800; font-size: 0.95rem; color: var(--ink); }
+.nav-tagline { font-size: 0.68rem; color: var(--muted); font-weight: 500; letter-spacing:.04em; text-transform:uppercase; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color .15s; }
+.nav-links a:hover { color: var(--purple); }
+.nav-cta { background: var(--purple); color: #fff; padding: 9px 22px; border-radius: 8px;
+  font-weight: 700; font-size: 0.86rem; border: none; cursor: pointer; transition: all .18s;
+  text-decoration: none; display: inline-block; }
+.nav-cta:hover { background: #5b21b6; transform: translateY(-1px); }
+.nav-lang { font-size: 0.8rem; color: var(--muted); font-weight: 600;
+  border: 1.5px solid var(--border); padding: 4px 10px; border-radius: 6px;
+  text-decoration: none; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; padding: 120px 48px 80px;
+  background: #0f172a; display: flex; align-items: center;
+  justify-content: center; position: relative; overflow: hidden;
+}
+.hero-grid { position:absolute;inset:0;opacity:.06;
+  background-image:linear-gradient(rgba(123,45,139,.8) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(123,45,139,.8) 1px,transparent 1px);
+  background-size:48px 48px; }
+.hero-glow { position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(123,45,139,.25) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%); }
+.hero-inner { position:relative;z-index:1;max-width:880px;text-align:center; }
+.hero-badge { display:inline-flex;align-items:center;gap:8px;
+  background:rgba(123,45,139,.2);border:1px solid rgba(123,45,139,.4);
+  color:#d4a8e0;padding:6px 16px;border-radius:20px;
+  font-size:0.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:32px; }
+.hero h1 { font-size:clamp(2.2rem,6vw,4rem);font-weight:900;color:#fff;
+  line-height:1.08;letter-spacing:-.04em;margin-bottom:12px; }
+.hero h1 em { font-style:normal;color:#c4b5fd; }
+.hero-brand { font-size:0.95rem;color:rgba(255,255,255,.5);margin-bottom:20px;
+  letter-spacing:.06em;font-weight:500; }
+.hero-brand strong { color:#6ee7b7; }
+.hero-sub { font-size:1.1rem;color:rgba(255,255,255,.75);line-height:1.75;
+  max-width:660px;margin:0 auto 44px; }
+.hero-btns { display:flex;gap:14px;justify-content:center;flex-wrap:wrap; }
+.btn-white { background:#fff;color:var(--ink);padding:14px 32px;border-radius:10px;
+  font-weight:800;font-size:0.95rem;border:none;cursor:pointer;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);transition:all .2s;
+  text-decoration:none;display:inline-block; }
+.btn-white:hover { transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.35); }
+.btn-ghost { background:transparent;color:rgba(255,255,255,.85);
+  padding:14px 32px;border-radius:10px;font-weight:600;font-size:0.95rem;
+  border:1.5px solid rgba(255,255,255,.25);cursor:pointer;transition:all .2s;
+  text-decoration:none;display:inline-block; }
+.btn-ghost:hover { background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5); }
+.hero-stats { display:flex;gap:48px;justify-content:center;margin-top:64px;
+  padding-top:48px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap; }
+.stat { text-align:center; }
+.stat-val { font-size:2.2rem;font-weight:900;color:#fff;letter-spacing:-.04em; }
+.stat-val em { color:#c4b5fd;font-style:normal; }
+.stat-lbl { font-size:0.78rem;color:rgba(255,255,255,.5);margin-top:4px;
+  text-transform:uppercase;letter-spacing:.06em; }
+
+/* ── SECTIONS ── */
+.section { padding: 88px 48px; }
+.section-dark { background: #0f172a; }
+.section-slate { background: var(--bg); }
+.section-white { background: #fff; }
+.section-purple { background: #4c1d95; }
+.inner { max-width: 1100px; margin: 0 auto; }
+.eyebrow { display:inline-block;background:var(--purple-l);color:var(--purple);
+  padding:4px 14px;border-radius:20px;font-size:0.73rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px; }
+.eyebrow.green { background:var(--green-l);color:var(--green); }
+.eyebrow.white { background:rgba(255,255,255,.15);color:rgba(255,255,255,.9); }
+.eyebrow.orange { background:var(--orange-l);color:var(--orange); }
+.h2 { font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:900;
+  letter-spacing:-.03em;margin-bottom:14px;line-height:1.15; }
+.h2 em { font-style:normal;color:var(--purple); }
+.h2.white { color:#fff; }
+.h2.white em { color:#c4b5fd; }
+.lead { font-size:1.05rem;color:var(--muted);line-height:1.75;max-width:600px; }
+.lead.white { color:rgba(255,255,255,.7); }
+.split { display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center; }
+.split-3 { display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px; }
+.center { text-align:center; }
+.mt-40 { margin-top:40px; }
+.mt-20 { margin-top:20px; }
+
+/* ── CHAIN ── */
+.chain { display:flex;flex-direction:column;gap:0; }
+.chain-item { display:flex;gap:20px;align-items:flex-start;padding:20px 0;
+  border-bottom:1px solid var(--border); }
+.chain-item:last-child { border-bottom:none; }
+.chain-n { width:38px;height:38px;border-radius:9px;background:var(--purple);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:0.88rem;color:#fff;flex-shrink:0;margin-top:2px; }
+.chain-icon { font-size:1.4rem;flex-shrink:0;margin-top:4px;width:32px;text-align:center; }
+.chain-body h4 { font-weight:800;font-size:0.97rem;margin-bottom:4px;color:var(--ink); }
+.chain-body p { font-size:0.87rem;color:var(--muted);line-height:1.65; }
+
+/* ── VISUAL CARD ── */
+.vis-card { background:linear-gradient(135deg,#1e1b4b,#312e81,#1e3a5f);
+  border-radius:20px;padding:40px;position:relative;overflow:hidden; }
+.vis-card::before { content:'';position:absolute;width:300px;height:300px;border-radius:50%;
+  background:rgba(123,45,139,.2);bottom:-80px;right:-80px; }
+.vis-icon { font-size:3.5rem;margin-bottom:20px; }
+.vis-card h3 { font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:10px; }
+.vis-card p { font-size:0.9rem;color:rgba(255,255,255,.7);line-height:1.65; }
+.vis-badges { display:flex;gap:8px;flex-wrap:wrap;margin-top:20px; }
+.vis-badge { background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  color:#fff;padding:5px 12px;border-radius:20px;font-size:0.78rem;font-weight:700; }
+
+/* ── NOVELTY CARDS ── */
+.nov-grid { display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px; }
+.nov-card { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:26px;transition:background .2s; }
+.nov-card:hover { background:rgba(255,255,255,.1); }
+.nov-num { font-size:2.5rem;font-weight:900;color:rgba(196,181,253,.3);line-height:1;margin-bottom:10px; }
+.nov-title { font-size:1rem;font-weight:800;color:#fff;margin-bottom:8px; }
+.nov-text { font-size:0.86rem;color:rgba(255,255,255,.6);line-height:1.65; }
+
+/* ── AUDIENCE ── */
+.aud-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
+.aud-card { background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:22px;text-align:center;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04); }
+.aud-card:hover { border-color:var(--purple);transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(123,45,139,.1); }
+.aud-icon { font-size:2.2rem;margin-bottom:10px; }
+.aud-name { font-weight:800;font-size:0.92rem;margin-bottom:5px;color:var(--ink); }
+.aud-desc { font-size:0.8rem;color:var(--muted);line-height:1.55; }
+
+/* ── COMPARE TABLE ── */
+.cmp-table { width:100%;border-collapse:collapse;margin-top:32px;font-size:0.88rem; }
+.cmp-table th { padding:12px 16px;font-weight:800;font-size:0.78rem;
+  text-transform:uppercase;letter-spacing:.05em; }
+.cmp-table th:first-child { text-align:left; }
+.cmp-table th.hl { background:var(--purple);color:#fff;border-radius:8px 8px 0 0;text-align:center; }
+.cmp-table th.analogue { background:var(--bg);color:var(--muted);text-align:center; }
+.cmp-table td { padding:12px 16px;border-bottom:1px solid #f1f5f9;color:#374151;text-align:center; }
+.cmp-table td:first-child { text-align:left;font-weight:600;color:var(--ink); }
+.cmp-table td.hl { background:#faf9ff;font-weight:700;color:var(--purple); }
+.cmp-table .yes { color:var(--green);font-weight:700; }
+.cmp-table .no { color:#cbd5e1; }
+
+/* ── ECOSYSTEM ── */
+.eco { display:flex;flex-direction:column;gap:14px; }
+.eco-item { display:flex;gap:16px;align-items:center;padding:16px 20px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;transition:background .2s; }
+.eco-item:hover { background:rgba(255,255,255,.1); }
+.eco-item.highlight { background:rgba(123,45,139,.3);border-color:rgba(196,181,253,.4); }
+.eco-icon { font-size:1.6rem;flex-shrink:0;width:40px;text-align:center; }
+.eco-body { flex:1; }
+.eco-body h4 { font-weight:700;font-size:0.92rem;color:#fff;margin-bottom:2px; }
+.eco-body p { font-size:0.8rem;color:rgba(255,255,255,.6); }
+.eco-tag { background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);
+  padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;
+  white-space:nowrap;flex-shrink:0; }
+.eco-tag.new { background:rgba(52,211,153,.2);color:#34d399; }
+
+/* ── PRICING ── */
+.price-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px; }
+.price-card { background:#fff;border:1.5px solid var(--border);border-radius:16px;
+  padding:28px;position:relative;transition:all .2s; }
+.price-card.featured { border-color:var(--purple);box-shadow:0 8px 32px rgba(123,45,139,.15);
+  background:#faf9ff; }
+.price-badge { position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--purple);color:#fff;padding:3px 14px;border-radius:20px;
+  font-size:0.72rem;font-weight:800;letter-spacing:.06em;white-space:nowrap; }
+.price-name { font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:6px; }
+.price-desc { font-size:0.82rem;color:var(--muted);margin-bottom:20px; }
+.price-amount { font-size:2.4rem;font-weight:900;color:var(--ink);letter-spacing:-.04em; }
+.price-amount span { font-size:1rem;font-weight:600;color:var(--muted); }
+.price-period { font-size:0.8rem;color:var(--muted);margin-bottom:24px; }
+.price-features { list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px; }
+.price-features li { font-size:0.85rem;color:#374151;display:flex;align-items:flex-start;gap:8px; }
+.price-features li::before { content:'✓';color:var(--green);font-weight:900;flex-shrink:0;margin-top:1px; }
+.price-features li.na { color:#94a3b8; }
+.price-features li.na::before { content:'—';color:#cbd5e1; }
+.btn-buy { width:100%;padding:12px;border-radius:10px;border:none;
+  background:var(--purple);color:#fff;font-weight:800;font-size:0.9rem;cursor:pointer;transition:all .18s; }
+.btn-buy:hover { background:#5b21b6; }
+.btn-buy.outline { background:transparent;color:var(--purple);border:2px solid var(--purple); }
+.btn-buy.outline:hover { background:var(--purple-l); }
+
+/* ── ORDER ── */
+.order-box { background:linear-gradient(135deg,#1e1b4b,#312e81);
+  border-radius:20px;padding:48px;text-align:center;
+  border:1px solid rgba(123,45,139,.3); }
+.order-box h2 { color:#fff;font-size:2rem;font-weight:900;margin-bottom:10px; }
+.order-box p { color:rgba(255,255,255,.7);margin-bottom:32px;font-size:1rem;line-height:1.65; }
+.order-tabs { display:flex;background:rgba(0,0,0,.3);border-radius:10px;
+  padding:4px;gap:4px;max-width:420px;margin:0 auto 32px; }
+.order-tab { flex:1;padding:9px;text-align:center;border-radius:8px;cursor:pointer;
+  font-size:0.82rem;font-weight:700;color:rgba(255,255,255,.6);
+  border:none;background:transparent;transition:all .18s; }
+.order-tab.active { background:#fff;color:var(--purple); }
+.order-form { max-width:420px;margin:0 auto;text-align:left; }
+.ofc { width:100%;padding:11px 16px;border:1.5px solid rgba(255,255,255,.15);
+  border-radius:10px;font-size:0.9rem;background:rgba(255,255,255,.08);
+  color:#fff;margin-bottom:12px;font-family:inherit;transition:border .18s; }
+.ofc::placeholder { color:rgba(255,255,255,.4); }
+.ofc:focus { outline:none;border-color:#c4b5fd;background:rgba(255,255,255,.12); }
+select.ofc option { background:#1e1b4b;color:#fff; }
+.btn-order { width:100%;padding:14px;border-radius:10px;border:none;
+  background:linear-gradient(135deg,var(--purple),var(--green));color:#fff;
+  font-weight:900;font-size:1rem;cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 20px rgba(123,45,139,.4); }
+.btn-order:hover { transform:translateY(-2px);box-shadow:0 8px 32px rgba(123,45,139,.5); }
+.order-note { font-size:0.75rem;color:rgba(255,255,255,.45);text-align:center;margin-top:10px; }
+
+/* ── LOGIN ── */
+.login-card { background:#fff;border-radius:16px;padding:32px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);max-width:380px;margin:0 auto; }
+.login-card h3 { font-size:1rem;font-weight:800;color:var(--purple);
+  margin-bottom:4px;text-align:center; }
+.login-card p { font-size:0.82rem;color:var(--muted);text-align:center;margin-bottom:20px; }
+.l-tabs { display:flex;background:var(--bg);border-radius:10px;padding:4px;
+  margin-bottom:20px;gap:3px; }
+.l-tab { flex:1;padding:8px;text-align:center;border-radius:8px;cursor:pointer;
+  font-size:0.8rem;font-weight:700;color:var(--muted);border:none;background:transparent;transition:all .18s; }
+.l-tab.active { background:#fff;color:var(--purple);box-shadow:0 2px 8px rgba(123,45,139,.15); }
+.lfc { width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:10px;
+  font-size:0.88rem;background:#fff;margin-bottom:12px;font-family:inherit;transition:all .18s; }
+.lfc:focus { outline:none;border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-l); }
+.btn-login { width:100%;padding:12px;border-radius:10px;border:none;
+  background:var(--purple);color:#fff;font-weight:900;font-size:0.95rem;
+  cursor:pointer;box-shadow:0 4px 16px rgba(123,45,139,.35);transition:all .2s;margin-top:4px; }
+.btn-login:hover { background:#5b21b6; }
+
+/* ── FOOTER ── */
+.footer { background:#0f172a;padding:48px;color:rgba(255,255,255,.5); }
+.footer-inner { max-width:1100px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap; }
+.footer-brand { font-weight:800;font-size:1rem;color:#fff;margin-bottom:6px; }
+.footer-brand span { color:#6ee7b7; }
+.footer-sub { font-size:0.8rem; }
+.footer-links { display:flex;gap:20px;flex-wrap:wrap; }
+.footer-links a { color:rgba(255,255,255,.45);text-decoration:none;font-size:0.82rem;transition:color .15s; }
+.footer-links a:hover { color:#fff; }
+.footer-bottom { max-width:1100px;margin:24px auto 0;padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.08);font-size:0.78rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px; }
+.tm { color:#6ee7b7;font-weight:700; }
+
+/* ── RESULT SECTION ── */
+.result-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px; }
+.result-card { background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;padding:22px;text-align:center; }
+.result-icon { font-size:2rem;margin-bottom:10px; }
+.result-text { font-size:0.85rem;color:rgba(255,255,255,.9);font-weight:600;line-height:1.5; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav { padding:0 20px; }
+  .nav-links { display:none; }
+  .section { padding:56px 20px; }
+  .hero { padding:100px 20px 60px; }
+  .split, .nov-grid, .price-grid { grid-template-columns:1fr; }
+  .split-3, .aud-grid, .result-grid { grid-template-columns:1fr 1fr; }
+  .hero-stats { gap:28px; }
+  .footer-inner { flex-direction:column; }
+  .order-tabs { flex-wrap:wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#top">
+    <div class="nav-logo-mark">🌈</div>
+    <div>
+      <div class="nav-name">Starting the Rainbows</div>
+      <div class="nav-tagline">Впевнений СТАРТ · Українська академія дитинства</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#about">Про інструмент</a>
+    <a href="#vector">Новизна</a>
+    <a href="#system">Система</a>
+    <a href="#pricing">Вартість</a>
+    <a href="#order">Замовити</a>
+    <a href="#login-section">Вхід</a>
+    <a href="index.html" class="nav-lang">EN</a>
+  </div>
+  <a href="#order" class="nav-cta">Замовити ВЕКТОР →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🌈 Starting the Rainbows · Торговельна марка ЄС</div>
+    <h1>Перший у світі<br><em>діагностичний досвід</em><br>для дошкільної освіти</h1>
+    <div class="hero-brand">Starting the Rainbows: <strong>VECTOR of Pedagogical Impact Dynamics</strong></div>
+    <p class="hero-sub">Авторські сценарії діагностичних днів, які створюють умови для природнього прояву навичок дитини. Педагог бачить реальний напрям і силу свого впливу — не за відчуттям, а за даними.</p>
+    <div class="hero-btns">
+      <a href="#order" class="btn-white">🎯 Замовити ВЕКТОР</a>
+      <a href="#about" class="btn-ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'});return false;">Як це працює ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val"><em>24</em></div><div class="stat-lbl">навички дитини</div></div>
+      <div class="stat"><div class="stat-val"><em>5</em></div><div class="stat-lbl">діагностичних дні</div></div>
+      <div class="stat"><div class="stat-val"><em>1 500+</em></div><div class="stat-lbl">дітей в апробації</div></div>
+      <div class="stat"><div class="stat-val"><em>100+</em></div><div class="stat-lbl">груп протестовано</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section section-white" id="about">
+  <div class="inner">
+    <div class="split">
+      <div>
+        <div class="eyebrow">Головна ідея</div>
+        <h2 class="h2">Більшість інструментів кажуть<br><em>що оцінювати.</em><br>ВЕКТОР — як створити<br><em>умови для прояву.</em></h2>
+        <p class="lead">Жодна система діагностики у світі не відповідала на питання: як організувати педагогічну ситуацію, в якій навичка дитини проявиться природньо, а не «на замовлення»? ВЕКТОР відповідає — і це змінює все.</p>
+        <div class="mt-40">
+          <div class="chain">
+            <div class="chain-item">
+              <div class="chain-n">1</div>
+              <div class="chain-icon">🎭</div>
+              <div class="chain-body">
+                <h4>Авторський сценарій діагностичного дня</h4>
+                <p>Спеціально розроблена педагогічна ситуація, в якій навичка проявляється природньо — не в умовах тестування, а під час реальної діяльності дитини.</p>
+              </div>
+            </div>
+            <div class="chain-item">
+              <div class="chain-n">2</div>
+              <div class="chain-icon">👧</div>
+              <div class="chain-body">
+                <h4>Природній прояв навички</h4>
+                <p>Дитина діє вільно. Педагог-експерт спостерігає автентичну поведінку — без штучних умов і стресу від перевірки.</p>
+              </div>
+            </div>
+            <div class="chain-item">
+              <div class="chain-n">3</div>
+              <div class="chain-icon">📊</div>
+              <div class="chain-body">
+                <h4>Трирівневі поведінкові дескриптори</h4>
+                <p>Кожна з 24 навичок оцінюється за шкалою 1/2/3 з чіткими описами проявів — валідованими на 100+ групах у реальних ЗДО.</p>
+              </div>
+            </div>
+            <div class="chain-item">
+              <div class="chain-n">4</div>
+              <div class="chain-icon">💻</div>
+              <div class="chain-body">
+                <h4>Платформа ВЕКТОР: автоматична аналітика</h4>
+                <p>Дані вводяться в систему — і одразу генеруються графіки динаміки, аналіз балансу М/Т навичок по групі та кожній дитині, PDF-звіт.</p>
+              </div>
+            </div>
+            <div class="chain-item">
+              <div class="chain-n">5</div>
+              <div class="chain-icon">🎯</div>
+              <div class="chain-body">
+                <h4>Вектор педагогічного впливу</h4>
+                <p>Педагог бачить напрям і силу власного впливу на розвиток групи — і коригує практику усвідомлено, а не інтуїтивно.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="vis-card">
+          <div class="vis-icon">🎯</div>
+          <h3>Starting the Rainbows:<br>VECTOR of Pedagogical Impact Dynamics</h3>
+          <p style="margin-bottom:20px">Єдина у світі система, де авторський сценарій є обов'язковою умовою спостереження навички. Без сценарію — немає природнього прояву. Без прояву — немає чого оцінювати.</p>
+          <div class="vis-badges">
+            <span class="vis-badge">Торговельна марка ЄС ®</span>
+            <span class="vis-badge">1500+ дітей</span>
+            <span class="vis-badge">Наукова база</span>
+            <span class="vis-badge">Апробовано</span>
+          </div>
+          <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)">
+            <div style="font-size:0.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Баланс навичок (авторська модель)</div>
+            <div style="display:flex;gap:12px">
+              <div style="flex:1;background:rgba(123,45,139,.3);border-radius:8px;padding:12px;text-align:center">
+                <div style="font-size:1.5rem;font-weight:900;color:#c4b5fd">12</div>
+                <div style="font-size:0.75rem;color:rgba(255,255,255,.6)">М'яких навичок</div>
+              </div>
+              <div style="display:flex;align-items:center;color:rgba(255,255,255,.4);font-weight:700">⇌</div>
+              <div style="flex:1;background:rgba(58,170,92,.25);border-radius:8px;padding:12px;text-align:center">
+                <div style="font-size:1.5rem;font-weight:900;color:#6ee7b7">12</div>
+                <div style="font-size:0.75rem;color:rgba(255,255,255,.6)">Твердих навичок</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result block -->
+        <div style="margin-top:20px;background:var(--purple-l);border-radius:16px;padding:24px;border-left:4px solid var(--purple)">
+          <div style="font-weight:800;color:var(--purple);margin-bottom:12px;font-size:0.95rem">Що отримує педагог</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:10px;align-items:center;font-size:0.85rem;color:var(--ink)"><span style="color:var(--green);font-weight:900">✓</span>Перехід від інтуїції до усвідомленого управління розвитком</div>
+            <div style="display:flex;gap:10px;align-items:center;font-size:0.85rem;color:var(--ink)"><span style="color:var(--green);font-weight:900">✓</span>Бачення свого «педагогічного сліпого місця»</div>
+            <div style="display:flex;gap:10px;align-items:center;font-size:0.85rem;color:var(--ink)"><span style="color:var(--green);font-weight:900">✓</span>Об'єктивна основа для педагогічної рефлексії</div>
+            <div style="display:flex;gap:10px;align-items:center;font-size:0.85rem;color:var(--ink)"><span style="color:var(--green);font-weight:900">✓</span>Звіт для керівника і батьків — одним кліком</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOVELTY -->
+<section class="section section-dark" id="vector">
+  <div class="inner">
+    <div class="center">
+      <div class="eyebrow white">Наукова новизна</div>
+      <h2 class="h2 white">Чому ВЕКТОР — це <em>нова категорія</em><br>педагогічної діагностики</h2>
+      <p class="lead white" style="margin:0 auto">У світі є інструменти, які оцінюють дитину. Є ті, що оцінюють поведінку педагога. ВЕКТОР — перший, що вимірює педагогічний вплив через баланс навичок, які проявились у авторській ситуації.</p>
+    </div>
+    <div class="nov-grid">
+      <div class="nov-card">
+        <div class="nov-num">01</div>
+        <div class="nov-title">Від оцінки дитини — до оцінки педагогічного вибору</div>
+        <div class="nov-text">Вперше вимірюється не лише результат розвитку дитини, а джерело змін — напрям педагогічної дії. Педагог бачить себе у дзеркалі даних.</div>
+      </div>
+      <div class="nov-card">
+        <div class="nov-num">02</div>
+        <div class="nov-title">Напрям розвитку, а не лише рівень «тут і зараз»</div>
+        <div class="nov-text">Традиційні системи фіксують стан дитини на певний момент. ВЕКТОР вводить нову діагностичну категорію — вектор педагогічного впливу в динаміці до 5 днів на рік.</div>
+      </div>
+      <div class="nov-card">
+        <div class="nov-num">03</div>
+        <div class="nov-title">Баланс М і Т навичок як центральний показник</div>
+        <div class="nov-text">12 м'яких + 12 твердих навичок вимірюються як єдина збалансована система. Дисбаланс — це сигнал про напрям педагогічного впливу, який треба скоригувати.</div>
+      </div>
+      <div class="nov-card">
+        <div class="nov-num">04</div>
+        <div class="nov-title">Сценарій як умова — а не просто методика</div>
+        <div class="nov-text">Авторський сценарій діагностичного дня — не рекомендація, а технологічна умова: без нього навичка не проявиться, а значить — немає чого оцінювати. Це принципово.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="section section-slate">
+  <div class="inner">
+    <div class="center">
+      <div class="eyebrow">Порівняння</div>
+      <h2 class="h2">Нова позиція на карті<br><em>педагогічної діагностики</em></h2>
+      <p class="lead" style="margin:0 auto 32px">Існуючі інструменти покривають частину картини. ВЕКТОР — єдина система, що з'єднує всі елементи в один діагностичний цикл.</p>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th style="width:55%;text-align:left">Критерій діагностики</th>
+            <th class="hl" style="width:22%">ВЕКТОР</th>
+            <th class="analogue" style="width:23%">Аналоги у світі</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Авторський сценарій створює умову для прояву навички</td>
+            <td class="hl yes">✓ 100%</td>
+            <td class="no"></td>
+          </tr>
+          <tr>
+            <td>Вимірює напрям педагогічного впливу педагога</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:var(--muted);text-align:center;font-size:0.85rem">~20%</td>
+          </tr>
+          <tr>
+            <td>Баланс м'яких і твердих навичок як єдиний показник</td>
+            <td class="hl yes">✓ 100%</td>
+            <td class="no"></td>
+          </tr>
+          <tr>
+            <td>Трирівневі поведінкові дескриптори для кожної навички</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:var(--muted);text-align:center;font-size:0.85rem">~40%</td>
+          </tr>
+          <tr>
+            <td>Динаміка в часі — до 5 діагностичних днів на рік</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:var(--muted);text-align:center;font-size:0.85rem">~30%</td>
+          </tr>
+          <tr>
+            <td>Педагогічна рефлексія як головна мета інструменту</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:var(--muted);text-align:center;font-size:0.85rem">~15%</td>
+          </tr>
+          <tr>
+            <td>Автоматична аналітика по групі та дитині + PDF одним кліком</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:var(--muted);text-align:center;font-size:0.85rem">~60%</td>
+          </tr>
+          <tr>
+            <td>Сертифікація педагогів-експертів включена у систему</td>
+            <td class="hl yes">✓ 100%</td>
+            <td class="no"></td>
+          </tr>
+          <tr>
+            <td>Апробовано на 1500+ дітях у реальних групах ЗДО</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:var(--muted);text-align:center;font-size:0.85rem">~70%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:#94a3b8;font-style:italic">* Відсоток відображає приблизне покриття кожного критерію серед існуючих світових інструментів педагогічної діагностики дошкільнят</p>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="section section-white">
+  <div class="inner">
+    <div class="center">
+      <div class="eyebrow">Для кого</div>
+      <h2 class="h2">ВЕКТОР створено для <em>фахівців дошкільної освіти</em></h2>
+    </div>
+    <div class="aud-grid mt-40">
+      <div class="aud-card">
+        <div class="aud-icon">👩‍🏫</div>
+        <div class="aud-name">Вихователі ЗДО</div>
+        <div class="aud-desc">Проводять діагностичні дні за авторськими сценаріями, вносять спостереження і отримують автоматичні графіки по своїй групі.</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">🔬</div>
+        <div class="aud-name">Методисти</div>
+        <div class="aud-desc">Аналізують педагогічні практики, підтримують педагогів у переході від інтуїтивного до системного підходу.</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">🏛️</div>
+        <div class="aud-name">Керівники закладів</div>
+        <div class="aud-desc">Ухвалюють управлінські рішення на основі об'єктивних даних про динаміку розвитку груп і педагогічний вплив.</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">🎓</div>
+        <div class="aud-name">Освітні експерти</div>
+        <div class="aud-desc">Незалежна оцінка якості педагогічної діяльності відповідно до сучасних вимог розвитку компетентностей.</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">💡</div>
+        <div class="aud-name">Тренери розвитку</div>
+        <div class="aud-desc">Готують і сертифікують педагогів-експертів ВЕКТОР через програму Train-the-Trainer.</div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-icon">📚</div>
+        <div class="aud-name">Студенти-педагоги</div>
+        <div class="aud-desc">Майбутні вихователі, які опановують сучасні методи діагностики в процесі фахової підготовки.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="section section-dark" id="system">
+  <div class="inner">
+    <div class="split" style="gap:48px">
+      <div>
+        <div class="eyebrow white">Освітня екосистема</div>
+        <h2 class="h2 white">Starting the Rainbows —<br>система повного циклу</h2>
+        <p class="lead white">ВЕКТОР — це діагностичний вимір цілісної освітньої екосистеми, яку розроблено в Україні протягом 8 років, апробовано у тисячах груп, відзначено міжнародними нагородами і зареєстровано як торговельну марку ЄС.</p>
+        <div class="mt-40">
+          <div style="display:flex;gap:28px;flex-wrap:wrap">
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;color:#c4b5fd">8</div>
+              <div style="font-size:0.75rem;color:rgba(255,255,255,.5)">років у практиці</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;color:#6ee7b7">3 000+</div>
+              <div style="font-size:0.75rem;color:rgba(255,255,255,.5)">навчених педагогів</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;color:#fbbf24">🥇</div>
+              <div style="font-size:0.75rem;color:rgba(255,255,255,.5)">Золота медаль — Інноватика</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="eco">
+          <div class="eco-item">
+            <div class="eco-icon">🟣</div>
+            <div class="eco-body">
+              <h4>Навчально-методичні комплекти 3+ / 4+ / 5+</h4>
+              <p>Книги дитини, педагога, батьків · Альбоми · Плакати · Хрестоматії — повна річна програма</p>
+            </div>
+            <div class="eco-tag">Програма</div>
+          </div>
+          <div class="eco-item">
+            <div class="eco-icon">📚</div>
+            <div class="eco-body">
+              <h4>Курс підвищення кваліфікації</h4>
+              <p>Онлайн, 30 год, 1 кредит ECTS. Сертифікат державного зразка для педагогів ЗДО</p>
+            </div>
+            <div class="eco-tag">Навчання</div>
+          </div>
+          <div class="eco-item">
+            <div class="eco-icon">🎓</div>
+            <div class="eco-body">
+              <h4>Стажування «Впевнений СТАРТ»</h4>
+              <p>Очне та онлайн-наставництво. Реальна практика з досвідченими педагогами системи</p>
+            </div>
+            <div class="eco-tag">Практика</div>
+          </div>
+          <div class="eco-item highlight">
+            <div class="eco-icon">🎯</div>
+            <div class="eco-body">
+              <h4>VECTOR of Pedagogical Impact Dynamics</h4>
+              <p>Авторські сценарії · Модель 12+12 · Платформа · Сертифікація експертів</p>
+            </div>
+            <div class="eco-tag new">Доступно зараз</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section section-dark" style="background:linear-gradient(135deg,#1a4731,#3AAA5C)">
+  <div class="inner">
+    <div class="center">
+      <div class="eyebrow white">Результат</div>
+      <h2 class="h2 white">Що змінює ВЕКТОР<br>у педагогічній практиці</h2>
+    </div>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="result-icon">🪞</div>
+        <div class="result-text">Розвиток педагогічної рефлексії та самоусвідомлення</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🎯</div>
+        <div class="result-text">Усвідомлене управління розвитком дітей замість інтуїтивного</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">📈</div>
+        <div class="result-text">Підвищення якості освітнього процесу на основі даних</div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🏆</div>
+        <div class="result-text">Формування системного підходу до педагогічної діяльності</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section-white" id="pricing">
+  <div class="inner">
+    <div class="center">
+      <div class="eyebrow">Вартість</div>
+      <h2 class="h2">Оберіть свій пакет ВЕКТОР</h2>
+      <p class="lead" style="margin:0 auto">Кожен пакет включає авторські сценарії діагностичних днів — серце системи. Платформа і сертифікація розширюють можливості.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-name">Діагностичний комплект</div>
+        <div class="price-desc">Для окремого педагога або невеликої групи</div>
+        <div class="price-amount">від 9 900 <span>грн</span></div>
+        <div class="price-period">На одну групу · Цифрова доставка</div>
+        <ul class="price-features">
+          <li>5 сценаріїв діагностичних днів (PDF)</li>
+          <li>Протоколи оцінювання (24 навички, 3 рівні)</li>
+          <li>Методичні рекомендації та наочність</li>
+          <li>5 плакатів для проведення днів</li>
+          <li class="na">Доступ до платформи ВЕКТОР</li>
+          <li class="na">Сертифікація педагога</li>
+        </ul>
+        <button class="btn-buy outline" onclick="scrollToOrderUA('kit')">Замовити комплект →</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Найпопулярніший</div>
+        <div class="price-name">Комплект + Платформа</div>
+        <div class="price-desc">Повна система для вашої групи</div>
+        <div class="price-amount">від 24 900 <span>грн/рік</span></div>
+        <div class="price-period">До 30 дітей · Включає оновлення</div>
+        <ul class="price-features">
+          <li>5 сценаріїв діагностичних днів</li>
+          <li>Протоколи оцінювання (24 навички)</li>
+          <li>Повний доступ до платформи ВЕКТОР</li>
+          <li>Автоматичні графіки та аналітика групи</li>
+          <li>PDF-звіти одним кліком</li>
+          <li>Батьківський кабінет (перегляд за кодом)</li>
+          <li>Базова сертифікація (1 педагог)</li>
+        </ul>
+        <button class="btn-buy" onclick="scrollToOrderUA('platform')">Замовити →</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Інституційний</div>
+        <div class="price-desc">Для закладів, мереж, університетів</div>
+        <div class="price-amount">від 59 900 <span>грн/рік</span></div>
+        <div class="price-period">Необмежено дітей · Мульти-група · API</div>
+        <ul class="price-features">
+          <li>Все з пакету «Комплект + Платформа»</li>
+          <li>Необмежена кількість груп і дітей</li>
+          <li>Порівняльна аналітика між групами</li>
+          <li>Управління кількома педагогами</li>
+          <li>Сертифікація (до 3 педагогів)</li>
+          <li>Пріоритетна підтримка та онбординг</li>
+        </ul>
+        <button class="btn-buy outline" onclick="scrollToOrderUA('institution')">Замовити →</button>
+      </div>
+    </div>
+    <div style="margin-top:20px;text-align:center;font-size:0.85rem;color:var(--muted)">
+      Потрібна ліцензія для регіону або видавництва? <a href="#order" style="color:var(--purple);font-weight:700">Напишіть нам →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="section section-slate" id="order">
+  <div class="inner">
+    <div class="order-box">
+      <h2>Замовити Starting the Rainbows: VECTOR</h2>
+      <p>Залиште заявку — і наш менеджер зв'яжеться з вами протягом 1 робочого дня для уточнення деталей, відповіді на питання та організації доступу до матеріалів.</p>
+      <div class="order-tabs">
+        <button class="order-tab active" onclick="setOrderTabUA('teacher')">👩‍🏫 Педагог</button>
+        <button class="order-tab" onclick="setOrderTabUA('institution')">🏛️ Заклад</button>
+        <button class="order-tab" onclick="setOrderTabUA('partner')">🤝 Партнерство</button>
+      </div>
+      <div class="order-form" id="uaOrderTeacher">
+        <input class="ofc" placeholder="Ваше ім'я та прізвище" id="uaName">
+        <input class="ofc" placeholder="Email" type="email" id="uaEmail">
+        <input class="ofc" placeholder="Телефон (необов'язково)" id="uaPhone">
+        <input class="ofc" placeholder="Місто і заклад" id="uaZDO">
+        <select class="ofc" id="uaPackage">
+          <option value="">Оберіть пакет...</option>
+          <option value="kit">Діагностичний комплект — від 9 900 грн</option>
+          <option value="platform">Комплект + Платформа — від 24 900 грн/рік</option>
+          <option value="institution">Інституційний — від 59 900 грн/рік</option>
+        </select>
+        <button class="btn-order" onclick="submitOrderUA()">Надіслати заявку →</button>
+        <div class="order-note">Оплата після підтвердження. Безпечно і конфіденційно.</div>
+      </div>
+      <div class="order-form" id="uaOrderInstitution" style="display:none">
+        <input class="ofc" placeholder="Назва закладу">
+        <input class="ofc" placeholder="Контактна особа">
+        <input class="ofc" placeholder="Email" type="email">
+        <input class="ofc" placeholder="Телефон">
+        <input class="ofc" placeholder="Кількість груп / дітей">
+        <button class="btn-order" onclick="submitOrderUA()">Отримати індивідуальну пропозицію →</button>
+        <div class="order-note">Підготуємо розрахунок протягом 2 робочих днів.</div>
+      </div>
+      <div class="order-form" id="uaOrderPartner" style="display:none">
+        <input class="ofc" placeholder="Назва організації">
+        <input class="ofc" placeholder="Контактна особа">
+        <input class="ofc" placeholder="Email" type="email">
+        <select class="ofc">
+          <option value="">Тип партнерства...</option>
+          <option>Ліцензія для регіону / видавництва</option>
+          <option>Університетське партнерство</option>
+          <option>Train-the-Trainer програма</option>
+          <option>Наукова співпраця</option>
+          <option>Міжнародна дистрибуція</option>
+        </select>
+        <button class="btn-order" onclick="submitOrderUA()">Розпочати розмову →</button>
+        <div class="order-note">Всі партнерські запити обробляються конфіденційно.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section class="section section-white" id="login-section">
+  <div class="inner" style="max-width:480px">
+    <div class="center" style="margin-bottom:28px">
+      <div class="eyebrow">Вхід до платформи</div>
+      <h2 class="h2">Увійдіть до ВЕКТОР</h2>
+      <p style="color:var(--muted);font-size:0.9rem">Вже маєте доступ? Відкрийте платформу.</p>
+    </div>
+    <div class="login-card">
+      <h3>🎯 Платформа ВЕКТОР</h3>
+      <p>Starting the Rainbows · Діагностична система</p>
+      <div class="l-tabs">
+        <button class="l-tab active" onclick="setUARole('teacher')">🎯 Експерт</button>
+        <button class="l-tab" onclick="setUARole('admin')">🔧 Адмін</button>
+        <button class="l-tab" onclick="setUARole('parent')">👨‍👩‍👧 Батьки</button>
+      </div>
+      <div id="uaTeacher">
+        <input class="lfc" id="lTName" placeholder="Ваше ім'я" value="Марія Петренко">
+        <input class="lfc" type="password" id="lTPass" placeholder="Пароль" value="teacher123">
+        <button class="btn-login" onclick="doLoginUA('teacher')">Увійти як Експерт →</button>
+      </div>
+      <div id="uaAdmin" style="display:none">
+        <input class="lfc" id="lAUser" placeholder="Логін" value="admin">
+        <input class="lfc" type="password" id="lAPass" placeholder="Пароль" value="admin123">
+        <button class="btn-login" onclick="doLoginUA('admin')">Увійти як Адмін →</button>
+      </div>
+      <div id="uaParent" style="display:none">
+        <div style="background:var(--purple-l);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.82rem;color:var(--purple)">
+          Введіть код дитини, наданий педагогом
+        </div>
+        <input class="lfc" id="lPCode" placeholder="Код дитини (напр. ST-001)">
+        <button class="btn-login" onclick="doLoginUA('parent')">Переглянути результати →</button>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:0.73rem;color:#94a3b8">
+        Демо: ім'я / teacher123 · admin / admin123
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Starting the Rainbows <span>®</span></div>
+      <div class="footer-sub">Впевнений СТАРТ · Українська академія дитинства</div>
+      <div style="margin-top:6px;font-size:0.78rem">Starting the Rainbows: Vector of Pedagogical Impact Dynamics</div>
+      <div style="margin-top:4px;font-size:0.78rem">Торговельна марка ЄС (EUIPO) · Зареєстровано</div>
+    </div>
+    <div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,.35);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Навігація</div>
+      <div class="footer-links" style="flex-direction:column;gap:8px">
+        <a href="#about">Про ВЕКТОР</a>
+        <a href="#system">Екосистема Starting the Rainbows</a>
+        <a href="#pricing">Вартість</a>
+        <a href="#order">Замовити</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,.35);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Контакти</div>
+      <div class="footer-links" style="flex-direction:column;gap:8px">
+        <a href="mailto:vstart2017@gmail.com">vstart2017@gmail.com</a>
+        <a href="https://vstart.com.ua" target="_blank">vstart.com.ua</a>
+        <a href="index.html">English version →</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Українська академія дитинства · <span class="tm">Starting the Rainbows ®</span> · Торговельна марка ЄС (EUIPO)</span>
+    <span>Всі права на інтелектуальну власність захищені · Методологія є конфіденційною</span>
+  </div>
+</footer>
+
+<script>
+function scrollToOrderUA(pkg){
+  document.getElementById('order').scrollIntoView({behavior:'smooth'});
+  if(pkg){ const s=document.getElementById('uaPackage'); if(s) s.value=pkg; }
+}
+
+function setOrderTabUA(tab){
+  ['Teacher','Institution','Partner'].forEach(t=>{
+    const el=document.getElementById('uaOrder'+t); if(el) el.style.display='none';
+  });
+  const map={teacher:'Teacher',institution:'Institution',partner:'Partner'};
+  const el=document.getElementById('uaOrder'+map[tab]); if(el) el.style.display='block';
+  document.querySelectorAll('.order-tab').forEach((b,i)=>{
+    b.classList.toggle('active',['teacher','institution','partner'][i]===tab);
+  });
+}
+
+function submitOrderUA(){
+  const name=(document.getElementById('uaName')||{}).value||'';
+  const email=(document.getElementById('uaEmail')||{}).value||'';
+  if(!name||!email){ alert('Будь ласка, введіть ім\'я та email'); return; }
+  alert('Дякуємо! Вашу заявку отримано.\n\nНаш менеджер зв\'яжеться з вами за адресою '+email+' протягом 1 робочого дня.');
+}
+
+function setUARole(r){
+  ['Teacher','Admin','Parent'].forEach(x=>{
+    const el=document.getElementById('ua'+x); if(el) el.style.display='none';
+  });
+  const map={teacher:'Teacher',admin:'Admin',parent:'Parent'};
+  const el=document.getElementById('ua'+map[r]); if(el) el.style.display='block';
+  document.querySelectorAll('.l-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['teacher','admin','parent'][i]===r);
+  });
+}
+
+function doLoginUA(r){
+  if(r==='teacher'){
+    const name=(document.getElementById('lTName')||{}).value.trim();
+    const pass=(document.getElementById('lTPass')||{}).value;
+    if(!name){ alert('Введіть ваше ім\'я'); return; }
+    if(pass!=='teacher123'){ alert('Невірний пароль. Демо: teacher123'); return; }
+    window.location.href='app.html?role=teacher&user='+encodeURIComponent(name);
+  } else if(r==='admin'){
+    const u=(document.getElementById('lAUser')||{}).value;
+    const p=(document.getElementById('lAPass')||{}).value;
+    if(u!=='admin'||p!=='admin123'){ alert('Невірні дані. Демо: admin / admin123'); return; }
+    window.location.href='app.html?role=admin&user='+encodeURIComponent('Адміністратор');
+  } else {
+    const code=((document.getElementById('lPCode')||{}).value||'').trim().toUpperCase();
+    if(!code){ alert('Введіть код дитини'); return; }
+    window.location.href='app.html?role=parent&user='+encodeURIComponent(code);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вектор — Протокол навичок</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* ═══ ВПЕВНЕНИЙ СТАРТ — Design System ═══ */
+:root {
+  --purple:    #7B2D8B;
+  --purple-d:  #5a1f68;
+  --purple-l:  #f3e8f7;
+  --purple-m:  #d4a8e0;
+  --green:     #3aaa5c;
+  --green-d:   #2d8a49;
+  --green-l:   #e8f7ed;
+  --blue:      #1565C0;
+  --blue-l:    #e3eeff;
+  --yellow:    #F9A825;
+  --yellow-l:  #fff8e1;
+  --orange:    #E65100;
+  --red:       #c62828;
+  --bg:        #faf7fc;
+  --card:      #ffffff;
+  --text:      #1a1a2e;
+  --muted:     #6b7280;
+  --border:    #e8dff0;
+  --shadow:    0 4px 20px rgba(123,45,139,0.10);
+  --shadow-sm: 0 2px 8px rgba(123,45,139,0.08);
+  --r:         14px;
+  --r-sm:      8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#5a1f68 0%,#7B2D8B 45%,#3aaa5c 100%);
+  position:relative;overflow:hidden}
+.login-wrap::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;
+  background:rgba(255,255,255,0.04);top:-200px;right:-200px}
+.login-wrap::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;
+  background:rgba(255,255,255,0.04);bottom:-100px;left:-100px}
+.login-card{background:#fff;border-radius:20px;padding:44px 40px;width:400px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.25);position:relative;z-index:1}
+.login-logo{text-align:center;margin-bottom:28px}
+.login-logo .logo-icon{font-size:2.8rem;display:block;margin-bottom:8px}
+.login-logo h1{font-size:1.45rem;font-weight:900;color:var(--purple);letter-spacing:-0.02em}
+.login-logo p{font-size:0.82rem;color:var(--muted);margin-top:5px}
+.login-logo .brand{font-size:0.75rem;font-weight:700;color:var(--green);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:4px}
+.login-tabs{display:flex;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:24px;gap:3px}
+.login-tab{flex:1;padding:9px;text-align:center;border-radius:8px;cursor:pointer;font-size:0.82rem;
+  font-weight:700;color:var(--muted);border:none;background:transparent;transition:all .2s}
+.login-tab.active{background:#fff;color:var(--purple);box-shadow:0 2px 8px rgba(123,45,139,0.15)}
+
+/* TOPBAR */
+.topbar{background:linear-gradient(90deg,var(--purple-d),var(--purple));color:#fff;
+  padding:0 28px;display:flex;align-items:center;justify-content:space-between;
+  height:58px;box-shadow:0 3px 16px rgba(123,45,139,0.25)}
+.topbar-brand{display:flex;align-items:center;gap:12px}
+.topbar-icon{font-size:1.5rem}
+.topbar-title{font-size:1rem;font-weight:900;letter-spacing:-.01em}
+.topbar-subtitle{font-size:0.72rem;opacity:.75;margin-top:1px}
+.topbar-role{font-size:0.78rem;background:rgba(255,255,255,0.18);padding:4px 14px;border-radius:20px;font-weight:600}
+.btn-logout{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);
+  color:#fff;padding:6px 16px;border-radius:10px;cursor:pointer;font-size:0.83rem;font-weight:600;transition:all .18s}
+.btn-logout:hover{background:rgba(255,255,255,0.28)}
+
+/* LAYOUT */
+.layout{display:flex;min-height:calc(100vh - 58px)}
+.sidebar{width:222px;background:#fff;border-right:1px solid var(--border);
+  padding:16px 0;flex-shrink:0;box-shadow:2px 0 12px rgba(123,45,139,0.05)}
+.sidebar-section{padding:14px 18px 4px;font-size:0.68rem;font-weight:800;
+  color:var(--purple-m);text-transform:uppercase;letter-spacing:.1em}
+.sidebar-item{padding:10px 20px;cursor:pointer;font-size:0.87rem;color:var(--muted);
+  display:flex;align-items:center;gap:10px;border-left:3px solid transparent;
+  transition:all .15s;font-weight:500;margin:1px 0}
+.sidebar-item:hover{background:var(--purple-l);color:var(--purple)}
+.sidebar-item.active{color:var(--purple);background:var(--purple-l);
+  border-left-color:var(--purple);font-weight:700}
+.sidebar-divider{height:1px;background:var(--border);margin:10px 16px}
+.main{flex:1;padding:28px;overflow-y:auto}
+.page{display:none}.page.active{display:block}
+
+/* CARDS */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow-sm);
+  padding:24px;margin-bottom:18px;border:1px solid var(--border)}
+.card-title{font-size:1rem;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:9px;color:var(--text)}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+.section-title{font-size:1.3rem;font-weight:900;color:var(--text);letter-spacing:-.02em}
+.section-sub{font-size:0.83rem;color:var(--muted);margin-top:3px}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* STAT CARDS */
+.stat{background:var(--card);border-radius:var(--r);padding:20px;box-shadow:var(--shadow-sm);
+  border:1px solid var(--border);position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:var(--r) var(--r) 0 0}
+.stat.s-purple::before{background:var(--purple)}
+.stat.s-green::before{background:var(--green)}
+.stat.s-blue::before{background:var(--blue)}
+.stat.s-yellow::before{background:var(--yellow)}
+.stat-lbl{font-size:0.73rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:6px}
+.stat-val{font-size:2rem;font-weight:900;letter-spacing:-.03em}
+.stat-sub{font-size:0.78rem;color:var(--muted);margin-top:3px}
+.cm{color:var(--purple)}.ct{color:var(--blue)}.cg{color:var(--green)}.cy{color:var(--yellow)}
+
+/* BUTTONS */
+.btn{padding:9px 20px;border-radius:10px;border:none;cursor:pointer;font-size:0.87rem;
+  font-weight:700;display:inline-flex;align-items:center;gap:7px;transition:all .18s;letter-spacing:.01em}
+.btn-p{background:var(--purple);color:#fff;box-shadow:0 4px 12px rgba(123,45,139,0.3)}
+.btn-p:hover{background:var(--purple-d);transform:translateY(-1px)}
+.btn-g{background:var(--green);color:#fff;box-shadow:0 4px 12px rgba(58,170,92,0.3)}
+.btn-g:hover{background:var(--green-d);transform:translateY(-1px)}
+.btn-b{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(21,101,192,0.25)}
+.btn-b:hover{background:#0d47a1;transform:translateY(-1px)}
+.btn-out{background:transparent;color:var(--purple);border:2px solid var(--purple)}
+.btn-out:hover{background:var(--purple-l)}
+.btn-red{background:var(--red);color:#fff}
+.btn-sm{padding:5px 13px;font-size:0.79rem}
+
+/* FORM */
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:0.83rem;font-weight:700;margin-bottom:6px;color:var(--text)}
+.fc{width:100%;padding:9px 14px;border:2px solid var(--border);border-radius:10px;
+  font-size:0.88rem;background:#fff;transition:all .18s;color:var(--text)}
+.fc:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-l)}
+
+/* TABLE */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.84rem}
+th{background:var(--purple-l);color:var(--purple);font-weight:800;padding:10px 12px;
+  text-align:left;border-bottom:2px solid var(--purple-m);font-size:0.77rem;
+  text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:hover td{background:var(--bg)}
+tr:last-child td{border-bottom:none}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:0.73rem;font-weight:800;white-space:nowrap}
+.bM{background:var(--purple-l);color:var(--purple)}
+.bT{background:var(--blue-l);color:var(--blue)}
+.bH{background:var(--green-l);color:var(--green-d)}
+.bMd{background:var(--yellow-l);color:#e65100}
+.bL{background:#ffebee;color:var(--red)}
+
+/* PROTOCOL */
+.proto-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.skill-sec{border:2px solid var(--border);border-radius:var(--r);overflow:hidden}
+.skill-hdr{padding:12px 16px;font-weight:800;font-size:0.9rem;display:flex;align-items:center;gap:8px}
+.skill-hdr.M{background:var(--purple-l);color:var(--purple);border-bottom:2px solid var(--purple-m)}
+.skill-hdr.T{background:var(--blue-l);color:var(--blue);border-bottom:2px solid #b3d1f5}
+.skill-row{display:flex;align-items:center;padding:8px 14px;border-bottom:1px solid var(--border);gap:10px}
+.skill-row:last-child{border-bottom:none}
+.skill-row:hover{background:var(--bg)}
+.skill-name{font-size:0.82rem;flex:1;line-height:1.4}
+.skill-code{font-size:0.72rem;color:var(--muted);min-width:30px;font-weight:700}
+.score-btns{display:flex;gap:5px;flex-shrink:0}
+.sb{width:36px;height:36px;border:2px solid var(--border);background:#fff;border-radius:8px;
+  cursor:pointer;font-weight:900;font-size:0.88rem;transition:all .12s;color:var(--muted)}
+.sb:hover{border-color:var(--purple);color:var(--purple);transform:scale(1.08)}
+.sb.s1{background:#ffebee;border-color:var(--red);color:var(--red)}
+.sb.s2{background:var(--yellow-l);border-color:var(--yellow);color:#e65100}
+.sb.s3{background:var(--green-l);border-color:var(--green);color:var(--green-d)}
+
+/* CHARTS */
+.ch{position:relative;height:300px}
+.ch.tall{height:380px}
+.ch.xtall{height:460px}
+
+/* TABS */
+.tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:8px 18px;border-radius:10px;border:2px solid var(--border);background:#fff;
+  cursor:pointer;font-size:0.84rem;font-weight:700;color:var(--muted);transition:all .15s}
+.tab.active{background:var(--purple);color:#fff;border-color:var(--purple);box-shadow:0 4px 12px rgba(123,45,139,0.25)}
+.tab:hover:not(.active){border-color:var(--purple);color:var(--purple);background:var(--purple-l)}
+
+/* DAY PILLS */
+.day-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.dp{padding:7px 18px;border-radius:20px;border:2px solid var(--border);background:#fff;
+  cursor:pointer;font-size:0.83rem;font-weight:700;color:var(--muted);transition:all .18s}
+.dp.done{border-color:var(--green);color:var(--green-d);background:var(--green-l)}
+.dp.active{background:var(--purple);color:#fff;border-color:var(--purple);box-shadow:0 4px 10px rgba(123,45,139,0.25)}
+.dp.locked{opacity:.4;cursor:not-allowed}
+
+/* PROGRESS */
+.pbar{background:var(--border);border-radius:6px;height:8px;overflow:hidden}
+.pbfill{height:100%;border-radius:6px;transition:width .4s ease}
+
+/* RANKING */
+.rank-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.rn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.82rem;flex-shrink:0}
+.r1{background:#fff8e1;color:#f57f17;border:2px solid #f9a825}
+.r2{background:#f5f5f5;color:#455a64;border:2px solid #b0bec5}
+.r3{background:#fff3e0;color:#bf360c;border:2px solid #ffb74d}
+.rx{background:var(--bg);color:var(--muted);border:2px solid var(--border)}
+.rname{flex:1;font-weight:600;font-size:0.88rem}
+.rbar{flex:2}
+.rscore{font-weight:900;color:var(--purple);min-width:40px;text-align:right}
+
+/* BELOW AVG */
+.below{background:#fff8e1 !important}
+.star{color:var(--yellow);font-weight:900}
+
+/* ALERTS */
+.alert{padding:12px 16px;border-radius:10px;margin-bottom:14px;font-size:0.85rem}
+.al-i{background:var(--blue-l);color:var(--blue);border:1px solid #b3d1f5}
+.al-s{background:var(--green-l);color:var(--green-d);border:1px solid #a5d6b7}
+.al-w{background:var(--yellow-l);color:#e65100;border:1px solid #ffcc80}
+.al-p{background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-m)}
+
+/* RECS */
+.rec{background:var(--purple-l);border-left:4px solid var(--purple);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:10px;font-size:0.86rem;line-height:1.6}
+.rec-lbl{font-size:0.72rem;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.rec.rec-t{background:var(--blue-l);border-left-color:var(--blue)}
+.rec.rec-t .rec-lbl{color:var(--blue)}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(26,26,46,0.6);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(3px)}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:18px;padding:28px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,0.25)}
+.modal-title{font-size:1.1rem;font-weight:900;margin-bottom:20px}
+.modal-act{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+
+/* PARENT */
+.par-hdr{background:linear-gradient(135deg,var(--purple-d),var(--purple),#9c27b0);color:#fff;padding:30px;border-radius:var(--r);margin-bottom:22px;position:relative;overflow:hidden}
+.par-hdr::after{content:'star';font-family:sans-serif;position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:4rem;opacity:.1}
+.par-name{font-size:1.6rem;font-weight:900}
+.par-sub{opacity:.85;margin-top:4px}
+
+/* BELOW TABLE */
+.below-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+.below-table th{background:var(--purple-l);padding:8px 11px;text-align:left;border-bottom:2px solid var(--purple-m);font-size:0.73rem;text-transform:uppercase;color:var(--purple);font-weight:800}
+.below-table td{padding:8px 11px;border-bottom:1px solid var(--border)}
+
+/* DASH BANNER */
+.dash-banner{background:linear-gradient(135deg,var(--purple-d) 0%,var(--purple) 60%,#9c27b0 100%);
+  border-radius:var(--r);padding:22px 28px;color:#fff;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 8px 32px rgba(123,45,139,0.3);position:relative;overflow:hidden}
+.dash-banner::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.07)}
+.dash-banner-text h2{font-size:1.2rem;font-weight:900;margin-bottom:4px}
+.dash-banner-text p{font-size:0.85rem;opacity:.85}
+.dash-banner-emoji{font-size:3rem;opacity:.9;position:relative;z-index:1}
+
+/* UTILS */
+.hidden{display:none!important}
+
+/* ── COURSE STYLES ── */
+.course-lesson{display:flex;align-items:center;gap:14px;padding:12px 16px;
+  border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .18s;background:#fff}
+.course-lesson:hover{border-color:var(--purple);background:var(--purple-l)}
+.course-lesson.watched{border-color:var(--green);background:var(--green-l)}
+.lesson-icon{width:36px;height:36px;background:var(--purple-l);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;color:var(--purple);
+  font-size:0.9rem;flex-shrink:0;font-weight:700}
+.course-lesson.watched .lesson-icon{background:var(--green-l);color:var(--green)}
+.lesson-title{font-weight:700;font-size:0.88rem;color:var(--text);margin-bottom:2px}
+.lesson-meta{font-size:0.78rem;color:var(--muted)}
+.lesson-status{margin-left:auto;font-size:1.1rem;flex-shrink:0;color:var(--muted)}
+.course-lesson.watched .lesson-status{color:var(--green)}
+.flex{display:flex}.fb{display:flex;justify-content:space-between;align-items:center}
+.gap-10{gap:10px}.gap-6{gap:6px}
+.mt-16{margin-top:16px}.mb-16{margin-bottom:16px}.mt-8{margin-top:8px}
+.tm{color:var(--muted);font-size:0.82rem}
+.fw7{font-weight:700}.fw9{font-weight:900}
+.up{color:var(--green);font-weight:700}.dn{color:var(--red);font-weight:700}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .proto-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" style="display:block">
+<style>
+/* ═══ STARTING THE RAINBOWS — International Site ═══ */
+.sr-body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #fff; color: #0f172a; }
+
+/* ── PALETTE ── */
+/* Ink:    #0f172a  Mist: #64748b  Border: #e2e8f0 */
+/* Purple: #6d28d9  Purple-l: #f5f3ff */
+/* Green:  #059669  Green-l:  #ecfdf5 */
+/* Amber:  #b45309  Amber-l:  #fffbeb */
+/* Slate:  #f8fafc */
+
+/* ── NAV ── */
+.sr-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(16px);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 64px;
+}
+.sr-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.sr-nav-logo-mark { width: 36px; height: 36px; background: linear-gradient(135deg,#6d28d9,#059669);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; }
+.sr-nav-name { font-weight: 800; font-size: 0.95rem; color: #0f172a; letter-spacing: -.01em; }
+.sr-nav-tagline { font-size: 0.68rem; color: #64748b; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+.sr-nav-links { display: flex; gap: 28px; align-items: center; }
+.sr-nav-links a { color: #64748b; text-decoration: none; font-size: 0.88rem; font-weight: 600;
+  transition: color .15s; }
+.sr-nav-links a:hover { color: #6d28d9; }
+.sr-nav-links a.active { color: #6d28d9; }
+.sr-nav-cta { background: #6d28d9; color: #fff; padding: 9px 22px; border-radius: 8px;
+  font-weight: 700; font-size: 0.86rem; border: none; cursor: pointer; transition: all .18s;
+  text-decoration: none; display: inline-block; }
+.sr-nav-cta:hover { background: #5b21b6; transform: translateY(-1px); }
+.sr-nav-lang { font-size: 0.8rem; color: #64748b; font-weight: 600; border: 1.5px solid #e2e8f0;
+  padding: 4px 10px; border-radius: 6px; }
+
+/* ── HERO ── */
+.sr-hero {
+  min-height: 100vh; padding: 120px 48px 80px;
+  background: #0f172a;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.sr-hero-grid {
+  position: absolute; inset: 0; opacity: .06;
+  background-image: linear-gradient(rgba(109,40,217,.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(109,40,217,.8) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.sr-hero-glow {
+  position: absolute; width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(109,40,217,.25) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+.sr-hero-inner { position: relative; z-index: 1; max-width: 860px; text-align: center; }
+.sr-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(109,40,217,.2); border: 1px solid rgba(109,40,217,.4);
+  color: #c4b5fd; padding: 6px 16px; border-radius: 20px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.sr-hero-eyebrow span { color: #a78bfa; }
+.sr-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; color: #fff;
+  line-height: 1.08; letter-spacing: -.04em; margin-bottom: 10px;
+}
+.sr-hero h1 em { font-style: normal; color: #a78bfa; }
+.sr-hero-brand {
+  font-size: 1rem; color: rgba(255,255,255,.5); margin-bottom: 20px;
+  letter-spacing: .06em; font-weight: 500;
+}
+.sr-hero-brand strong { color: #34d399; }
+.sr-hero-sub {
+  font-size: 1.1rem; color: rgba(255,255,255,.72); line-height: 1.7;
+  max-width: 620px; margin: 0 auto 44px; font-weight: 400;
+}
+.sr-hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.sr-btn-white {
+  background: #fff; color: #0f172a; padding: 14px 32px; border-radius: 10px;
+  font-weight: 800; font-size: 0.95rem; border: none; cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3); transition: all .2s;
+  text-decoration: none; display: inline-block;
+}
+.sr-btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+.sr-btn-ghost {
+  background: transparent; color: rgba(255,255,255,.85);
+  padding: 14px 32px; border-radius: 10px;
+  font-weight: 600; font-size: 0.95rem;
+  border: 1.5px solid rgba(255,255,255,.25); cursor: pointer; transition: all .2s;
+  text-decoration: none; display: inline-block;
+}
+.sr-btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.5); }
+.sr-hero-stats {
+  display: flex; gap: 48px; justify-content: center; margin-top: 64px;
+  padding-top: 48px; border-top: 1px solid rgba(255,255,255,.1); flex-wrap: wrap;
+}
+.sr-hero-stat { text-align: center; }
+.sr-hero-stat-val { font-size: 2.2rem; font-weight: 900; color: #fff; letter-spacing: -.04em; }
+.sr-hero-stat-val em { color: #a78bfa; font-style: normal; }
+.sr-hero-stat-lbl { font-size: 0.78rem; color: rgba(255,255,255,.5); margin-top: 4px;
+  text-transform: uppercase; letter-spacing: .06em; }
+
+/* ── SECTION BASE ── */
+.sr-section { padding: 88px 48px; }
+.sr-section-dark { background: #0f172a; }
+.sr-section-slate { background: #f8fafc; }
+.sr-section-white { background: #fff; }
+.sr-section-purple { background: #4c1d95; }
+.sr-inner { max-width: 1100px; margin: 0 auto; }
+.sr-eyebrow {
+  display: inline-block; background: #f5f3ff; color: #6d28d9;
+  padding: 4px 14px; border-radius: 20px; font-size: 0.73rem; font-weight: 800;
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px;
+}
+.sr-eyebrow.green { background: #ecfdf5; color: #059669; }
+.sr-eyebrow.amber { background: #fffbeb; color: #b45309; }
+.sr-eyebrow.white { background: rgba(255,255,255,.15); color: rgba(255,255,255,.9); }
+.sr-h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900;
+  letter-spacing: -.03em; margin-bottom: 14px; line-height: 1.15; }
+.sr-h2 em { font-style: normal; color: #6d28d9; }
+.sr-h2.white { color: #fff; }
+.sr-h2.white em { color: #a78bfa; }
+.sr-lead { font-size: 1.05rem; color: #64748b; line-height: 1.75; max-width: 580px; }
+.sr-lead.white { color: rgba(255,255,255,.7); }
+.sr-split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.sr-split-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.sr-split-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+
+/* ── CHAIN ── */
+.sr-chain { display: flex; flex-direction: column; gap: 0; }
+.sr-chain-item {
+  display: flex; gap: 20px; align-items: flex-start; padding: 20px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.sr-chain-item:last-child { border-bottom: none; }
+.sr-chain-num {
+  width: 40px; height: 40px; border-radius: 10px; background: #6d28d9;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 0.9rem; color: #fff; flex-shrink: 0; margin-top: 2px;
+}
+.sr-chain-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 6px; width: 32px; text-align: center; }
+.sr-chain-body h4 { font-weight: 800; font-size: 1rem; margin-bottom: 4px; color: #0f172a; }
+.sr-chain-body p { font-size: 0.88rem; color: #64748b; line-height: 1.6; }
+.sr-chain-arrow { color: #6d28d9; font-size: 1.2rem; text-align: center; padding: 4px 0; }
+
+/* ── VISUAL CARD ── */
+.sr-visual {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%);
+  border-radius: 20px; padding: 40px; position: relative; overflow: hidden;
+}
+.sr-visual::before {
+  content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(109,40,217,.2); bottom: -80px; right: -80px;
+}
+.sr-visual-icon { font-size: 3.5rem; margin-bottom: 20px; }
+.sr-visual h3 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.sr-visual p { font-size: 0.9rem; color: rgba(255,255,255,.7); line-height: 1.65; }
+.sr-visual-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.sr-visual-badge {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+}
+
+/* ── PRODUCT CARDS ── */
+.sr-product-card {
+  background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px;
+  padding: 28px; transition: all .2s; position: relative; overflow: hidden;
+}
+.sr-product-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  border-radius: 16px 16px 0 0;
+}
+.sr-product-card.purple::before { background: #6d28d9; }
+.sr-product-card.green::before  { background: #059669; }
+.sr-product-card.amber::before  { background: #b45309; }
+.sr-product-card:hover { border-color: #6d28d9; box-shadow: 0 12px 40px rgba(109,40,217,.12);
+  transform: translateY(-4px); }
+.sr-product-icon { font-size: 2rem; margin-bottom: 14px; }
+.sr-product-age { font-size: 0.72rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: #6d28d9; margin-bottom: 6px; }
+.sr-product-card.green .sr-product-age { color: #059669; }
+.sr-product-card.amber .sr-product-age { color: #b45309; }
+.sr-product-name { font-weight: 800; font-size: 1rem; color: #0f172a; margin-bottom: 8px; }
+.sr-product-desc { font-size: 0.85rem; color: #64748b; line-height: 1.6; }
+
+/* ── HOW IT WORKS ── */
+.sr-step-row { display: grid; grid-template-columns: 48px 1fr; gap: 16px;
+  align-items: flex-start; margin-bottom: 28px; }
+.sr-step-num {
+  width: 48px; height: 48px; background: #f5f3ff; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.1rem; color: #6d28d9; flex-shrink: 0;
+}
+.sr-step-body h4 { font-weight: 800; font-size: 1rem; color: #0f172a; margin-bottom: 4px; }
+.sr-step-body p { font-size: 0.88rem; color: #64748b; line-height: 1.65; }
+
+/* ── PRICING ── */
+.sr-pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px; }
+.sr-price-card {
+  background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px;
+  padding: 28px; position: relative; transition: all .2s;
+}
+.sr-price-card.featured {
+  border-color: #6d28d9; box-shadow: 0 8px 32px rgba(109,40,217,.15);
+  background: #faf9ff;
+}
+.sr-price-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: #6d28d9; color: #fff; padding: 3px 14px; border-radius: 20px;
+  font-size: 0.72rem; font-weight: 800; letter-spacing: .06em; white-space: nowrap;
+}
+.sr-price-name { font-weight: 800; font-size: 1rem; color: #0f172a; margin-bottom: 6px; }
+.sr-price-desc { font-size: 0.82rem; color: #64748b; margin-bottom: 20px; }
+.sr-price-amount { font-size: 2.4rem; font-weight: 900; color: #0f172a; letter-spacing: -.04em; }
+.sr-price-amount span { font-size: 1rem; font-weight: 600; color: #64748b; }
+.sr-price-period { font-size: 0.8rem; color: #64748b; margin-bottom: 24px; }
+.sr-price-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+.sr-price-features li { font-size: 0.85rem; color: #374151; display: flex; align-items: flex-start; gap: 8px; }
+.sr-price-features li::before { content: '✓'; color: #059669; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+.sr-price-features li.na { color: #94a3b8; }
+.sr-price-features li.na::before { content: '—'; color: #cbd5e1; }
+.sr-btn-buy {
+  width: 100%; padding: 12px; border-radius: 10px; border: none;
+  background: #6d28d9; color: #fff; font-weight: 800; font-size: 0.9rem;
+  cursor: pointer; transition: all .18s;
+}
+.sr-btn-buy:hover { background: #5b21b6; }
+.sr-btn-buy.outline {
+  background: transparent; color: #6d28d9; border: 2px solid #6d28d9;
+}
+.sr-btn-buy.outline:hover { background: #f5f3ff; }
+
+/* ── NOVELTY ── */
+.sr-novelty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.sr-novelty-card {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px; padding: 26px; transition: background .2s;
+}
+.sr-novelty-card:hover { background: rgba(255,255,255,.1); }
+.sr-novelty-num { font-size: 2.5rem; font-weight: 900; color: rgba(167,139,250,.3);
+  line-height: 1; margin-bottom: 10px; }
+.sr-novelty-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.sr-novelty-text { font-size: 0.86rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+
+/* ── AUDIENCE ── */
+.sr-audience-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.sr-audience-card {
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+  padding: 22px; text-align: center; transition: all .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.sr-audience-card:hover { border-color: #6d28d9; transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(109,40,217,.1); }
+.sr-audience-icon { font-size: 2.2rem; margin-bottom: 10px; }
+.sr-audience-name { font-weight: 800; font-size: 0.92rem; margin-bottom: 5px; color: #0f172a; }
+.sr-audience-desc { font-size: 0.8rem; color: #64748b; line-height: 1.55; }
+
+/* ── COMPARISON ── */
+.sr-compare-table { width: 100%; border-collapse: collapse; margin-top: 32px; font-size: 0.88rem; }
+.sr-compare-table th { padding: 12px 16px; text-align: center; font-weight: 800;
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: .05em; }
+.sr-compare-table th:first-child { text-align: left; }
+.sr-compare-table th.hl { background: #6d28d9; color: #fff; border-radius: 8px 8px 0 0; }
+.sr-compare-table td { padding: 12px 16px; border-bottom: 1px solid #f1f5f9;
+  color: #374151; text-align: center; }
+.sr-compare-table td:first-child { text-align: left; font-weight: 600; color: #0f172a; }
+.sr-compare-table td.hl { background: #faf9ff; font-weight: 700; color: #6d28d9; }
+.sr-compare-table .no { color: #94a3b8; }
+.sr-compare-table .yes { color: #059669; font-weight: 700; }
+
+/* ── ECOSYSTEM ── */
+.sr-ecosystem { display: flex; flex-direction: column; gap: 16px; }
+.sr-eco-item {
+  display: flex; gap: 16px; align-items: center; padding: 18px 20px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px; transition: background .2s;
+}
+.sr-eco-item:hover { background: rgba(255,255,255,.1); }
+.sr-eco-item.highlight {
+  background: rgba(109,40,217,.3); border-color: rgba(167,139,250,.4);
+}
+.sr-eco-icon { font-size: 1.6rem; flex-shrink: 0; width: 40px; text-align: center; }
+.sr-eco-body { flex: 1; }
+.sr-eco-body h4 { font-weight: 700; font-size: 0.92rem; color: #fff; margin-bottom: 2px; }
+.sr-eco-body p { font-size: 0.8rem; color: rgba(255,255,255,.6); }
+.sr-eco-tag {
+  background: rgba(255,255,255,.12); color: rgba(255,255,255,.8);
+  padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+}
+.sr-eco-tag.new { background: rgba(52,211,153,.2); color: #34d399; }
+
+/* ── ORDER SECTION ── */
+.sr-order-box {
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  border-radius: 20px; padding: 48px; text-align: center;
+  border: 1px solid rgba(109,40,217,.3);
+}
+.sr-order-box h2 { color: #fff; font-size: 2rem; font-weight: 900; margin-bottom: 10px; }
+.sr-order-box p { color: rgba(255,255,255,.7); margin-bottom: 32px; font-size: 1rem; line-height: 1.65; }
+.sr-order-tabs { display: flex; background: rgba(0,0,0,.3); border-radius: 10px;
+  padding: 4px; gap: 4px; max-width: 400px; margin: 0 auto 32px; }
+.sr-order-tab { flex: 1; padding: 9px; text-align: center; border-radius: 8px;
+  cursor: pointer; font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,.6);
+  border: none; background: transparent; transition: all .18s; }
+.sr-order-tab.active { background: #fff; color: #6d28d9; }
+.sr-order-form { max-width: 420px; margin: 0 auto; text-align: left; }
+.sr-ofc { width: 100%; padding: 11px 16px; border: 1.5px solid rgba(255,255,255,.15);
+  border-radius: 10px; font-size: 0.9rem; background: rgba(255,255,255,.08);
+  color: #fff; margin-bottom: 12px; font-family: inherit; transition: border .18s; }
+.sr-ofc::placeholder { color: rgba(255,255,255,.4); }
+.sr-ofc:focus { outline: none; border-color: #a78bfa; background: rgba(255,255,255,.12); }
+select.sr-ofc option { background: #1e1b4b; color: #fff; }
+.sr-btn-order {
+  width: 100%; padding: 14px; border-radius: 10px; border: none;
+  background: linear-gradient(135deg, #6d28d9, #059669); color: #fff;
+  font-weight: 900; font-size: 1rem; cursor: pointer; transition: all .2s;
+  box-shadow: 0 4px 20px rgba(109,40,217,.4);
+}
+.sr-btn-order:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(109,40,217,.5); }
+.sr-order-note { font-size: 0.75rem; color: rgba(255,255,255,.45); text-align: center; margin-top: 10px; }
+
+/* ── TRUST ── */
+.sr-trust-row { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; margin-top: 40px; }
+.sr-trust-item { text-align: center; }
+.sr-trust-val { font-size: 2rem; font-weight: 900; color: #6d28d9; }
+.sr-trust-lbl { font-size: 0.78rem; color: #64748b; margin-top: 3px; }
+
+/* ── FOOTER ── */
+.sr-footer { background: #0f172a; padding: 48px; color: rgba(255,255,255,.5); }
+.sr-footer-inner { max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 32px; flex-wrap: wrap; }
+.sr-footer-brand { font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: 6px; }
+.sr-footer-brand span { color: #34d399; }
+.sr-footer-sub { font-size: 0.8rem; }
+.sr-footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.sr-footer-links a { color: rgba(255,255,255,.45); text-decoration: none; font-size: 0.82rem; transition: color .15s; }
+.sr-footer-links a:hover { color: #fff; }
+.sr-footer-bottom { max-width: 1100px; margin: 24px auto 0; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08); font-size: 0.78rem;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.sr-tm { color: #34d399; font-weight: 700; }
+
+/* ── APP LOGIN (hidden section) ── */
+.sr-login-card {
+  background: #fff; border-radius: 16px; padding: 32px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2); max-width: 360px; margin: 0 auto;
+}
+.sr-login-card h3 { font-size: 1rem; font-weight: 800; color: #0f172a;
+  margin-bottom: 4px; text-align: center; }
+.sr-login-card p { font-size: 0.8rem; color: #64748b; text-align: center; margin-bottom: 20px; }
+
+/* ── UTILS ── */
+.sr-center { text-align: center; }
+.sr-mt-40 { margin-top: 40px; }
+.sr-mt-20 { margin-top: 20px; }
+.sr-divider { height: 1px; background: #e2e8f0; margin: 0; }
+
+@media (max-width: 768px) {
+  .sr-nav { padding: 0 20px; }
+  .sr-nav-links { display: none; }
+  .sr-section { padding: 56px 20px; }
+  .sr-hero { padding: 100px 20px 60px; }
+  .sr-split, .sr-split-3, .sr-split-4,
+  .sr-pricing-grid, .sr-novelty-grid,
+  .sr-audience-grid { grid-template-columns: 1fr; }
+  .sr-hero-stats { gap: 28px; }
+  .sr-footer-inner { flex-direction: column; }
+}
+#loginPage.hidden, #appPage.hidden, #parentPage.hidden { display: none !important; }
+</style>
+
+<div class="sr-body">
+
+<!-- NAV -->
+<nav class="sr-nav">
+  <a class="sr-nav-logo" href="#top">
+    <div class="sr-nav-logo-mark">🌈</div>
+    <div>
+      <div class="sr-nav-name">Starting the Rainbows</div>
+      <div class="sr-nav-tagline">Early Childhood Education System</div>
+    </div>
+  </a>
+  <div class="sr-nav-links">
+    <a href="#about">About</a>
+    <a href="#system">The System</a>
+    <a href="#vector" class="active">VECTOR</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#order">Order</a>
+    <a href="#login-section">Login</a>
+    <span class="sr-nav-lang">EN</span>
+  </div>
+  <a href="#order" class="sr-nav-cta">Order VECTOR →</a>
+</nav>
+
+<!-- HERO -->
+<section class="sr-hero" id="top">
+  <div class="sr-hero-grid"></div>
+  <div class="sr-hero-glow"></div>
+  <div class="sr-hero-inner">
+    <div class="sr-hero-eyebrow">🌈 Starting the Rainbows <span>·</span> EU Registered Trademark</div>
+    <h1>The world's first<br><em>Diagnostic Experience</em><br>System for preschool</h1>
+    <div class="sr-hero-brand">Starting the Rainbows: <strong>VECTOR of Pedagogical Impact Dynamics</strong></div>
+    <p class="sr-hero-sub">Authored diagnostic scenarios that create the right conditions for children's skills to emerge naturally — making pedagogical impact visible, measurable, and purposeful.</p>
+    <div class="sr-hero-btns">
+      <a href="#order" class="sr-btn-white">🎯 Order VECTOR Now</a>
+      <a href="#vector" class="sr-btn-ghost">Learn how it works ↓</a>
+    </div>
+    <div class="sr-hero-stats">
+      <div class="sr-hero-stat"><div class="sr-hero-stat-val"><em>24</em></div><div class="sr-hero-stat-lbl">Skills assessed</div></div>
+      <div class="sr-hero-stat"><div class="sr-hero-stat-val"><em>5</em></div><div class="sr-hero-stat-lbl">Diagnostic days</div></div>
+      <div class="sr-hero-stat"><div class="sr-hero-stat-val"><em>1 500+</em></div><div class="sr-hero-stat-lbl">Children tested</div></div>
+      <div class="sr-hero-stat"><div class="sr-hero-stat-val"><em>100+</em></div><div class="sr-hero-stat-lbl">Groups piloted</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT: What is unique -->
+<section class="sr-section sr-section-white" id="about">
+  <div class="sr-inner">
+    <div class="sr-split">
+      <div>
+        <div class="sr-eyebrow">The Core Insight</div>
+        <h2 class="sr-h2">Assessment tools tell you <em>what to observe.</em><br>VECTOR tells you how to make it happen.</h2>
+        <p class="sr-lead">Most diagnostic systems in the world measure what a child already knows. VECTOR introduces a third category: the authored pedagogical scenario that creates the natural conditions for a skill to emerge — making observation honest, comparison valid, and the teacher's impact visible.</p>
+        <div class="sr-mt-40">
+          <div class="sr-chain">
+            <div class="sr-chain-item">
+              <div style="width:36px;height:36px;background:#6d28d9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;flex-shrink:0">1</div>
+              <div class="sr-chain-icon">🎭</div>
+              <div class="sr-chain-body">
+                <h4>Authored Diagnostic Scenario</h4>
+                <p>A carefully designed pedagogical situation where the skill surfaces naturally — not under test conditions, but during real activity.</p>
+              </div>
+            </div>
+            <div class="sr-chain-item">
+              <div style="width:36px;height:36px;background:#6d28d9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;flex-shrink:0">2</div>
+              <div class="sr-chain-icon">👧</div>
+              <div class="sr-chain-body">
+                <h4>Natural Skill Manifestation</h4>
+                <p>The child acts freely. The expert observes authentic behavior — not a performance staged for the assessor.</p>
+              </div>
+            </div>
+            <div class="sr-chain-item">
+              <div style="width:36px;height:36px;background:#6d28d9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;flex-shrink:0">3</div>
+              <div class="sr-chain-icon">📊</div>
+              <div class="sr-chain-body">
+                <h4>3-Level Behavioral Descriptors</h4>
+                <p>Each of the 24 skills is rated on a 3-level scale with precise behavioral anchors — validated across 100+ groups.</p>
+              </div>
+            </div>
+            <div class="sr-chain-item">
+              <div style="width:36px;height:36px;background:#059669;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;flex-shrink:0">4</div>
+              <div class="sr-chain-icon">💻</div>
+              <div class="sr-chain-body">
+                <h4>VECTOR Platform: Automatic Analysis</h4>
+                <p>Data flows into the platform. Charts, group dynamics, balance of Soft vs. Hard skills, PDF reports — all generated automatically.</p>
+              </div>
+            </div>
+            <div class="sr-chain-item">
+              <div style="width:36px;height:36px;background:#059669;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;flex-shrink:0">5</div>
+              <div class="sr-chain-icon">🎯</div>
+              <div class="sr-chain-body">
+                <h4>The Vector of Pedagogical Impact</h4>
+                <p>The teacher sees the direction and strength of their own influence — and adjusts their practice with evidence, not intuition.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sr-visual">
+          <div class="sr-visual-icon">🎯</div>
+          <h3>Starting the Rainbows:<br>Vector of Pedagogical Impact Dynamics</h3>
+          <p style="margin-bottom:20px">The only diagnostic system where the authored scenario is the prerequisite for observation. Without it — there is no natural manifestation. Without manifestation — there is nothing to assess.</p>
+          <div class="sr-visual-badges">
+            <span class="sr-visual-badge">EU Trademark ®</span>
+            <span class="sr-visual-badge">Piloted 1500+ children</span>
+            <span class="sr-visual-badge">Ukrainian science</span>
+            <span class="sr-visual-badge">Peer-reviewed basis</span>
+          </div>
+          <div style="margin-top:28px; padding-top:20px; border-top:1px solid rgba(255,255,255,.15)">
+            <div style="font-size:0.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Skill Balance Model</div>
+            <div style="display:flex;gap:12px">
+              <div style="flex:1;background:rgba(109,40,217,.3);border-radius:8px;padding:12px;text-align:center">
+                <div style="font-size:1.5rem;font-weight:900;color:#a78bfa">12</div>
+                <div style="font-size:0.75rem;color:rgba(255,255,255,.6)">Soft Skills</div>
+              </div>
+              <div style="display:flex;align-items:center;color:rgba(255,255,255,.4);font-weight:700">⇌</div>
+              <div style="flex:1;background:rgba(5,150,105,.25);border-radius:8px;padding:12px;text-align:center">
+                <div style="font-size:1.5rem;font-weight:900;color:#34d399">12</div>
+                <div style="font-size:0.75rem;color:rgba(255,255,255,.6)">Hard Skills</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOVELTY -->
+<section class="sr-section sr-section-dark" id="vector">
+  <div class="sr-inner">
+    <div class="sr-center">
+      <div class="sr-eyebrow white">Scientific Novelty</div>
+      <h2 class="sr-h2 white">Why VECTOR is a <em>new category</em><br>in early childhood diagnostics</h2>
+      <p class="sr-lead white" style="margin:0 auto">The world has Type A tools (what to assess) and Type B tools (how to interact). VECTOR introduces Type C: how to create the pedagogical situation where the skill emerges.</p>
+    </div>
+    <div class="sr-novelty-grid">
+      <div class="sr-novelty-card">
+        <div class="sr-novelty-num">01</div>
+        <div class="sr-novelty-title">From assessing the child to assessing the teacher's impact</div>
+        <div class="sr-novelty-text">For the first time, the source of change is measured — not just the outcome. The teacher's pedagogical choices become visible as data.</div>
+      </div>
+      <div class="sr-novelty-card">
+        <div class="sr-novelty-num">02</div>
+        <div class="sr-novelty-title">Direction of development, not just a snapshot level</div>
+        <div class="sr-novelty-text">Traditional tools show where a child is today. VECTOR introduces a new diagnostic category: the direction and velocity of pedagogical influence over time.</div>
+      </div>
+      <div class="sr-novelty-card">
+        <div class="sr-novelty-num">03</div>
+        <div class="sr-novelty-title">Skill balance as a diagnostic indicator</div>
+        <div class="sr-novelty-text">The balance of Soft and Hard skills is measured as a single integrated indicator — a world first for preschool diagnostic systems.</div>
+      </div>
+      <div class="sr-novelty-card">
+        <div class="sr-novelty-num">04</div>
+        <div class="sr-novelty-title">Intentional practice, not intuitive teaching</div>
+        <div class="sr-novelty-text">Teachers move from intuitive delivery to evidence-based, reflective management of children's development — with real data across up to 5 diagnostic days per year.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="sr-section sr-section-slate">
+  <div class="sr-inner">
+    <div class="sr-center">
+      <div class="sr-eyebrow">How VECTOR compares</div>
+      <h2 class="sr-h2">A new position in the global<br><em>assessment landscape</em></h2>
+      <p class="sr-lead" style="margin:0 auto 32px">Existing tools cover parts of the picture. VECTOR is the only system that connects all elements into one diagnostic cycle.</p>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="sr-compare-table">
+        <thead>
+          <tr>
+            <th style="width:55%;text-align:left">Feature</th>
+            <th class="hl" style="width:22%">VECTOR</th>
+            <th style="width:23%">World analogues</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Authored scenario creates conditions for skill to emerge</td>
+            <td class="hl yes">✓ 100%</td>
+            <td class="no"></td>
+          </tr>
+          <tr>
+            <td>Measures direction of teacher's pedagogical impact</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:#94a3b8;text-align:center;font-size:0.85rem">~20%</td>
+          </tr>
+          <tr>
+            <td>Soft & Hard skill balance as single diagnostic indicator</td>
+            <td class="hl yes">✓ 100%</td>
+            <td class="no"></td>
+          </tr>
+          <tr>
+            <td>3-level behavioral descriptors per skill, per age</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:#94a3b8;text-align:center;font-size:0.85rem">~40%</td>
+          </tr>
+          <tr>
+            <td>Longitudinal dynamics across up to 5 sessions per year</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:#94a3b8;text-align:center;font-size:0.85rem">~30%</td>
+          </tr>
+          <tr>
+            <td>Pedagogical reflection as the primary goal</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:#94a3b8;text-align:center;font-size:0.85rem">~15%</td>
+          </tr>
+          <tr>
+            <td>Automatic group & individual analytics with PDF report</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:#94a3b8;text-align:center;font-size:0.85rem">~60%</td>
+          </tr>
+          <tr>
+            <td>Expert certification programme included</td>
+            <td class="hl yes">✓ 100%</td>
+            <td class="no"></td>
+          </tr>
+          <tr>
+            <td>Validated on 1 500+ children in real classroom settings</td>
+            <td class="hl yes">✓ 100%</td>
+            <td style="color:#94a3b8;text-align:center;font-size:0.85rem">~70%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:0.8rem;color:#94a3b8;font-style:italic">* Percentages reflect estimated coverage of each feature across existing early childhood diagnostic tools worldwide</p>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="sr-section sr-section-white">
+  <div class="sr-inner">
+    <div class="sr-center">
+      <div class="sr-eyebrow">Who it's built for</div>
+      <h2 class="sr-h2">Designed for the full spectrum of<br><em>early childhood professionals</em></h2>
+    </div>
+    <div class="sr-audience-grid sr-mt-40">
+      <div class="sr-audience-card">
+        <div class="sr-audience-icon">👩‍🏫</div>
+        <div class="sr-audience-name">Preschool Teachers</div>
+        <div class="sr-audience-desc">Conduct diagnostic days, enter observations, receive automatic charts and reports for their group.</div>
+      </div>
+      <div class="sr-audience-card">
+        <div class="sr-audience-icon">🔬</div>
+        <div class="sr-audience-name">Methodologists</div>
+        <div class="sr-audience-desc">Analyse pedagogical practice patterns, support teachers in implementing systematic, evidence-based approaches.</div>
+      </div>
+      <div class="sr-audience-card">
+        <div class="sr-audience-icon">🏛️</div>
+        <div class="sr-audience-name">School Leaders</div>
+        <div class="sr-audience-desc">Make management decisions based on objective data about skill development across groups and over time.</div>
+      </div>
+      <div class="sr-audience-card">
+        <div class="sr-audience-icon">🎓</div>
+        <div class="sr-audience-name">Education Experts</div>
+        <div class="sr-audience-desc">Independent assessment of pedagogical quality — aligned with modern competency-based education standards.</div>
+      </div>
+      <div class="sr-audience-card">
+        <div class="sr-audience-icon">💡</div>
+        <div class="sr-audience-name">Teacher Trainers</div>
+        <div class="sr-audience-desc">Prepare and certify VECTOR Expert Teachers with the Train-the-Trainer licence programme.</div>
+      </div>
+      <div class="sr-audience-card">
+        <div class="sr-audience-icon">📚</div>
+        <div class="sr-audience-name">Student Teachers</div>
+        <div class="sr-audience-desc">Future preschool educators who study contemporary diagnostic methods as part of their professional formation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="sr-section sr-section-dark" id="system">
+  <div class="sr-inner">
+    <div class="sr-split" style="gap:48px">
+      <div>
+        <div class="sr-eyebrow white">The Complete Ecosystem</div>
+        <h2 class="sr-h2 white">Starting the Rainbows:<br>a full-cycle education system</h2>
+        <p class="sr-lead white">VECTOR is the diagnostic layer of a complete early childhood education ecosystem — developed in Ukraine over 8 years, piloted in thousands of preschool groups, awarded internationally, and now registered as an EU trademark.</p>
+        <div class="sr-mt-40">
+          <div style="display:flex;gap:24px;flex-wrap:wrap">
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;color:#a78bfa">8</div>
+              <div style="font-size:0.75rem;color:rgba(255,255,255,.5)">years in practice</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;color:#34d399">3 000+</div>
+              <div style="font-size:0.75rem;color:rgba(255,255,255,.5)">teachers trained</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:900;color:#fbbf24">🥇</div>
+              <div style="font-size:0.75rem;color:rgba(255,255,255,.5)">Gold Medal — Innovatika</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sr-ecosystem">
+          <div class="sr-eco-item">
+            <div class="sr-eco-icon">🟣</div>
+            <div class="sr-eco-body">
+              <h4>Curriculum Kits 3+ / 4+ / 5+</h4>
+              <p>Teacher's Books, Child's Books, Parent's Books, Albums, Posters, Readers — full annual curriculum</p>
+            </div>
+            <div class="sr-eco-tag">Curriculum</div>
+          </div>
+          <div class="sr-eco-item">
+            <div class="sr-eco-icon">📚</div>
+            <div class="sr-eco-body">
+              <h4>Professional Development Course</h4>
+              <p>Online, 30h, ECTS credit. Certification for preschool educators implementing the system</p>
+            </div>
+            <div class="sr-eco-tag">Training</div>
+          </div>
+          <div class="sr-eco-item">
+            <div class="sr-eco-icon">🎓</div>
+            <div class="sr-eco-body">
+              <h4>Internship Programme</h4>
+              <p>Live and online mentorship. Real classroom practice with experienced Starting the Rainbows educators</p>
+            </div>
+            <div class="sr-eco-tag">Mentorship</div>
+          </div>
+          <div class="sr-eco-item highlight">
+            <div class="sr-eco-icon">🎯</div>
+            <div class="sr-eco-body">
+              <h4>VECTOR of Pedagogical Impact Dynamics</h4>
+              <p>Diagnostic scenarios + 24-skill model + platform + expert certification. Measures what the whole system achieves.</p>
+            </div>
+            <div class="sr-eco-tag new">Available now</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sr-section sr-section-white" id="pricing">
+  <div class="sr-inner">
+    <div class="sr-center">
+      <div class="sr-eyebrow">Pricing</div>
+      <h2 class="sr-h2">Choose your VECTOR package</h2>
+      <p class="sr-lead" style="margin:0 auto">Every package includes the Diagnostic Day Scenarios — the core of the system. The platform and certification expand on top.</p>
+    </div>
+    <div class="sr-pricing-grid">
+      <div class="sr-price-card">
+        <div class="sr-price-name">Diagnostic Kit</div>
+        <div class="sr-price-desc">For individual educators and small groups</div>
+        <div class="sr-price-amount">€249 <span>one-time</span></div>
+        <div class="sr-price-period">Per classroom group · Digital delivery</div>
+        <ul class="sr-price-features">
+          <li>5 Diagnostic Day Scenarios (digital)</li>
+          <li>Assessment protocols (24 skills, 3 levels)</li>
+          <li>Observation guidelines & visual aids</li>
+          <li>Basic PDF report templates</li>
+          <li class="na">VECTOR Platform access</li>
+          <li class="na">Expert certification</li>
+        </ul>
+        <button class="sr-btn-buy outline" onclick="scrollToOrder('kit')">Order Kit →</button>
+      </div>
+      <div class="sr-price-card featured">
+        <div class="sr-price-badge">Most popular</div>
+        <div class="sr-price-name">Diagnostic + Platform</div>
+        <div class="sr-price-desc">Full system for your classroom</div>
+        <div class="sr-price-amount">€690 <span>/ year</span></div>
+        <div class="sr-price-period">Up to 30 children · Includes all updates</div>
+        <ul class="sr-price-features">
+          <li>5 Diagnostic Day Scenarios (digital)</li>
+          <li>Assessment protocols (24 skills, 3 levels)</li>
+          <li>VECTOR Platform — full access</li>
+          <li>Automatic charts & group analytics</li>
+          <li>One-click PDF reports</li>
+          <li>Parent portal (read-only access by code)</li>
+          <li>Basic certification (1 teacher)</li>
+        </ul>
+        <button class="sr-btn-buy" onclick="scrollToOrder('platform')">Order Now →</button>
+      </div>
+      <div class="sr-price-card">
+        <div class="sr-price-name">Institution</div>
+        <div class="sr-price-desc">For schools, networks & universities</div>
+        <div class="sr-price-amount">€1 690 <span>/ year</span></div>
+        <div class="sr-price-period">Unlimited children · Multi-group · API</div>
+        <ul class="sr-price-features">
+          <li>Everything in Diagnostic + Platform</li>
+          <li>Unlimited groups & children</li>
+          <li>Multi-teacher management</li>
+          <li>Comparative analytics across groups</li>
+          <li>Expert certification (up to 3 teachers)</li>
+          <li>Priority support & onboarding</li>
+        </ul>
+        <button class="sr-btn-buy outline" onclick="scrollToOrder('institution')">Order Institution →</button>
+      </div>
+    </div>
+    <div style="margin-top:24px;text-align:center;font-size:0.85rem;color:#64748b">
+      Need a country or publisher licence? <a href="#order" style="color:#6d28d9;font-weight:700">Contact us for IP licensing →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="sr-section sr-section-slate" id="order">
+  <div class="sr-inner">
+    <div class="sr-order-box">
+      <h2>Order Starting the Rainbows: VECTOR</h2>
+      <p>Fill in your details below and our team will contact you within 1 business day to confirm your order, answer questions and arrange access to your Diagnostic Scenarios and Platform.</p>
+      <div class="sr-order-tabs">
+        <button class="sr-order-tab active" onclick="setOrderTab('educator')">I'm a Teacher</button>
+        <button class="sr-order-tab" onclick="setOrderTab('institution')">Institution</button>
+        <button class="sr-order-tab" onclick="setOrderTab('partner')">Partnership / IP</button>
+      </div>
+      <div class="sr-order-form" id="orderFormEducator">
+        <input class="sr-ofc" placeholder="Your name" id="oName">
+        <input class="sr-ofc" placeholder="Email address" id="oEmail" type="email">
+        <input class="sr-ofc" placeholder="Country" id="oCountry">
+        <select class="sr-ofc" id="oPackage">
+          <option value="">Select package...</option>
+          <option value="kit">Diagnostic Kit — €249</option>
+          <option value="platform">Diagnostic + Platform — €690/year</option>
+          <option value="institution">Institution — €1 690/year</option>
+        </select>
+        <button class="sr-btn-order" onclick="submitOrder()">Send Order Request →</button>
+        <div class="sr-order-note">No payment now. We'll send an invoice after confirmation. Secure & confidential.</div>
+      </div>
+      <div class="sr-order-form" id="orderFormInstitution" style="display:none">
+        <input class="sr-ofc" placeholder="Institution name">
+        <input class="sr-ofc" placeholder="Contact person">
+        <input class="sr-ofc" placeholder="Email address" type="email">
+        <input class="sr-ofc" placeholder="Country">
+        <input class="sr-ofc" placeholder="Number of groups / children">
+        <button class="sr-btn-order" onclick="submitOrder()">Request Institution Quote →</button>
+        <div class="sr-order-note">We'll prepare a custom quote within 2 business days.</div>
+      </div>
+      <div class="sr-order-form" id="orderFormPartner" style="display:none">
+        <input class="sr-ofc" placeholder="Organisation name">
+        <input class="sr-ofc" placeholder="Contact person">
+        <input class="sr-ofc" placeholder="Email address" type="email">
+        <input class="sr-ofc" placeholder="Country / Region">
+        <select class="sr-ofc">
+          <option value="">Type of partnership...</option>
+          <option>Country / Publisher Licence</option>
+          <option>University Partnership</option>
+          <option>Train-the-Trainer Programme</option>
+          <option>Research Collaboration</option>
+        </select>
+        <button class="sr-btn-order" onclick="submitOrder()">Start Partnership Conversation →</button>
+        <div class="sr-order-note">All IP licensing enquiries are treated as strictly confidential.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP LOGIN -->
+<section class="sr-section sr-section-white" id="login-section">
+  <div class="sr-inner" style="max-width:480px">
+    <div class="sr-center" style="margin-bottom:28px">
+      <div class="sr-eyebrow">Platform Access</div>
+      <h2 class="sr-h2">Log in to VECTOR</h2>
+      <p style="color:#64748b;font-size:0.9rem">Already have access? Enter the platform.</p>
+    </div>
+    <div class="sr-login-card">
+      <h3>🎯 VECTOR Platform</h3>
+      <p>Starting the Rainbows · Diagnostic System</p>
+      <div class="land-login-tabs" style="flex-wrap:wrap;gap:3px">
+        <button class="land-login-tab active" onclick="setLandRole('expert')">🎯 Expert</button>
+        <button class="land-login-tab" onclick="setLandRole('admin')">🔧 Admin</button>
+        <button class="land-login-tab" onclick="setLandRole('parent')">👨‍👩‍👧 Parent</button>
+      </div>
+      <div id="landExpert">
+        <input class="land-fc" id="lTName" placeholder="Your name" value="Maria Expert">
+        <input class="land-fc" type="password" id="lTPass" placeholder="Password" value="teacher123">
+        <div style="font-size:0.75rem;color:#9ca3af;margin-bottom:10px;text-align:center">Demo: any name / teacher123</div>
+        <button class="land-btn-login" onclick="doLogin('teacher')" style="margin-top:4px">Enter as Expert →</button>
+      </div>
+      <div id="landAdmin" style="display:none">
+        <input class="land-fc" id="lAUser" placeholder="Login" value="admin">
+        <input class="land-fc" type="password" id="lAPass" placeholder="Password" value="admin123">
+        <button class="land-btn-login" onclick="doLogin('admin')">Enter as Admin →</button>
+      </div>
+      <div id="landParent" style="display:none">
+        <div style="background:#f5f3ff;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.82rem;color:#6d28d9">
+          Enter the child code provided by your expert
+        </div>
+        <input class="land-fc" id="lPCode" placeholder="Child code (e.g. ST-001)">
+        <button class="land-btn-login" onclick="doLogin('parent')">View Child Results →</button>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:0.73rem;color:#94a3b8">
+        Demo: teacher / teacher123 · admin / admin123
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="sr-footer">
+  <div class="sr-footer-inner">
+    <div>
+      <div class="sr-footer-brand">Starting the Rainbows <span>®</span></div>
+      <div class="sr-footer-sub">Early Childhood Education System · EU Registered Trademark</div>
+      <div style="margin-top:8px;font-size:0.78rem">Starting the Rainbows: Vector of Pedagogical Impact Dynamics</div>
+    </div>
+    <div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,.35);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em">System</div>
+      <div class="sr-footer-links" style="flex-direction:column;gap:8px">
+        <a href="#about">About VECTOR</a>
+        <a href="#system">The Ecosystem</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#order">Order</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,.35);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Contact</div>
+      <div class="sr-footer-links" style="flex-direction:column;gap:8px">
+        <a href="mailto:vstart2017@gmail.com">vstart2017@gmail.com</a>
+        <a href="https://vstart.com.ua" target="_blank">vstart.com.ua (UA)</a>
+        <a href="#order">Partnership / Licensing</a>
+      </div>
+    </div>
+  </div>
+  <div class="sr-footer-bottom">
+    <span>© 2025 Ukrainian Academy of Childhood · <span class="sr-tm">Starting the Rainbows ®</span> · EU Trademark (EUIPO)</span>
+    <span>All intellectual property rights reserved · Confidential methodology</span>
+  </div>
+</footer>
+
+</div><!-- end sr-body -->
+
+
+
+
+
+<script>
+function scrollToLogin(){ document.getElementById('login-section').scrollIntoView({behavior:'smooth'}); }
+function setLandRole(r){
+  ['Expert','Admin','Parent'].forEach(x=>{
+    const el=document.getElementById('land'+x);
+    if(el) el.style.display='none';
+  });
+  const map={teacher:'Expert',admin:'Admin',parent:'Parent',expert:'Expert'};
+  const el=document.getElementById('land'+(map[r]||'Expert'));
+  if(el) el.style.display='block';
+  document.querySelectorAll('.land-login-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['expert','admin','parent'][i]===r);
+  });
+}
+function scrollToOrder(pkg){
+  const el=document.getElementById('order'); if(el) el.scrollIntoView({behavior:'smooth'});
+  if(pkg){const sel=document.getElementById('oPackage');if(sel)sel.value=pkg;}
+}
+function setOrderTab(tab){
+  ['Educator','Institution','Partner'].forEach(t=>{
+    const el=document.getElementById('orderForm'+t);if(el)el.style.display='none';
+  });
+  const map={educator:'Educator',institution:'Institution',partner:'Partner'};
+  const el=document.getElementById('orderForm'+map[tab]);if(el)el.style.display='block';
+  document.querySelectorAll('.sr-order-tab').forEach((b,i)=>{
+    b.classList.toggle('active',['educator','institution','partner'][i]===tab);
+  });
+}
+function submitOrder(){
+  const name=document.getElementById('oName')?.value||'';
+  const email=document.getElementById('oEmail')?.value||'';
+  if(!name||!email){alert('Please fill in your name and email.');return;}
+  alert('Thank you! We will contact you at '+email+' within 1 business day.');
+}
+function doLogin(r){
+  if(r==='teacher'){
+    const name=document.getElementById('lTName').value.trim();
+    const pass=document.getElementById('lTPass').value;
+    if(!name){alert('Please enter your name');return;}
+    if(pass!=='teacher123'){alert('Incorrect password. Demo: teacher123');return;}
+    window.location.href='app.html?role=teacher&user='+encodeURIComponent(name);
+  } else if(r==='admin'){
+    const u=document.getElementById('lAUser').value;
+    const p=document.getElementById('lAPass').value;
+    if(u!=='admin'||p!=='admin123'){alert('Incorrect credentials. Demo: admin / admin123');return;}
+    window.location.href='app.html?role=admin&user=Administrator';
+  } else {
+    const code=document.getElementById('lPCode').value.trim().toUpperCase();
+    if(!code){alert('Please enter the child code');return;}
+    window.location.href='app.html?role=parent&user='+encodeURIComponent(code);
+  }
+}
+</script>
+</body>
+</html>
