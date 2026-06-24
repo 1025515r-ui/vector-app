@@ -2016,6 +2016,7 @@ function applyRolePerms(){
   document.querySelectorAll('.sidebar-item[data-page]').forEach(el => {
     const page = el.getAttribute('data-page');
     const allowed = perms[page] !== undefined ? perms[page] : 1;
+    el.classList.toggle('hidden', !allowed);
     el.style.display = allowed ? '' : 'none';
   });
   // Show/hide new proto button
