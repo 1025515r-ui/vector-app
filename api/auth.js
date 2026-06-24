@@ -1,36 +1,34 @@
 const jwt = require('jsonwebtoken');
 
-// Must match the secret used by the existing /api/login handler to sign tokens.
-const JWT_SECRET = process.env.JWT_SECRET;
-
-// Mirrors ROLE_PERMS in app1.html (lines 1993-1998). Keep these two in sync —
-// this is the server-side enforcement that the client-side check alone can't provide
+// Matches the existing auth(roles) middleware in /var/www/vector-api/index.js:
+// same header parsing (Authorization: Bearer <token>), same JWT_SECRET env var,
+// same error message style. Token payload: { id, email, role, full_name }.
+//
+// Mirrors ROLE_PERMS in app1.html (lines 1993-1998) — keep these two in sync.
+// This is the server-side enforcement the client-side check alone can't provide
 // (a user can edit localStorage/JS state, but can't forge a valid JWT for another role).
 const ROLE_PERMS = {
-  admin:         { students: true, proto: true,  admin: true },
-  director:      { students: true, proto: false, admin: false },
-  methodologist: { students: true, proto: false, admin: false },
-  expert:        { students: true, proto: true,  admin: false },
-  parent:        { students: false, proto: false, admin: false },
+  students: ['admin', 'director', 'methodologist', 'expert'],
+  proto:    ['admin', 'expert'],
+  admin:    ['admin'],
 };
 
 function authenticate(req, res, next) {
-  const header = req.headers.authorization || '';
-  const token = header.startsWith('Bearer ') ? header.slice(7) : null;
-  if (!token) return res.status(401).json({ error: 'Missing token' });
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Немає токену' });
   try {
-    req.user = jwt.verify(token, JWT_SECRET); // expects { email, full_name, role, ... }
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
     next();
-  } catch (e) {
-    return res.status(401).json({ error: 'Invalid or expired token' });
+  } catch {
+    res.status(401).json({ error: 'Невірний токен' });
   }
 }
 
 function requirePerm(permKey) {
+  const allowedRoles = ROLE_PERMS[permKey] || [];
   return (req, res, next) => {
-    const perms = ROLE_PERMS[req.user?.role];
-    if (!perms || !perms[permKey]) {
-      return res.status(403).json({ error: `Forbidden for role: ${req.user?.role}` });
+    if (!allowedRoles.includes(req.user?.role)) {
+      return res.status(403).json({ error: 'Немає доступу' });
     }
     next();
   };

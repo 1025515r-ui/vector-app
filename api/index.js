@@ -1,12 +1,14 @@
-// Mount this under /api in the existing Express app, alongside the existing
-// POST /api/login route:
+// This folder is deployed as a subdirectory of /var/www/vector-api (i.e.
+// /var/www/vector-api/api/). Mount it under /api in index.js, alongside the
+// existing app.post("/api/login", ...) etc. — paths don't overlap so order
+// doesn't matter:
 //
 //   app.use('/api', require('./api'));
 //
-// Required env vars (must match what the existing /api/login uses for JWT_SECRET):
-//   JWT_SECRET, PGHOST, PGPORT, PGDATABASE, PGUSER, PGPASSWORD
-//
-// Requires: npm install express pg jsonwebtoken
+// Uses the same env vars index.js already loads via dotenv — no .env changes
+// needed: DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, JWT_SECRET.
+// Also uses express/pg/jsonwebtoken, all already dependencies of index.js —
+// no npm install needed either.
 //
 // Centralized error handler is intentionally NOT included here — wire each
 // route's `next(e)` into the existing app's error-handling middleware so
