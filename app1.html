@@ -1982,23 +1982,62 @@ function showReportModal(html, type, day){
 // ROLES: Expert Conductor / Assessor
 // ══════════════════════════════════════════
 function getRoleLabel(){
-  if(role==='admin') return '🔧 Адміністратор';
-  if(role==='teacher') return '🎯 '+user;
-  return '👁 '+user;
+  const apiRole = getApiRole();
+  const labels = {admin:'🔧 Адміністратор',director:'🏫 Директор',methodologist:'📋 Керівник МО',expert:'🎯 Експерт',teacher:'🎯 Експерт',parent:'👨‍👩‍👧 Батьки'};
+  return (labels[apiRole]||'👁') + ' · ' + user;
+}
+
+// ═══════════════════════════════════════════════════════
+// ROLE PERMISSIONS
+// ═══════════════════════════════════════════════════════
+const ROLE_PERMS = {
+  admin:         {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:1},
+  director:      {dash:1, proto:0, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+  methodologist: {dash:1, proto:0, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+  teacher:       {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+  expert:        {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+};
+
+function getApiRole(){
+  try{
+    const u = JSON.parse(localStorage.getItem('vector_user')||'{}');
+    return u.role || role;
+  } catch(e){ return role; }
+}
+
+function applyRolePerms(){
+  const apiRole = getApiRole();
+  const perms = ROLE_PERMS[apiRole] || ROLE_PERMS['teacher'];
+  const navMap = {
+    proto: 'nav-proto',
+    admin: 'nav-admin',
+  };
+  // Show/hide sidebar items by data-page
+  document.querySelectorAll('.sidebar-item[data-page]').forEach(el => {
+    const page = el.getAttribute('data-page');
+    const allowed = perms[page] !== undefined ? perms[page] : 1;
+    el.style.display = allowed ? '' : 'none';
+  });
+  // Show/hide new proto button
+  const btnProto = document.getElementById('btnNewProto');
+  if(btnProto) btnProto.style.display = perms.proto ? '' : 'none';
+  // If current page not allowed — redirect to dash
+  const currentPage = document.querySelector('.sidebar-item.active');
+  if(currentPage){
+    const cp = currentPage.getAttribute('data-page');
+    if(perms[cp] === 0) gp('dash');
+  }
 }
 
 function showApp(){
-  // Hide login overlay if present
   if(window._loginOverlay) window._loginOverlay.remove();
-  // Show app
   const appEl = document.getElementById('appPage');
   if(appEl){ appEl.classList.remove('hidden'); appEl.style.display='flex'; }
   const topRole = document.getElementById('topRole');
   if(topRole) topRole.textContent = getRoleLabel();
   const greet = document.getElementById('dashGreet');
   if(greet) greet.textContent = 'Вітаємо, ' + user + '!';
-  if(role==='admin'){ const n=document.getElementById('nav-admin'); if(n) n.classList.remove('hidden'); }
-  if(role!=='teacher'){ const b=document.getElementById('btnNewProto'); if(b) b.classList.add('hidden'); }
+  applyRolePerms();
   popSelects();
   renderDash();
   renderStuTable();
