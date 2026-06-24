@@ -2180,99 +2180,121 @@ function generateCert(){
 </script>
 <script>
 // ── LOGIN OVERLAY (global functions — called from logout() too) ──────────────
+// ═══════════════════════════════════════════════════════
+// API АВТОРИЗАЦІЯ — VECTOR Server
+// ═══════════════════════════════════════════════════════
+const API_URL = '/api';
+
 function showInlineLogin(){
   if(window._loginOverlay) window._loginOverlay.remove();
   const overlay = document.createElement('div');
   overlay.id = 'vectorLoginOverlay';
   overlay.style.cssText = 'position:fixed;inset:0;background:linear-gradient(135deg,#5a1f68,#7B2D8B,#3aaa5c);display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Segoe UI,Arial,sans-serif';
   overlay.innerHTML = `
-    <div style="background:#fff;border-radius:20px;padding:40px;width:360px;max-width:92vw;box-shadow:0 30px 80px rgba(0,0,0,0.3)">
+    <div style="background:#fff;border-radius:20px;padding:40px;width:380px;max-width:92vw;box-shadow:0 30px 80px rgba(0,0,0,0.3)">
       <div style="text-align:center;margin-bottom:24px">
         <div style="font-size:2.5rem">🎯</div>
         <h2 style="font-size:1.3rem;font-weight:900;color:#7B2D8B;margin:8px 0 4px">VECTOR</h2>
-        <p style="font-size:0.82rem;color:#64748b;margin:0">Starting the Rainbows</p>
+        <p style="font-size:0.82rem;color:#64748b;margin:0">Starting the Rainbows · Протокол навичок</p>
       </div>
-      <div style="display:flex;gap:4px;background:#f8fafc;border-radius:10px;padding:4px;margin-bottom:20px">
-        <button id="vTab0" onclick="vSwitchRole(0)" style="flex:1;padding:8px;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.82rem;background:#fff;color:#7B2D8B;box-shadow:0 1px 4px rgba(0,0,0,.1)">🎯 Expert</button>
-        <button id="vTab1" onclick="vSwitchRole(1)" style="flex:1;padding:8px;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.82rem;background:transparent;color:#64748b">🔧 Admin</button>
-        <button id="vTab2" onclick="vSwitchRole(2)" style="flex:1;padding:8px;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.82rem;background:transparent;color:#64748b">👨‍👩‍👧 Parent</button>
+      <div id="vErrorMsg" style="display:none;background:#fef2f2;border:1px solid #fca5a5;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px"></div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:0.82rem;font-weight:600;color:#444;display:block;margin-bottom:5px">Електронна пошта</label>
+        <input id="vEmail" type="email" placeholder="your@email.com" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;box-sizing:border-box;font-family:inherit" onkeydown="if(event.key==='Enter')vApiLogin()">
       </div>
-      <div id="vPanel0">
-        <input id="vName" placeholder="Your name" value="Марія Петренко" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;margin-bottom:10px;box-sizing:border-box;font-family:inherit">
-        <input id="vPass" type="password" placeholder="Пароль" value="teacher123" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;margin-bottom:16px;box-sizing:border-box;font-family:inherit">
-        <button onclick="vLogin('teacher')" style="width:100%;padding:12px;background:#7B2D8B;color:#fff;border:none;border-radius:10px;font-weight:900;font-size:0.95rem;cursor:pointer">Увійти як Expert →</button>
+      <div style="margin-bottom:20px">
+        <label style="font-size:0.82rem;font-weight:600;color:#444;display:block;margin-bottom:5px">Пароль</label>
+        <input id="vApiPass" type="password" placeholder="••••••••" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;box-sizing:border-box;font-family:inherit" onkeydown="if(event.key==='Enter')vApiLogin()">
       </div>
-      <div id="vPanel1" style="display:none">
-        <input id="vUser" placeholder="Логін" value="admin" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;margin-bottom:10px;box-sizing:border-box;font-family:inherit">
-        <input id="vAdmPass" type="password" placeholder="Пароль" value="admin123" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;margin-bottom:16px;box-sizing:border-box;font-family:inherit">
-        <button onclick="vLogin('admin')" style="width:100%;padding:12px;background:#1565C0;color:#fff;border:none;border-radius:10px;font-weight:900;font-size:0.95rem;cursor:pointer">Увійти як Admin →</button>
-      </div>
-      <div id="vPanel2" style="display:none">
-        <div style="background:#f3e8f7;border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:0.82rem;color:#7B2D8B">Введіть код дитини, наданий педагогом</div>
-        <input id="vCode" placeholder="Код дитини (напр. ST-001)" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.9rem;margin-bottom:16px;box-sizing:border-box;font-family:inherit">
-        <button onclick="vLogin('parent')" style="width:100%;padding:12px;background:#3AAA5C;color:#fff;border:none;border-radius:10px;font-weight:900;font-size:0.95rem;cursor:pointer">Переглянути результати →</button>
-      </div>
-      <p style="text-align:center;margin:12px 0 0;font-size:0.73rem;color:#94a3b8">Demo: name/teacher123 · admin/admin123 · код: ST-001</p>
+      <button id="vLoginBtn" onclick="vApiLogin()" style="width:100%;padding:13px;background:#7B2D8B;color:#fff;border:none;border-radius:10px;font-weight:900;font-size:0.95rem;cursor:pointer;letter-spacing:0.5px">Увійти →</button>
+      <p style="text-align:center;margin:16px 0 0;font-size:0.75rem;color:#94a3b8">Немає акаунту? Зверніться до адміністратора</p>
     </div>`;
   document.body.appendChild(overlay);
   window._loginOverlay = overlay;
 }
 
-function vSwitchRole(idx){
-  for(let i=0;i<3;i++){
-    const p=document.getElementById('vPanel'+i);
-    const t=document.getElementById('vTab'+i);
-    if(p) p.style.display = i===idx ? 'block' : 'none';
-    if(t){ t.style.background = i===idx ? '#fff' : 'transparent';
-           t.style.color = i===idx ? '#7B2D8B' : '#64748b';
-           t.style.boxShadow = i===idx ? '0 1px 4px rgba(0,0,0,.1)' : 'none'; }
-  }
-}
+async function vApiLogin(){
+  const email = (document.getElementById('vEmail')||{}).value||'';
+  const password = (document.getElementById('vApiPass')||{}).value||'';
+  const errEl = document.getElementById('vErrorMsg');
+  const btn = document.getElementById('vLoginBtn');
 
-function vLogin(r){
-  if(r==='teacher'){
-    const name=(document.getElementById('vName')||{}).value||'';
-    const pass=(document.getElementById('vPass')||{}).value||'';
-    if(!name.trim()){alert('Enter your name');return;}
-    if(pass!=='teacher123'){alert('Невірний пароль. Демо: teacher123');return;}
-    role='teacher'; user=name.trim();
-  } else if(r==='admin'){
-    const u=(document.getElementById('vUser')||{}).value||'';
-    const p=(document.getElementById('vAdmPass')||{}).value||'';
-    if(u!=='admin'||p!=='admin123'){alert('Невірні дані. Демо: admin / admin123');return;}
-    role='admin'; user='Адміністратор';
-  } else {
-    const code=((document.getElementById('vCode')||{}).value||'').trim().toUpperCase();
-    if(!code){alert('Введіть код дитини');return;}
-    const stu=DB.students.find(s=>s.id===code);
-    if(!stu){alert('Учня з кодом '+code+' не знайдено');return;}
-    role='parent'; user=stu;
+  if(!email||!password){ errEl.textContent='Введіть email і пароль'; errEl.style.display='block'; return; }
+  errEl.style.display='none';
+  btn.textContent='Вхід...'; btn.disabled=true;
+
+  try{
+    const res = await fetch(API_URL+'/login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email,password})
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error||'Помилка входу');
+
+    // Зберегти токен
+    localStorage.setItem('vector_token', data.token);
+    localStorage.setItem('vector_user', JSON.stringify(data.user));
+
+    // Встановити роль і користувача
+    const roleMap = {admin:'admin', expert:'teacher', director:'admin', methodologist:'admin', parent:'parent'};
+    role = roleMap[data.user.role] || 'teacher';
+    user = data.user.full_name;
+
     if(window._loginOverlay){window._loginOverlay.remove();window._loginOverlay=null;}
-    showParent(stu); return;
-  }
-  if(window._loginOverlay){window._loginOverlay.remove();window._loginOverlay=null;}
-  showApp();
-}
 
-// ── AUTO-INIT: run after DOM + scripts ready ──────────────────────────────────
-document.addEventListener('DOMContentLoaded', function(){
-  const params = new URLSearchParams(window.location.search);
-  const r = params.get('role');
-  const u = params.get('user');
-  if(r && u){
-    role = r; user = decodeURIComponent(u);
-    if(r==='parent'){
-      const code = user.toUpperCase();
-      const stu = DB.students.find(s=>s.id===code);
-      if(stu){ role='parent'; user=stu; showParent(stu); }
-      else { showInlineLogin(); }
+    if(data.user.role==='parent'){
+      // Батьки бачать першого учня (поки що)
+      const stu = DB.students[0];
+      showParent(stu);
     } else {
       showApp();
     }
-  } else {
-    showInlineLogin();
+
+    // Показати ім'я у заголовку
+    const header = document.querySelector('.topbar-title')||document.querySelector('.app-title');
+    if(header) header.title = data.user.full_name + ' · ' + data.user.role;
+
+  } catch(e){
+    errEl.textContent = e.message;
+    errEl.style.display='block';
+    btn.textContent='Увійти →';
+    btn.disabled=false;
   }
+}
+
+function vSwitchRole(idx){ /* не використовується в API версії */ }
+function vLogin(r){ vApiLogin(); }
+
+// ── AUTO-INIT ──────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  // Перевірити чи є збережений токен
+  const savedUser = localStorage.getItem('vector_user');
+  const savedToken = localStorage.getItem('vector_token');
+  if(savedUser && savedToken){
+    try{
+      const u = JSON.parse(savedUser);
+      const roleMap = {admin:'admin', expert:'teacher', director:'admin', methodologist:'admin', parent:'parent'};
+      role = roleMap[u.role] || 'teacher';
+      user = u.full_name;
+      if(u.role==='parent'){
+        const stu = DB.students[0];
+        showParent(stu);
+      } else {
+        showApp();
+      }
+      return;
+    } catch(e){}
+  }
+  showInlineLogin();
 });
+
+// Оновити logout щоб очищав токен
+const _origLogout = logout;
+window.logout = function(){
+  localStorage.removeItem('vector_token');
+  localStorage.removeItem('vector_user');
+  _origLogout();
+};
 </script>
 </body>
-</html>
