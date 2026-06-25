@@ -890,11 +890,11 @@ function setLandRole(r){
     const el=document.getElementById('land'+x);
     if(el) el.style.display='none';
   });
-  const map={teacher:'Expert',admin:'Admin',parent:'Parent',expert:'Expert'};
+  const map={teacher:'Педагог',admin:'Адміністратор',parent:'Батьки'};
   const el=document.getElementById('land'+(map[r]||'Expert'));
   if(el) el.style.display='block';
   document.querySelectorAll('.land-login-tab').forEach((t,i)=>{
-    t.classList.toggle('active',['expert','admin','parent'][i]===r);
+    t.classList.toggle('active',['teacher','admin','parent'][i]===r);
   });
 }
 function scrollToOrder(pkg){
@@ -1980,7 +1980,7 @@ function showReportModal(html, type, day){
 // ══════════════════════════════════════════
 function getRoleLabel(){
   const apiRole = getApiRole();
-  const labels = {admin:'🔧 Адміністратор',director:'🏫 Директор',methodologist:'📋 Керівник МО',expert:'🎯 Експерт',teacher:'🎯 Експерт',parent:'👨‍👩‍👧 Батьки'};
+        const labels = {admin:'🔧 Адміністратор',teacher:'👩‍🏫 Педагог',parent:'👨‍👩‍👧 Батьки'};
   return (labels[apiRole]||'👁') + ' · ' + user;
 }
 
@@ -1989,10 +1989,7 @@ function getRoleLabel(){
 // ═══════════════════════════════════════════════════════
 const ROLE_PERMS = {
   admin:         {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:1},
-  director:      {dash:1, proto:0, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
-  methodologist: {dash:1, proto:0, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
   teacher:       {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
-  expert:        {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
 };
 
 function getApiRole(){
@@ -2289,7 +2286,7 @@ async function vApiLogin(){
     localStorage.setItem('vector_user', JSON.stringify(data.user));
 
     // Встановити роль і користувача
-    const roleMap = {admin:'admin', expert:'teacher', director:'admin', methodologist:'admin', parent:'parent'};
+    const roleMap = {admin:'admin', teacher:'teacher', parent:'parent'};
     role = roleMap[data.user.role] || 'teacher';
     user = data.user.full_name;
 
@@ -2329,7 +2326,7 @@ document.addEventListener('DOMContentLoaded', async function(){
   if(savedUser && savedToken){
     try{
       const u = JSON.parse(savedUser);
-      const roleMap = {admin:'admin', expert:'teacher', director:'admin', methodologist:'admin', parent:'parent'};
+      const roleMap = {admin:'admin', teacher:'teacher', parent:'parent'};
       role = roleMap[u.role] || 'teacher';
       user = u.full_name;
       DB = await loadDB();
