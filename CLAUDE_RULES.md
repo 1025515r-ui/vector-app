@@ -19,3 +19,8 @@ python3 /tmp/vector-repo/test_agent.py
 
 ## Акаунти
 - admin@vector.ua / Vector2024Admin1
+
+## Правило для Claude
+- Кожне архітектурне рішення одразу записувати в /tmp/vector-repo/PROJECT_DECISIONS.md
+- Не обіцяти — одразу виконувати команду
+- Користувач може зупинити словом "запиши"
