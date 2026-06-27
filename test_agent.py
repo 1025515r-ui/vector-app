@@ -2,7 +2,7 @@ import urllib.request
 import urllib.error
 import json
 
-BASE = 'http://173.242.50.112'
+BASE = 'https://app.vpid.org'
 PASS = 0
 FAIL = 0
 
@@ -41,7 +41,7 @@ test('БД підключена', data.get('db') == 'connected')
 
 # 2. Логін admin
 print('\n2. Логін Admin')
-token_admin, user_admin, code = login('admin@vector.ua', 'Admin2024')
+token_admin, user_admin, code = login('admin@vector.ua', 'Vector2024Admin1')
 test('Логін успішний', code == 200 and token_admin)
 test('Роль admin', user_admin and user_admin.get('role') == 'admin')
 
