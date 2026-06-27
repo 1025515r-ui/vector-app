@@ -1060,7 +1060,7 @@ function gp(p){
 // ═══════════════════════════════════════════════════════
 function popSelects(){
   const dynEl=document.getElementById('dynStuSel');
-  if(dynEl){dynEl.innerHTML='<option value="__group__">— Уся група —</option>'+DB.students.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');}
+  if(dynEl){dynEl.innerHTML='<option value="__group__">— Уся група —</option>'+DB.students.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');dynEl.value='__group__';}
   ['protoStu','analStuSel','repStu'].forEach(id=>{
     const el=document.getElementById(id); if(!el) return;
     el.innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
