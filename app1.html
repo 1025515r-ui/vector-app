@@ -1060,7 +1060,7 @@ function gp(p){
 // ═══════════════════════════════════════════════════════
 function popSelects(){
   const dynEl=document.getElementById('dynStuSel');
-  if(dynEl){dynEl.innerHTML='<option value="__group__">— Уся група —</option>'+DB.students.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');dynEl.value='__group__';}
+  if(dynEl){dynEl.innerHTML='<option value="__group__">— Уся група —</option>'+DB.students.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');}
   ['protoStu','analStuSel','repStu'].forEach(id=>{
     const el=document.getElementById(id); if(!el) return;
     el.innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
@@ -1480,8 +1480,7 @@ function renderDyn(){
   let h='<table><thead><tr><th>Перехід</th><th>М — зміна</th><th>Т — зміна</th></tr></thead><tbody>';
   for(let i=1;i<5;i++){
     const mp=mPct[i]; const tp=tPct[i];
-    if(mByDay[i]===null||tByDay[i]===null||mByDay[i]===0||tByDay[i]===0) continue;
-    if(mp===null||tp===null||isNaN(parseFloat(mp))||isNaN(parseFloat(tp))) continue;
+    if(mByDay[i]===0&&tByDay[i]===0) continue;
         const mColor = parseFloat(mp)>=0 ? 'var(--ok)' : 'var(--danger)';
     const tColor = parseFloat(tp)>=0 ? 'var(--ok)' : 'var(--danger)';
     const mArrow = parseFloat(mp)>=0 ? '▲' : '▼';
@@ -1493,7 +1492,7 @@ function renderDyn(){
   h+='</tbody></table>';
   document.getElementById('dynChangeTbl').innerHTML=h;
 
-  setTimeout(renderDynStu,50);
+  renderDynStu();
 }
 
 function dynSparkSVG(vals,color,w){
@@ -1501,8 +1500,7 @@ function dynSparkSVG(vals,color,w){
   if(!vals||vals.length===0) return '';
   if(vals.length===1){
     const y=(padTop+(1-(vals[0]-min)/(max-min))*(h-padTop-padBot)).toFixed(1);
-    const cx=(dayIdx!==undefined&&totalDays>1)?padX+(dayIdx/(totalDays-1))*(w-2*padX):padX;
-    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+cx.toFixed(1)+'" cy="'+y+'" r="2.5" fill="'+color+'" opacity="0.7"/><text x="'+cx.toFixed(1)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+(padX)+'" cy="'+y+'" r="2.5" fill="'+color+'" opacity="0.7"/><text x="'+(padX)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
   }
   const xs=vals.map((_,i)=>padX+(i/(vals.length-1))*(w-2*padX));
   const ys=vals.map(v=>padTop+(1-(v-min)/(max-min))*(h-padTop-padBot));
@@ -1530,12 +1528,11 @@ function renderDynStu(){
       const mV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgM(p):null;}).filter(v=>v!==null);
       const tV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgT(p):null;}).filter(v=>v!==null);
       const totV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?(avgM(p)+avgT(p))/2:null;}).filter(v=>v!==null);
-      const mVf=mV.filter(v=>v!==null), tVf=tV.filter(v=>v!==null), totVf=totV.filter(v=>v!==null);
       let cv=0;
-      if(mode==='M'&&mVf.length>1) cv=(mVf[mVf.length-1]-mVf[0])/mVf[0]*100;
-      else if(mode==='T'&&tVf.length>1) cv=(tVf[tVf.length-1]-tVf[0])/tVf[0]*100;
-      else if(mode==='MT'&&mVf.length>1&&tVf.length>1) cv=((mVf[mVf.length-1]-mVf[0])/mVf[0]+(tVf[tVf.length-1]-tVf[0])/tVf[0])/2*100;
-      else if(mode==='total'&&totVf.length>1) cv=(totVf[totVf.length-1]-totVf[0])/totVf[0]*100;
+      if(mode==='M'&&mV.length>1) cv=(mV[mV.length-1]-mV[0])/mV[0]*100;
+      else if(mode==='T'&&tV.length>1) cv=(tV[tV.length-1]-tV[0])/tV[0]*100;
+      else if(mode==='MT'&&mV.length>1&&tV.length>1) cv=((mV[mV.length-1]-mV[0])/mV[0]+(tV[tV.length-1]-tV[0])/tV[0])/2*100;
+      else if(mode==='total'&&totV.length>1) cv=(totV[totV.length-1]-totV[0])/totV[0]*100;
       return {s,mV,tV,totV,cv};
     }).sort((a,b)=>b.cv-a.cv);
     let colHdr='';
@@ -1550,10 +1547,10 @@ function renderDynStu(){
       const bg=grew?'#E1F5EE':'#EEEDFE';
       const bdr=grew?'#9FE1CB':'#CECBF6';
       let cells='';
-      if(mode==='M'){const mVf=mV.filter(v=>v!==null);const p=dynPct(mVf[0],mVf[mVf.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
-      else if(mode==='T'){const tVf=tV.filter(v=>v!==null);const p=dynPct(tVf[0],tVf[tVf.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
+      if(mode==='M'){const p=dynPct(mV[0],mV[mV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
+      else if(mode==='T'){const p=dynPct(tV[0],tV[tV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
       else if(mode==='MT'){const pm=dynPct(mV[0],mV[mV.length-1]);const pt=dynPct(tV[0],tV[tV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+pm.html+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+pt.html+'</td>';}
-      else{const totVf=totV.filter(v=>v!==null);const p=dynPct(totVf[0],totVf[totVf.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(totV,'#888780',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
+      else{const p=dynPct(totV[0],totV[totV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(totV,'#888780',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
       return '<tr style="border-top:0.5px solid '+bdr+';background:'+bg+';"><td style="padding:5px 10px;font-weight:500;">'+s.name+'</td>'+cells+'</tr>';
     }).join('');
     html+='</tbody></table></div>';
@@ -2144,7 +2141,6 @@ function showApp(){
   applyRolePerms();
   popSelects();
   renderDash();
-  setTimeout(renderDynStu,100);
   renderStuTable();
   renderAdminStu();
   renderAdminParams();
