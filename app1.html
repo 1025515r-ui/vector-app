@@ -1500,7 +1500,8 @@ function dynSparkSVG(vals,color,w){
   if(!vals||vals.length===0) return '';
   if(vals.length===1){
     const y=(padTop+(1-(vals[0]-min)/(max-min))*(h-padTop-padBot)).toFixed(1);
-    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+(padX)+'" cy="'+y+'" r="2.5" fill="'+color+'" opacity="0.7"/><text x="'+(padX)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
+    const cx=(dayIdx!==undefined&&totalDays>1)?padX+(dayIdx/(totalDays-1))*(w-2*padX):padX;
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+cx.toFixed(1)+'" cy="'+y+'" r="2.5" fill="'+color+'" opacity="0.7"/><text x="'+cx.toFixed(1)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
   }
   const xs=vals.map((_,i)=>padX+(i/(vals.length-1))*(w-2*padX));
   const ys=vals.map(v=>padTop+(1-(v-min)/(max-min))*(h-padTop-padBot));
