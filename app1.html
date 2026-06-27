@@ -1480,8 +1480,8 @@ function renderDyn(){
   let h='<table><thead><tr><th>Перехід</th><th>М — зміна</th><th>Т — зміна</th></tr></thead><tbody>';
   for(let i=1;i<5;i++){
     const mp=mPct[i]; const tp=tPct[i];
-    if(mByDay[i]===null||tByDay[i]===null) continue;
-    if(mp===null||tp===null) continue;
+    if(mByDay[i]===null||tByDay[i]===null||mByDay[i]===0||tByDay[i]===0) continue;
+    if(mp===null||tp===null||isNaN(parseFloat(mp))||isNaN(parseFloat(tp))) continue;
         const mColor = parseFloat(mp)>=0 ? 'var(--ok)' : 'var(--danger)';
     const tColor = parseFloat(tp)>=0 ? 'var(--ok)' : 'var(--danger)';
     const mArrow = parseFloat(mp)>=0 ? '▲' : '▼';
@@ -2144,6 +2144,7 @@ function showApp(){
   applyRolePerms();
   popSelects();
   renderDash();
+  setTimeout(renderDynStu,100);
   renderStuTable();
   renderAdminStu();
   renderAdminParams();
