@@ -1480,8 +1480,8 @@ function renderDyn(){
   let h='<table><thead><tr><th>Перехід</th><th>М — зміна</th><th>Т — зміна</th></tr></thead><tbody>';
   for(let i=1;i<5;i++){
     const mp=mPct[i]; const tp=tPct[i];
-    if(mByDay[i]===null&&tByDay[i]===null) continue;
-    if(mp===null&&tp===null) continue;
+    if(mByDay[i]===null||tByDay[i]===null) continue;
+    if(mp===null||tp===null) continue;
         const mColor = parseFloat(mp)>=0 ? 'var(--ok)' : 'var(--danger)';
     const tColor = parseFloat(tp)>=0 ? 'var(--ok)' : 'var(--danger)';
     const mArrow = parseFloat(mp)>=0 ? '▲' : '▼';
@@ -1493,7 +1493,7 @@ function renderDyn(){
   h+='</tbody></table>';
   document.getElementById('dynChangeTbl').innerHTML=h;
 
-  renderDynStu();
+  setTimeout(renderDynStu,50);
 }
 
 function dynSparkSVG(vals,color,w){
