@@ -964,18 +964,29 @@ function authHeaders(){
 // shape the rest of the app expects from the old localStorage-backed DB object.
 async function loadDB(){
   const headers = authHeaders();
+  const safe = async (url) => {
+    try {
+      const r = await fetch(url, {headers});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    } catch(e) {
+      console.warn('loadDB fetch error:', url, e);
+      return null;
+    }
+  };
   const [students, skillsRes, protocols, recsRes] = await Promise.all([
-    fetch(API_URL+'/students', {headers}).then(r=>r.json()),
-    fetch(API_URL+'/skills', {headers}).then(r=>r.json()),
-    fetch(API_URL+'/protocols', {headers}).then(r=>r.json()),
-    fetch(API_URL+'/recommendations', {headers}).then(r=>r.json()),
+    safe(API_URL+'/students'),
+    safe(API_URL+'/skills'),
+    safe(API_URL+'/protocols'),
+    safe(API_URL+'/recommendations'),
   ]);
+  if(!students || !skillsRes || !protocols) throw new Error('API unavailable');
   return {
-    students,
-    mSkills: skillsRes.M,
-    tSkills: skillsRes.T,
-    protocols,
-    recommendations: recsRes,
+    students: students||[],
+    mSkills: skillsRes?.M||[],
+    tSkills: skillsRes?.T||[],
+    protocols: protocols||[],
+    recommendations: recsRes||[],
   };
 }
 
