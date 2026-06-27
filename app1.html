@@ -471,7 +471,7 @@ body { margin: 0; }
               <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb4" onchange="renderDynStu()"> 4</label>
               <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb5" onchange="renderDynStu()"> 5</label>
               <select id="dynStuMode" onchange="renderDynStu()" style="font-size:0.82rem;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border);">
-                <option value="M">М'які навички</option>
+                <option value="M">М\'які навички</option>
                 <option value="T">Тверді навички</option>
                 <option value="MT">М та Т навички</option>
                 <option value="total">Загальний бал</option>
@@ -1532,9 +1532,9 @@ function renderDynStu(){
       return {s,mV,tV,totV,cv};
     }).sort((a,b)=>b.cv-a.cv);
     let colHdr='';
-    if(mode==='M') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М'які навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
+    if(mode==='M') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М\'які навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
     else if(mode==='T') colHdr='<th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
-    else if(mode==='MT') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М'які навички</th><th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">М</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">Т</th>';
+    else if(mode==='MT') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М\'які навички</th><th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">М</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">Т</th>';
     else colHdr='<th style="padding:6px 8px;text-align:center;color:#888780;font-weight:500;">Загальний бал</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
     let html='<div style="border:0.5px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">';
     html+='<thead><tr style="background:var(--bg2);"><th style="padding:6px 10px;text-align:left;font-weight:500;color:var(--muted);width:120px;">Дитина</th>'+colHdr+'</tr></thead><tbody>';
