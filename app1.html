@@ -1497,7 +1497,11 @@ function renderDyn(){
 
 function dynSparkSVG(vals,color,w){
   const h=44,padX=8,padTop=4,padBot=14,min=1,max=3;
-  if(!vals||vals.length<2) return '';
+  if(!vals||vals.length===0) return '';
+  if(vals.length===1){
+    const y=(padTop+(1-(vals[0]-min)/(max-min))*(h-padTop-padBot)).toFixed(1);
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+(w/2)+'" cy="'+y+'" r="5" fill="'+color+'"/><text x="'+(w/2)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
+  }
   const xs=vals.map((_,i)=>padX+(i/(vals.length-1))*(w-2*padX));
   const ys=vals.map(v=>padTop+(1-(v-min)/(max-min))*(h-padTop-padBot));
   const pts=xs.map((x,i)=>x.toFixed(1)+','+ys[i].toFixed(1)).join(' ');
