@@ -450,12 +450,35 @@ body { margin: 0; }
           <div class="card">
             <div class="card-title">📈 Динаміка по групі — М та Т навички по оціночних днях</div>
             <div class="alert al-i mb-16">З 2-го дня відображається % зміни відносно попереднього дня</div>
+            <div style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
+              <span style="font-size:0.85rem;color:var(--muted);align-self:center;">Порівнювати дні:</span>
+              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb1" checked onchange="renderDyn()"> День 1</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb2" checked onchange="renderDyn()"> День 2</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb3" onchange="renderDyn()"> День 3</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb4" onchange="renderDyn()"> День 4</label>
+              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb5" onchange="renderDyn()"> День 5</label>
+            </div>
             <div class="ch tall"><canvas id="dynGrpChart"></canvas></div>
           </div>
           <div class="card">
             <div class="card-title">📈 Динаміка навичок по учню</div>
-            <div class="fg"><select class="fc" id="dynStuSel" style="max-width:280px" onchange="renderDynStu()"></select></div>
-            <div class="ch"><canvas id="dynStuChart"></canvas></div>
+            <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
+              <select class="fc" id="dynStuSel" style="max-width:220px" onchange="renderDynStu()"></select>
+              <span style="font-size:0.82rem;color:var(--muted);">Дні:</span>
+              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb1" checked onchange="renderDynStu()"> 1</label>
+              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb2" checked onchange="renderDynStu()"> 2</label>
+              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb3" onchange="renderDynStu()"> 3</label>
+              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb4" onchange="renderDynStu()"> 4</label>
+              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb5" onchange="renderDynStu()"> 5</label>
+              <select id="dynStuMode" onchange="renderDynStu()" style="font-size:0.82rem;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border);">
+                <option value="M">М'які навички</option>
+                <option value="T">Тверді навички</option>
+                <option value="MT">М та Т навички</option>
+                <option value="total">Загальний бал</option>
+              </select>
+            </div>
+            <div id="dynStuSparkWrap"></div>
+            <canvas id="dynStuChart" style="display:none;"></canvas>
           </div>
           <div class="card" id="dynChangeCard">
             <div class="card-title">📊 % зміни середнього по групі між днями</div>
@@ -1025,7 +1048,9 @@ function gp(p){
 // SELECTS
 // ═══════════════════════════════════════════════════════
 function popSelects(){
-  ['protoStu','analStuSel','dynStuSel','repStu'].forEach(id=>{
+  const dynEl=document.getElementById('dynStuSel');
+  if(dynEl){dynEl.innerHTML='<option value="__group__">— Уся група —</option>'+DB.students.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');}
+  ['protoStu','analStuSel','repStu'].forEach(id=>{
     const el=document.getElementById(id); if(!el) return;
     el.innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
   });
@@ -1420,23 +1445,22 @@ function renderStuAnal(){
 
 function renderDyn(){
   dc('dynGrpChart'); dc('dynStuChart');
-  const days=[1,2,3,4,5];
-  const mByDay=days.map(d=>grpAvgM(String(d)));
-  const tByDay=days.map(d=>grpAvgT(String(d)));
-
-  // % change labels
-  const mPct=mByDay.map((v,i)=>i===0?null:mByDay[i-1]>0?((v-mByDay[i-1])/mByDay[i-1]*100).toFixed(1):null);
-  const tPct=tByDay.map((v,i)=>i===0?null:tByDay[i-1]>0?((v-tByDay[i-1])/tByDay[i-1]*100).toFixed(1):null);
-
+  const allDays=[1,2,3,4,5];
+  const selDays=allDays.filter(d=>{const cb=document.getElementById('dCb'+d);return cb&&cb.checked;});
+  if(selDays.length===0){renderDynStu();return;}
+  const mByDay=selDays.map(d=>{const v=grpAvgM(String(d));return v>0?v:null;});
+  const tByDay=selDays.map(d=>{const v=grpAvgT(String(d));return v>0?v:null;});
+  const mPct=mByDay.map((v,i)=>{if(i===0||v===null)return null;const prev=mByDay[i-1];return prev!==null&&prev>0?((v-prev)/prev*100).toFixed(1):null;});
+  const tPct=tByDay.map((v,i)=>{if(i===0||v===null)return null;const prev=tByDay[i-1];return prev!==null&&prev>0?((v-prev)/prev*100).toFixed(1):null;});
   CI['dynGrpChart']=new Chart(document.getElementById('dynGrpChart'),{
     type:'line',
-    data:{labels:days.map((d,i)=>{
+    data:{labels:selDays.map((d,i)=>{
       const mp=mPct[i]!==null?` (М:${mPct[i]>0?'+':''}${mPct[i]}%)`:'';
       const tp=tPct[i]!==null?` (Т:${tPct[i]>0?'+':''}${tPct[i]}%)`:'';
       return `День ${d}${mp}${tp}`;
     }),datasets:[
-      {label:"М'які",data:mByDay,borderColor:'rgba(124,58,237,1)',backgroundColor:'rgba(124,58,237,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true},
-      {label:'Тверді',data:tByDay,borderColor:'rgba(3,105,161,1)',backgroundColor:'rgba(3,105,161,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true}
+      {label:"М'які",data:mByDay,borderColor:'rgba(124,58,237,1)',backgroundColor:'rgba(124,58,237,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:false},
+      {label:'Тверді',data:tByDay,borderColor:'rgba(3,105,161,1)',backgroundColor:'rgba(3,105,161,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:false}
     ]},
     options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,max:3}},plugins:{legend:{display:true}}}
   });
@@ -1460,21 +1484,88 @@ function renderDyn(){
   renderDynStu();
 }
 
+function dynSparkSVG(vals,color,w){
+  const h=44,padX=8,padTop=4,padBot=14,min=1,max=3;
+  if(!vals||vals.length<2) return '';
+  const xs=vals.map((_,i)=>padX+(i/(vals.length-1))*(w-2*padX));
+  const ys=vals.map(v=>padTop+(1-(v-min)/(max-min))*(h-padTop-padBot));
+  const pts=xs.map((x,i)=>x.toFixed(1)+','+ys[i].toFixed(1)).join(' ');
+  const dots=vals.map((v,i)=>'<circle cx="'+xs[i].toFixed(1)+'" cy="'+ys[i].toFixed(1)+'" r="'+(i===vals.length-1?4:2.5)+'" fill="'+color+'" opacity="'+(i===vals.length-1?1:0.7)+'"/>').join('');
+  const labs=vals.map((v,i)=>'<text x="'+xs[i].toFixed(1)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+v.toFixed(1)+'</text>').join('');
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="1.8" stroke-linejoin="round"/>'+dots+labs+'</svg>';
+}
+function dynPct(a,b){
+  if(a==null||b==null||a===0) return {html:'—',val:0};
+  const v=((b-a)/a*100);
+  const up=v>=0;
+  return {html:'<span style="color:'+(up?'#0F6E56':'#534AB7')+';font-weight:500;">'+(up?'+':'')+v.toFixed(1)+'%</span>',val:v};
+}
 function renderDynStu(){
   const sid=document.getElementById('dynStuSel').value; if(!sid) return;
-  dc('dynStuChart');
-  const days=[1,2,3,4,5];
-  const mD=days.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);return p?avgM(p):null;});
-  const tD=days.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);return p?avgT(p):null;});
-  const stu=DB.students.find(s=>s.id===sid);
-  CI['dynStuChart']=new Chart(document.getElementById('dynStuChart'),{
-    type:'line',
-    data:{labels:days.map(d=>`День ${d}`),datasets:[
-      {label:"М'які",data:mD,borderColor:'rgba(124,58,237,1)',backgroundColor:'rgba(124,58,237,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true},
-      {label:'Тверді',data:tD,borderColor:'rgba(3,105,161,1)',backgroundColor:'rgba(3,105,161,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true}
-    ]},
-    options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,max:3}},plugins:{legend:{display:true},title:{display:true,text:stu?.name||''}}}
-  });
+  const mode=document.getElementById('dynStuMode')?.value||'M';
+  const selDays=[1,2,3,4,5].filter(d=>{const cb=document.getElementById('sCb'+d);return cb&&cb.checked;});
+  if(selDays.length===0) return;
+  const wrap=document.getElementById('dynStuSparkWrap');
+  if(!wrap) return;
+  const sw=mode==='MT'?130:180;
+  if(sid==='__group__'){
+    const rows=DB.students.map(s=>{
+      const mV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgM(p):null;}).filter(v=>v!==null);
+      const tV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgT(p):null;}).filter(v=>v!==null);
+      const totV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?(avgM(p)+avgT(p))/2:null;}).filter(v=>v!==null);
+      let cv=0;
+      if(mode==='M'&&mV.length>1) cv=(mV[mV.length-1]-mV[0])/mV[0]*100;
+      else if(mode==='T'&&tV.length>1) cv=(tV[tV.length-1]-tV[0])/tV[0]*100;
+      else if(mode==='MT'&&mV.length>1&&tV.length>1) cv=((mV[mV.length-1]-mV[0])/mV[0]+(tV[tV.length-1]-tV[0])/tV[0])/2*100;
+      else if(mode==='total'&&totV.length>1) cv=(totV[totV.length-1]-totV[0])/totV[0]*100;
+      return {s,mV,tV,totV,cv};
+    }).sort((a,b)=>b.cv-a.cv);
+    let colHdr='';
+    if(mode==='M') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М'які навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
+    else if(mode==='T') colHdr='<th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
+    else if(mode==='MT') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М'які навички</th><th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">М</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">Т</th>';
+    else colHdr='<th style="padding:6px 8px;text-align:center;color:#888780;font-weight:500;">Загальний бал</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
+    let html='<div style="border:0.5px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">';
+    html+='<thead><tr style="background:var(--bg2);"><th style="padding:6px 10px;text-align:left;font-weight:500;color:var(--muted);width:120px;">Дитина</th>'+colHdr+'</tr></thead><tbody>';
+    html+=rows.map(({s,mV,tV,totV,cv})=>{
+      const grew=cv>0;
+      const bg=grew?'#E1F5EE':'#EEEDFE';
+      const bdr=grew?'#9FE1CB':'#CECBF6';
+      let cells='';
+      if(mode==='M'){const p=dynPct(mV[0],mV[mV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
+      else if(mode==='T'){const p=dynPct(tV[0],tV[tV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
+      else if(mode==='MT'){const pm=dynPct(mV[0],mV[mV.length-1]);const pt=dynPct(tV[0],tV[tV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+pm.html+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+pt.html+'</td>';}
+      else{const p=dynPct(totV[0],totV[totV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(totV,'#888780',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
+      return '<tr style="border-top:0.5px solid '+bdr+';background:'+bg+';"><td style="padding:5px 10px;font-weight:500;">'+s.name+'</td>'+cells+'</tr>';
+    }).join('');
+    html+='</tbody></table></div>';
+    wrap.innerHTML=html;
+  } else {
+    const skillRows=[];
+    if(mode==='M'||mode==='MT'||mode==='total'){
+      DB.mSkills.forEach((sk,i)=>{
+        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p)return null;const sc=p.scores.find(s=>s.skillId===sk.id);return sc?sc.score:null;}).filter(v=>v!==null);
+        if(vals.length>0) skillRows.push({code:'М'+(i+1),name:sk.name,vals,color:'#7F77DD'});
+      });
+    }
+    if(mode==='T'||mode==='MT'||mode==='total'){
+      DB.tSkills.forEach((sk,i)=>{
+        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p)return null;const sc=p.scores.find(s=>s.skillId===sk.id);return sc?sc.score:null;}).filter(v=>v!==null);
+        if(vals.length>0) skillRows.push({code:'Т'+(i+1),name:sk.name,vals,color:'#1D9E75'});
+      });
+    }
+    let html='<div style="border:0.5px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">';
+    html+='<thead><tr style="background:var(--bg2);"><th style="padding:6px 10px;text-align:left;font-weight:500;color:var(--muted);">Навичка</th><th style="padding:6px 8px;text-align:center;font-weight:500;width:45px;color:var(--muted);">Код</th><th style="padding:6px 8px;text-align:center;font-weight:500;color:var(--muted);">Динаміка</th><th style="padding:6px 8px;text-align:center;font-weight:500;width:65px;color:var(--muted);">Зміна</th></tr></thead><tbody>';
+    html+=skillRows.map(({code,name,vals,color})=>{
+      const p=dynPct(vals[0],vals[vals.length-1]);
+      const grew=p.val>0;
+      const bg=grew?'#E1F5EE':'#EEEDFE';
+      const bdr=grew?'#9FE1CB':'#CECBF6';
+      return '<tr style="border-top:0.5px solid '+bdr+';background:'+bg+';"><td style="padding:5px 10px;">'+name+'</td><td style="padding:5px 8px;text-align:center;font-size:10px;font-weight:500;color:'+color+';">'+code+'</td><td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(vals,color,160)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td></tr>';
+    }).join('');
+    html+='</tbody></table></div>';
+    wrap.innerHTML=html;
+  }
 }
 
 function renderRank(day){
