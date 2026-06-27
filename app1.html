@@ -1500,7 +1500,7 @@ function dynSparkSVG(vals,color,w){
   if(!vals||vals.length===0) return '';
   if(vals.length===1){
     const y=(padTop+(1-(vals[0]-min)/(max-min))*(h-padTop-padBot)).toFixed(1);
-    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+(w/2)+'" cy="'+y+'" r="5" fill="'+color+'"/><text x="'+(w/2)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+(padX)+'" cy="'+y+'" r="2.5" fill="'+color+'" opacity="0.7"/><text x="'+(padX)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
   }
   const xs=vals.map((_,i)=>padX+(i/(vals.length-1))*(w-2*padX));
   const ys=vals.map(v=>padTop+(1-(v-min)/(max-min))*(h-padTop-padBot));
@@ -1559,13 +1559,13 @@ function renderDynStu(){
     const skillRows=[];
     if(mode==='M'||mode==='MT'||mode==='total'){
       DB.mSkills.forEach((sk,i)=>{
-        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p)return null;const sc=p.scores.find(s=>s.skillId===sk.id);return sc?sc.score:null;}).filter(v=>v!==null);
+        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.mScores)return null;return p.mScores[i]??null;}).filter(v=>v!==null);
         if(vals.length>0) skillRows.push({code:'М'+(i+1),name:sk.name,vals,color:'#7F77DD'});
       });
     }
     if(mode==='T'||mode==='MT'||mode==='total'){
       DB.tSkills.forEach((sk,i)=>{
-        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p)return null;const sc=p.scores.find(s=>s.skillId===sk.id);return sc?sc.score:null;}).filter(v=>v!==null);
+        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.tScores)return null;return p.tScores[i]??null;}).filter(v=>v!==null);
         if(vals.length>0) skillRows.push({code:'Т'+(i+1),name:sk.name,vals,color:'#1D9E75'});
       });
     }
