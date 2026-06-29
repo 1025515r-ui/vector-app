@@ -1498,17 +1498,18 @@ function renderDyn(){
 function dynSparkSVG(vals,color,w){
   const h=44,padX=8,padTop=4,padBot=14,min=1,max=3;
   if(!vals||vals.length===0) return '';
-  if(vals.length===1){
-    const y=(padTop+(1-(vals[0]-min)/(max-min))*(h-padTop-padBot)).toFixed(1);
-    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><circle cx="'+(padX)+'" cy="'+y+'" r="2.5" fill="'+color+'" opacity="0.7"/><text x="'+(padX)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[0].toFixed(1)+'</text></svg>';
-  }
-  const xs=vals.map((_,i)=>padX+(i/(vals.length-1))*(w-2*padX));
-  const ys=vals.map(v=>padTop+(1-(v-min)/(max-min))*(h-padTop-padBot));
-  const pts=xs.map((x,i)=>x.toFixed(1)+','+ys[i].toFixed(1)).join(' ');
-  const dots=vals.map((v,i)=>'<circle cx="'+xs[i].toFixed(1)+'" cy="'+ys[i].toFixed(1)+'" r="'+(i===vals.length-1?4:2.5)+'" fill="'+color+'" opacity="'+(i===vals.length-1?1:0.7)+'"/>').join('');
-  const labs=vals.map((v,i)=>'<text x="'+xs[i].toFixed(1)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+v.toFixed(1)+'</text>').join('');
-  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="1.8" stroke-linejoin="round"/>'+dots+labs+'</svg>';
+  const n=vals.length;
+  const xFor=i=> n===1 ? padX : (padX+(i/(n-1))*(w-2*padX));
+  const yFor=v=> padTop+(1-(v-min)/(max-min))*(h-padTop-padBot);
+  const idx=[]; for(let i=0;i<n;i++) if(vals[i]!=null) idx.push(i);
+  if(idx.length===0) return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"></svg>';
+  const lastI=idx[idx.length-1];
+  const poly = idx.length>1 ? '<polyline points="'+idx.map(i=>xFor(i).toFixed(1)+','+yFor(vals[i]).toFixed(1)).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="1.8" stroke-linejoin="round"/>' : '';
+  const dots = idx.map(i=>'<circle cx="'+xFor(i).toFixed(1)+'" cy="'+yFor(vals[i]).toFixed(1)+'" r="'+(i===lastI?4:2.5)+'" fill="'+color+'" opacity="'+(i===lastI?1:0.7)+'"/>').join('');
+  const labs = idx.map(i=>'<text x="'+xFor(i).toFixed(1)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[i].toFixed(1)+'</text>').join('');
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">'+poly+dots+labs+'</svg>';
 }
+
 function dynPct(a,b){
   if(a==null||b==null||a===0) return {html:'—',val:0};
   const v=((b-a)/a*100);
@@ -1525,14 +1526,15 @@ function renderDynStu(){
   const sw=mode==='MT'?130:180;
   if(sid==='__group__'){
     const rows=DB.students.map(s=>{
-      const mV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgM(p):null;}).filter(v=>v!==null);
-      const tV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgT(p):null;}).filter(v=>v!==null);
-      const totV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?(avgM(p)+avgT(p))/2:null;}).filter(v=>v!==null);
+      const mV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgM(p):null;});
+      const tV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgT(p):null;});
+      const totV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?(avgM(p)+avgT(p))/2:null;});
       let cv=0;
-      if(mode==='M'&&mV.length>1) cv=(mV[mV.length-1]-mV[0])/mV[0]*100;
-      else if(mode==='T'&&tV.length>1) cv=(tV[tV.length-1]-tV[0])/tV[0]*100;
-      else if(mode==='MT'&&mV.length>1&&tV.length>1) cv=((mV[mV.length-1]-mV[0])/mV[0]+(tV[tV.length-1]-tV[0])/tV[0])/2*100;
-      else if(mode==='total'&&totV.length>1) cv=(totV[totV.length-1]-totV[0])/totV[0]*100;
+      const _ch=a=>{const nn=a.filter(v=>v!=null);return nn.length>1?(nn[nn.length-1]-nn[0])/nn[0]*100:0;};
+      if(mode==='M') cv=_ch(mV);
+      else if(mode==='T') cv=_ch(tV);
+      else if(mode==='MT') cv=(_ch(mV)+_ch(tV))/2;
+      else if(mode==='total') cv=_ch(totV);
       return {s,mV,tV,totV,cv};
     }).sort((a,b)=>b.cv-a.cv);
     let colHdr='';
@@ -1559,14 +1561,14 @@ function renderDynStu(){
     const skillRows=[];
     if(mode==='M'||mode==='MT'||mode==='total'){
       DB.mSkills.forEach((sk,i)=>{
-        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.mScores)return null;return p.mScores[i]??null;}).filter(v=>v!==null);
-        if(vals.length>0) skillRows.push({code:'М'+(i+1),name:sk.name,vals,color:'#7F77DD'});
+        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.mScores)return null;return p.mScores[i]??null;});
+        if(vals.some(v=>v!=null)) skillRows.push({code:'М'+(i+1),name:sk.name,vals,color:'#7F77DD'});
       });
     }
     if(mode==='T'||mode==='MT'||mode==='total'){
       DB.tSkills.forEach((sk,i)=>{
-        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.tScores)return null;return p.tScores[i]??null;}).filter(v=>v!==null);
-        if(vals.length>0) skillRows.push({code:'Т'+(i+1),name:sk.name,vals,color:'#1D9E75'});
+        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.tScores)return null;return p.tScores[i]??null;});
+        if(vals.some(v=>v!=null)) skillRows.push({code:'Т'+(i+1),name:sk.name,vals,color:'#1D9E75'});
       });
     }
     let html='<div style="border:0.5px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">';
