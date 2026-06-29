@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&display=swap" rel="stylesheet">
 <title>VECTOR — Протокол навичок</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -62,8 +63,11 @@ body{font-family:'Segoe UI',Arial,system-ui,sans-serif;background:var(--bg);colo
   height:58px;box-shadow:0 3px 16px rgba(123,45,139,0.25)}
 .topbar-brand{display:flex;align-items:center;gap:12px}
 .topbar-icon{font-size:1.5rem}
-.topbar-title{font-size:1rem;font-weight:900;letter-spacing:-.01em}
-.topbar-subtitle{font-size:0.72rem;opacity:.75;margin-top:1px}
+.topbar-title{font-size:0.98rem;font-weight:700;letter-spacing:0;font-family:'Unbounded','Segoe UI',Arial,sans-serif}
+.topbar-subtitle{font-size:0.72rem;margin-top:2px}
+.topbar-subtitle .brand-str{font-family:'Unbounded','Segoe UI',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#00C9A7}
+.topbar-subtitle .sub-plain{opacity:.72}
+.topbar-logo-arrow{width:30px;height:30px;background:#00C9A7;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .topbar-role{font-size:0.78rem;background:rgba(255,255,255,0.18);padding:4px 14px;border-radius:20px;font-weight:600}
 .btn-logout{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);
   color:#fff;padding:6px 16px;border-radius:10px;cursor:pointer;font-size:0.83rem;font-weight:600;transition:all .18s}
@@ -291,10 +295,10 @@ body { margin: 0; }
 <div id="appPage" class="hidden">
   <div class="topbar">
     <div class="topbar-brand">
-      <span class="topbar-icon">🎯</span>
+      <div class="topbar-logo-arrow"><svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="#0F0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
-        <div class="topbar-title">Вектор — Протокол навичок</div>
-        <div class="topbar-subtitle">Впевнений СТАРТ · Оцінювання навичок</div>
+        <div class="topbar-title">ВЕКТОР динаміки педагогічного впливу</div>
+        <div class="topbar-subtitle"><span class="brand-str">STARTING THE RAINBOWS</span><span class="sub-plain"> · модуль діагностики</span></div>
       </div>
     </div>
     <div class="flex gap-10" style="align-items:center">
@@ -331,11 +335,11 @@ body { margin: 0; }
         <div class="dash-banner">
           <div class="dash-banner-text">
             <h2 id="dashGreet">Ласкаво просимо!</h2>
-            <p>Протокол оцінювання м-яких та твердих навичок · Впевнений СТАРТ</p>
+            <p>Бажаємо гарної динаміки м'яких та твердих навичок у дітей Вашої групи!</p>
           </div>
           <div style="display:flex;gap:12px;align-items:center">
             <button class="btn btn-g" onclick="gp('proto')" id="btnNewProto">➕ Новий протокол</button>
-            <div class="dash-banner-emoji">🎯</div>
+            <div class="dash-banner-emoji" style="display:flex;align-items:center"><span style="width:48px;height:48px;background:#00C9A7;border-radius:12px;display:inline-flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="#0F0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
           </div>
         </div>
         <div class="g4 mb-16">
@@ -1147,6 +1151,36 @@ function barOpts(maxY=3, showLegend=false){
   };
 }
 
+// Власний плагін: цифри-підписи над стовпчиками + (опц.) зірочка внизу для нижче-середнього
+const barValueLabels = {
+  id:'barValueLabels',
+  afterDatasetsDraw(chart){
+    const ctx=chart.ctx;
+    const star=chart.config.options && chart.config.options.$starBelow;
+    chart.data.datasets.forEach((ds,di)=>{
+      const meta=chart.getDatasetMeta(di);
+      if(meta.hidden) return;
+      meta.data.forEach((bar,i)=>{
+        const v=ds.data[i];
+        if(v!=null && v>0){
+          ctx.save();
+          ctx.font='600 11px "Segoe UI",Arial,sans-serif';
+          ctx.fillStyle='#1e293b'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+          ctx.fillText(Number(v).toFixed(2), bar.x, bar.y-3);
+          ctx.restore();
+        }
+        if(star && star[i] && chart.data.datasets.length===1){
+          ctx.save();
+          ctx.font='13px "Segoe UI",Arial,sans-serif';
+          ctx.textAlign='center'; ctx.textBaseline='bottom';
+          ctx.fillText('⭐', bar.x, chart.chartArea.bottom-2);
+          ctx.restore();
+        }
+      });
+    });
+  }
+};
+
 // ═══════════════════════════════════════════════════════
 // DASHBOARD
 // ═══════════════════════════════════════════════════════
@@ -1170,31 +1204,60 @@ function renderDash(){
 function renderDashCharts(){
   if(dMC) dMC.destroy(); if(dTC) dTC.destroy();
   const _dn=DB.protocols.map(p=>p.day); const _ld=_dn.length?Math.max(..._dn):'all';
-  const mData=DB.mSkills.map((_,i)=>grpSkillAvgM(i,_ld));
-  const tData=DB.tSkills.map((_,i)=>grpSkillAvgT(i,_ld));
+  const mPairs=DB.mSkills.map((s,i)=>({code:'М'+(i+1),name:s.name,val:grpSkillAvgM(i,_ld)})).sort((a,b)=>b.val-a.val);
+  const tPairs=DB.tSkills.map((s,i)=>({code:'Т'+(i+1),name:s.name,val:grpSkillAvgT(i,_ld)})).sort((a,b)=>b.val-a.val);
+  const optM=barOpts(3); optM.layout={padding:{top:18}};
+  optM.plugins.tooltip.callbacks.title=items=>mPairs[items[0].dataIndex].name;
+  optM.plugins.tooltip.callbacks.label=ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2);
+  const optT=barOpts(3); optT.layout={padding:{top:18}};
+  optT.plugins.tooltip.callbacks.title=items=>tPairs[items[0].dataIndex].name;
+  optT.plugins.tooltip.callbacks.label=ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2);
   dMC=new Chart(document.getElementById('dMChart'),{
     type:'bar',
-    data:{labels:DB.mSkills.map((s,i)=>`М${i+1}`),datasets:[{label:'Сер. бал',data:mData,backgroundColor:'rgba(124,58,237,0.7)',borderRadius:5}]},
-    options:barOpts(3)
+    data:{labels:mPairs.map(p=>p.code),datasets:[{label:'Сер. бал',data:mPairs.map(p=>p.val),backgroundColor:'rgba(124,58,237,0.7)',borderRadius:5}]},
+    options:optM, plugins:[barValueLabels]
   });
   dTC=new Chart(document.getElementById('dTChart'),{
     type:'bar',
-    data:{labels:DB.tSkills.map((s,i)=>`Т${i+1}`),datasets:[{label:'Сер. бал',data:tData,backgroundColor:'rgba(3,105,161,0.7)',borderRadius:5}]},
-    options:barOpts(3)
+    data:{labels:tPairs.map(p=>p.code),datasets:[{label:'Сер. бал',data:tPairs.map(p=>p.val),backgroundColor:'rgba(3,105,161,0.7)',borderRadius:5}]},
+    options:optT, plugins:[barValueLabels]
   });
 }
 
 function renderDayProg(){
   const w=document.getElementById('dayProg');
-  let h='<div style="display:flex;flex-direction:column;gap:11px">';
+  const total=DB.students.length;
+  const RAINBOW=['#FF6B6B','#FF922B','#FCC419','#51CF66','#00C9A7'];
+  const cnt=[], doneArr=[];
+  for(let d=1;d<=5;d++){ const dp=DB.protocols.filter(p=>p.day===d).length; cnt[d]=dp; doneArr[d]=(total>0&&dp===total); }
+  let current=0; for(let d=1;d<=5;d++){ if(!doneArr[d]){ current=d; break; } }
+  const doneCount=doneArr.filter(Boolean).length;
+  let strip='<div style="display:flex;gap:5px;margin-bottom:18px">';
+  for(let d=1;d<=5;d++){ const c=RAINBOW[d-1]; strip+=`<div style="flex:1;height:12px;border-radius:6px;background:${doneArr[d]?c:c+'2e'}"></div>`; }
+  strip+='</div>';
+  const head=`<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px"><span style="font-weight:700">🌈 Райдуга вашої групи</span><span style="font-size:0.82rem;color:var(--muted)">${doneCount} з 5 днів пройдено</span></div>`;
+  let cards='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">';
   for(let d=1;d<=5;d++){
-    const dp=DB.protocols.filter(p=>p.day===d);
-    const pct=Math.round((dp.length/Math.max(DB.students.length,1))*100);
-    const done=dp.length===DB.students.length&&DB.students.length>0;
-    h+=`<div><div class="fb mb-16" style="margin-bottom:5px"><span class="fw7">День ${d}</span><span class="tm">${dp.length}/${DB.students.length} учнів ${done?'✅':''}</span></div>
-    <div class="pbar"><div class="pbfill" style="width:${pct}%;background:${done?'var(--ok)':'var(--t)'}"></div></div></div>`;
+    const name=DAY_NAMES[d];
+    let bg,bd,emoji,titleColor,sub,countLine;
+    if(doneArr[d]){
+      bg='var(--green-l)'; bd='0.5px solid #bfe6cb'; emoji='✅'; titleColor='var(--green-d)';
+      sub=name||('День '+d); countLine=`${cnt[d]}/${total} діток`;
+    } else if(d===current){
+      bg='#e6faf5'; bd='2px solid #00C9A7'; emoji='🚀'; titleColor='var(--purple)';
+      sub=name||'Зараз тут'; countLine=`${cnt[d]}/${total} — поїхали!`;
+    } else {
+      bg='#f4f4f7'; bd='0.5px solid #e5e5ee'; emoji='🔒'; titleColor='var(--muted)';
+      sub=name||'Ще попереду'; countLine='скоро відкриється';
+    }
+    cards+=`<div style="background:${bg};border:${bd};border-radius:12px;padding:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px"><span style="font-size:1.1rem">${emoji}</span><span style="font-weight:700;font-size:0.9rem;color:${titleColor}">День ${d}</span></div>
+      <div style="font-size:0.85rem;color:var(--text);margin-bottom:3px">${sub}</div>
+      <div style="font-size:0.78rem;color:var(--muted)">${countLine}</div>
+    </div>`;
   }
-  h+='</div>'; w.innerHTML=h;
+  cards+='</div>';
+  w.innerHTML=head+strip+cards;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1415,18 +1478,22 @@ function renderGrpAnal(day){
   });
 
   // T skills ranked
-  const tSkData=DB.tSkills.map((sk,i)=>({name:sk.name.substring(0,25),code:sk.code,avg:grpSkillAvgT(i,day)})).sort((a,b)=>b.avg-a.avg);
-  const mSkData=DB.mSkills.map((sk,i)=>({name:sk.name.substring(0,25),code:sk.code,avg:grpSkillAvgM(i,day)})).sort((a,b)=>b.avg-a.avg);
-
+  const tSkData=DB.tSkills.map((sk,i)=>({name:sk.name,code:'Т'+(i+1),avg:grpSkillAvgT(i,day)})).sort((a,b)=>b.avg-a.avg);
+  const mSkData=DB.mSkills.map((sk,i)=>({name:sk.name,code:'М'+(i+1),avg:grpSkillAvgM(i,day)})).sort((a,b)=>b.avg-a.avg);
+  const _gT=grpAvgT(day), _gM=grpAvgM(day);
+  const tOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>tSkData[items[0].dataIndex].name,label:ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2)}}}};
+  tOpt.$starBelow=tSkData.map(x=>x.avg>0 && x.avg<_gT);
+  const mOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>mSkData[items[0].dataIndex].name,label:ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2)}}}};
+  mOpt.$starBelow=mSkData.map(x=>x.avg>0 && x.avg<_gM);
   CI['gTChart']=new Chart(document.getElementById('gTChart'),{
     type:'bar',
-    data:{labels:tSkData.map(x=>`${x.code}`),datasets:[{label:'Сер. бал',data:tSkData.map(x=>x.avg),backgroundColor:tSkData.map(x=>x.avg<grpAvgT(day)?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
-    options:{...barOpts(3),plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const sk=tSkData[ctx.dataIndex];return `${sk.name}: ${ctx.parsed.y.toFixed(2)}`;}}}}},
+    data:{labels:tSkData.map(x=>x.code),datasets:[{label:'Сер. бал',data:tSkData.map(x=>x.avg),backgroundColor:tSkData.map(x=>x.avg<_gT?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
+    options:tOpt, plugins:[barValueLabels]
   });
   CI['gMChart']=new Chart(document.getElementById('gMChart'),{
     type:'bar',
-    data:{labels:mSkData.map(x=>`${x.code}`),datasets:[{label:'Сер. бал',data:mSkData.map(x=>x.avg),backgroundColor:mSkData.map(x=>x.avg<grpAvgM(day)?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
-    options:{...barOpts(3),plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const sk=mSkData[ctx.dataIndex];return `${sk.name}: ${ctx.parsed.y.toFixed(2)}`;}}}}},
+    data:{labels:mSkData.map(x=>x.code),datasets:[{label:'Сер. бал',data:mSkData.map(x=>x.avg),backgroundColor:mSkData.map(x=>x.avg<_gM?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
+    options:mOpt, plugins:[barValueLabels]
   });
 }
 
@@ -2364,9 +2431,9 @@ function showInlineLogin(){
   overlay.innerHTML = `
     <div style="background:#fff;border-radius:20px;padding:40px;width:380px;max-width:92vw;box-shadow:0 30px 80px rgba(0,0,0,0.3)">
       <div style="text-align:center;margin-bottom:24px">
-        <div style="font-size:2.5rem">🎯</div>
+        <div style="width:54px;height:54px;background:#00C9A7;border-radius:13px;display:inline-flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="#0F0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h2 style="font-size:1.3rem;font-weight:900;color:#7B2D8B;margin:8px 0 4px">VECTOR</h2>
-        <p style="font-size:0.82rem;color:#64748b;margin:0">Starting the Rainbows · Протокол навичок</p>
+        <p style="font-size:0.82rem;color:#64748b;margin:0">Starting the Rainbows · модуль діагностики</p>
       </div>
       <div id="vErrorMsg" style="display:none;background:#fef2f2;border:1px solid #fca5a5;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px"></div>
       <div style="margin-bottom:12px">
