@@ -1503,30 +1503,38 @@ function renderStuAnal(){
   const ps=getStuProtos(sid).filter(p=>!p.absent);
   const mA=DB.mSkills.map((_,i)=>ps.length?avg(ps.map(p=>p.mScores[i]).filter(v=>v>0)):0);
   const tA=DB.tSkills.map((_,i)=>ps.length?avg(ps.map(p=>p.tScores[i]).filter(v=>v>0)):0);
-  const gMAvg=grpAvgM(), gTAvg=grpAvgT();
+  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i));
+  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i));
+
+  // Графіки «По учню»: ранжування за спаданням, канонічні коди М#/Т#, цифри над стовпцями,
+  // тултіп = назва навички, ⭐ під стовпцями нижче середнього ПО ГРУПІ (по цій навичці)
+  const mSk=DB.mSkills.map((sk,i)=>({name:sk.name,code:'М'+(i+1),val:mA[i],gAvg:gMSkAvg[i]})).sort((a,b)=>b.val-a.val);
+  const tSk=DB.tSkills.map((sk,i)=>({name:sk.name,code:'Т'+(i+1),val:tA[i],gAvg:gTSkAvg[i]})).sort((a,b)=>b.val-a.val);
+  const mOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>mSk[items[0].dataIndex].name,label:ctx=>'Бал учня: '+ctx.parsed.y.toFixed(2)}}}};
+  mOpt.$starBelow=mSk.map(x=>x.val>0 && x.val<x.gAvg);
+  const tOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>tSk[items[0].dataIndex].name,label:ctx=>'Бал учня: '+ctx.parsed.y.toFixed(2)}}}};
+  tOpt.$starBelow=tSk.map(x=>x.val>0 && x.val<x.gAvg);
 
   CI['sMChart']=new Chart(document.getElementById('sMChart'),{
     type:'bar',
-    data:{labels:DB.mSkills.map((s,i)=>`М${i+1}`),datasets:[{label:'Бал',data:mA,backgroundColor:mA.map(v=>v<gMAvg?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
-    options:barOpts(3)
+    data:{labels:mSk.map(x=>x.code),datasets:[{label:'Бал',data:mSk.map(x=>x.val),backgroundColor:mSk.map(x=>x.val>0&&x.val<x.gAvg?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
+    options:mOpt, plugins:[barValueLabels]
   });
   CI['sTChart']=new Chart(document.getElementById('sTChart'),{
     type:'bar',
-    data:{labels:DB.tSkills.map((s,i)=>`Т${i+1}`),datasets:[{label:'Бал',data:tA,backgroundColor:tA.map(v=>v<gTAvg?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
-    options:barOpts(3)
+    data:{labels:tSk.map(x=>x.code),datasets:[{label:'Бал',data:tSk.map(x=>x.val),backgroundColor:tSk.map(x=>x.val>0&&x.val<x.gAvg?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
+    options:tOpt, plugins:[barValueLabels]
   });
 
-  // Detail table
-  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i));
-  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i));
+  // Детальні бали по навичках — колонка Код = канонічний номер навички (М#/Т#), не номер вправи дня
   let h=`<table><thead><tr><th>Тип</th><th>Код</th><th>Навичка</th><th>Бал учня</th><th>Сер. по групі</th><th>Маркер</th></tr></thead><tbody>`;
   DB.mSkills.forEach((sk,i)=>{
     const below=mA[i]>0&&mA[i]<gMSkAvg[i];
-    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bM">М</span></td><td>${sk.code}</td><td>${sk.name}</td><td>${mA[i]>0?mA[i].toFixed(2):'—'}</td><td>${gMSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
+    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bM">М</span></td><td>М${i+1}</td><td>${sk.name}</td><td>${mA[i]>0?mA[i].toFixed(2):'—'}</td><td>${gMSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
   });
   DB.tSkills.forEach((sk,i)=>{
     const below=tA[i]>0&&tA[i]<gTSkAvg[i];
-    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bT">Т</span></td><td>${sk.code}</td><td>${sk.name}</td><td>${tA[i]>0?tA[i].toFixed(2):'—'}</td><td>${gTSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
+    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bT">Т</span></td><td>Т${i+1}</td><td>${sk.name}</td><td>${tA[i]>0?tA[i].toFixed(2):'—'}</td><td>${gTSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
   });
   h+='</tbody></table>';
   document.getElementById('stuDetailTable').innerHTML=h;
