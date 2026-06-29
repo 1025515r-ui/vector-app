@@ -397,18 +397,11 @@ body { margin: 0; }
       <div class="page" id="page-analytics">
         <div class="section-header">
           <div><div class="section-title">Аналітика</div></div>
-          <div class="flex gap-10" style="align-items:center">
-            <label class="fl" style="margin:0">День:</label>
-            <select class="fc" id="analDay" style="width:130px" onchange="renderAnalytics()">
-              <option value="all">Всі дні</option>
-              <option value="1">День 1</option><option value="2">День 2</option>
-              <option value="3">День 3</option><option value="4">День 4</option><option value="5">День 5</option>
-            </select>
-          </div>
         </div>
 
         <!-- GROUP -->
         <div id="aGrp">
+          <div class="flex gap-10 mb-16" style="align-items:center"><label class="fl" style="margin:0">День:</label><select class="fc" id="grpDay" style="width:150px" onchange="renderGrpAnal()"></select></div>
           <div class="alert al-i mb-16">Гістограма заг. варіант 1: стовпчики М та Т, відсортовані за рейтингом дітей. Варіант 2 — за списком відвідування.</div>
           <div class="tabs" style="margin-bottom:12px">
             <button class="tab active btn-sm" onclick="swGTab('v1')">Варіант 1 (ранжування)</button>
@@ -437,7 +430,10 @@ body { margin: 0; }
         <!-- STUDENT -->
         <div id="aGrp_stu" class="hidden">
           <div class="card">
-            <div class="fg"><label class="fl">Учень</label><select class="fc" id="analStuSel" style="max-width:280px" onchange="renderStuAnal()"></select></div>
+            <div class="flex gap-10" style="flex-wrap:wrap;align-items:flex-end;gap:16px">
+              <div class="fg"><label class="fl">Учень</label><select class="fc" id="analStuSel" style="max-width:280px" onchange="renderStuAnal()"></select></div>
+              <div class="fg"><label class="fl">День</label><select class="fc" id="stuDay" style="width:150px" onchange="renderStuAnal()"></select></div>
+            </div>
           </div>
           <div class="g2">
             <div class="card"><div class="card-title"><span class="badge bM">М</span> М'які навички учня</div><div class="ch"><canvas id="sMChart"></canvas></div></div>
@@ -1075,6 +1071,21 @@ function popSelects(){
     const el=document.getElementById(id); if(!el) return;
     el.innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
   });
+  popAnalDays();
+}
+function popAnalDays(){
+  const days=[...new Set(DB.protocols.map(p=>p.day))].sort((a,b)=>a-b);
+  const last=lastConductedDay();
+  const gd=document.getElementById('grpDay');
+  if(gd){
+    gd.innerHTML='<option value="all">Всі дні</option>'+days.map(d=>`<option value="${d}">День ${d}</option>`).join('');
+    gd.value=last?String(last):'all';
+  }
+  const sd=document.getElementById('stuDay');
+  if(sd){
+    sd.innerHTML=days.map(d=>`<option value="${d}">День ${d}</option>`).join('');
+    sd.value=last?String(last):(days.length?String(days[0]):'');
+  }
 }
 function popRepSelects(){
   document.getElementById('repStu').innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
@@ -1437,13 +1448,13 @@ function swGTab(t){
 }
 
 function renderAnalytics(){
-  const day=document.getElementById('analDay').value;
-  if(aTab==='grp') renderGrpAnal(day);
+  if(aTab==='grp') renderGrpAnal();
   if(aTab==='stu') renderStuAnal();
   if(aTab==='dyn') renderDyn();
 }
 
-function renderGrpAnal(day){
+function renderGrpAnal(){
+  const day=document.getElementById('grpDay')?document.getElementById('grpDay').value:'all';
   dc('gV1Chart'); dc('gV2Chart'); dc('gTChart'); dc('gMChart');
 
   const activeStu=DB.students.filter(s=>!getStuProtos(s.id,day).find(p=>p.absent)||getStuProtos(s.id,day).filter(p=>!p.absent).length>0);
@@ -1499,12 +1510,14 @@ function renderGrpAnal(day){
 
 function renderStuAnal(){
   const sid=document.getElementById('analStuSel').value; if(!sid) return;
+  const _sd=document.getElementById('stuDay');
+  const day=(_sd&&_sd.value)?_sd.value:String(lastConductedDay());
   dc('sMChart'); dc('sTChart');
-  const ps=getStuProtos(sid).filter(p=>!p.absent);
+  const ps=getStuProtos(sid,day).filter(p=>!p.absent);
   const mA=DB.mSkills.map((_,i)=>ps.length?avg(ps.map(p=>p.mScores[i]).filter(v=>v>0)):0);
   const tA=DB.tSkills.map((_,i)=>ps.length?avg(ps.map(p=>p.tScores[i]).filter(v=>v>0)):0);
-  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i));
-  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i));
+  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i,day));
+  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i,day));
 
   // Графіки «По учню»: ранжування за спаданням, канонічні коди М#/Т#, цифри над стовпцями,
   // тултіп = назва навички, ⭐ під стовпцями нижче середнього ПО ГРУПІ (по цій навичці)
