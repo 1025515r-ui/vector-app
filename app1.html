@@ -339,6 +339,7 @@ body { margin: 0; }
           <div class="stat s-purple"><div class="stat-lbl">Сер. М-навички</div><div class="stat-val cm" id="stM">—</div><div class="stat-sub">балів (макс. 3)</div></div>
           <div class="stat s-yellow"><div class="stat-lbl">Сер. Т-навички</div><div class="stat-val ct" id="stT">—</div><div class="stat-sub">балів (макс. 3)</div></div>
         </div>
+        <div id="dashDayLabel" style="margin:-6px 0 14px;color:var(--muted);font-size:13px;font-weight:600;"></div>
         <div class="g2">
           <div class="card"><div class="card-title"><span class="badge bM">М</span> М'які навички — середнє по групі</div><div class="ch"><canvas id="dMChart"></canvas></div></div>
           <div class="card"><div class="card-title"><span class="badge bT">Т</span> Тверді навички — середнє по групі</div><div class="ch"><canvas id="dTChart"></canvas></div></div>
@@ -1145,20 +1146,26 @@ function barOpts(maxY=3, showLegend=false){
 // DASHBOARD
 // ═══════════════════════════════════════════════════════
 let dMC, dTC;
+const DAY_NAMES={1:'Будуємо місто',2:'Місто майстрів'};
+function dayLabel(n){ if(!n) return ''; const nm=DAY_NAMES[n]; return nm?('День_'+n+'_'+nm):('День_'+n); }
 function renderDash(){
-  const days=new Set(DB.protocols.map(p=>p.day)).size;
+  const dayNums=DB.protocols.map(p=>p.day);
+  const days=new Set(dayNums).size;
+  const lastDay=dayNums.length?Math.max(...dayNums):0;
   document.getElementById('stU').textContent=DB.students.length;
   document.getElementById('stD').textContent=days;
-  const gM=grpAvgM(); const gT=grpAvgT();
+  const gM=grpAvgM(lastDay); const gT=grpAvgT(lastDay);
   document.getElementById('stM').textContent=gM>0?gM.toFixed(2):'—';
   document.getElementById('stT').textContent=gT>0?gT.toFixed(2):'—';
+  const dl=document.getElementById('dashDayLabel'); if(dl) dl.textContent=lastDay?('Показники за: '+dayLabel(lastDay)):'';
   renderDashCharts(); renderDayProg();
 }
 
 function renderDashCharts(){
   if(dMC) dMC.destroy(); if(dTC) dTC.destroy();
-  const mData=DB.mSkills.map((_,i)=>grpSkillAvgM(i));
-  const tData=DB.tSkills.map((_,i)=>grpSkillAvgT(i));
+  const _dn=DB.protocols.map(p=>p.day); const _ld=_dn.length?Math.max(..._dn):'all';
+  const mData=DB.mSkills.map((_,i)=>grpSkillAvgM(i,_ld));
+  const tData=DB.tSkills.map((_,i)=>grpSkillAvgT(i,_ld));
   dMC=new Chart(document.getElementById('dMChart'),{
     type:'bar',
     data:{labels:DB.mSkills.map((s,i)=>`М${i+1}`),datasets:[{label:'Сер. бал',data:mData,backgroundColor:'rgba(124,58,237,0.7)',borderRadius:5}]},
