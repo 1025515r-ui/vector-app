@@ -502,7 +502,7 @@ body { margin: 0; }
             <!-- BELOW AVG -->
       <div class="page" id="page-below">
         <div class="section-header"><div class="section-title">⭐ Значення нижче середнього</div></div>
-        <div class="alert al-w mb-16">⭐ = значення нижче середнього по групі (бо немає середнього по дитині: ми рахуємо середнє тільки по 1 навичці кожного разу)</div>
+        <div class="alert al-w mb-16">⭐ = значення нижче середнього по групі</div>
         <div class="mb-16" style="font-size:0.82rem;color:var(--muted)">Наведи мишкою на зірочку — побачиш значення.</div>
         <div class="card">
           <div class="flex gap-10 mb-16" style="flex-wrap:wrap;align-items:center">
@@ -513,7 +513,7 @@ body { margin: 0; }
             <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb4" onchange="renderBelow()"> 4</label>
             <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb5" onchange="renderBelow()"> 5</label>
             <select class="fc" id="belowStu" style="max-width:200px" onchange="renderBelow()"></select>
-            <select class="fc" id="belowType" style="width:130px" onchange="popBelowSkills();renderBelow()">
+            <select class="fc" id="belowType" style="width:130px" onchange="renderBelow()">
               <option value="all">М + Т навички</option>
               <option value="M">М'які (М)</option>
               <option value="T">Тверді (Т)</option>
@@ -1102,10 +1102,26 @@ function popBelow(){
 function popBelowSkills(){
   const sk=document.getElementById('belowSkill'); if(!sk) return;
   const type=document.getElementById('belowType')?document.getElementById('belowType').value:'all';
+  const stuSel=document.getElementById('belowStu')?document.getElementById('belowStu').value:'__all__';
+  const runM=(type==='all'||type==='M'), runT=(type==='all'||type==='T');
+  const prev=sk.value;
+  let mIdx=DB.mSkills.map((_,i)=>i), tIdx=DB.tSkills.map((_,i)=>i);
+  if(stuSel!=='__all__'){
+    const selDays=[1,2,3,4,5].filter(d=>{const cb=document.getElementById('bCb'+d);return cb&&cb.checked;});
+    const gM={}, gT={};
+    selDays.forEach(d=>{gM[d]=DB.mSkills.map((_,i)=>grpSkillAvgM(i,String(d)));gT[d]=DB.tSkills.map((_,i)=>grpSkillAvgT(i,String(d)));});
+    const dayPs={};
+    selDays.forEach(d=>{dayPs[d]=getStuProtos(stuSel,String(d)).filter(p=>!p.absent);});
+    const below=(kind,i)=>selDays.some(d=>{const arr=dayPs[d].map(p=>(kind==='M'?p.mScores:p.tScores)[i]).filter(v=>v>0);const v=arr.length?avg(arr):0;return v>0&&v<(kind==='M'?gM:gT)[d][i];});
+    mIdx=mIdx.filter(i=>below('M',i));
+    tIdx=tIdx.filter(i=>below('T',i));
+  }
   let o='<option value="__all__">— Усі навички —</option>';
-  if(type==='all'||type==='M') DB.mSkills.forEach((s,i)=>o+=`<option value="М${i+1}">М${i+1} — ${s.name}</option>`);
-  if(type==='all'||type==='T') DB.tSkills.forEach((s,i)=>o+=`<option value="Т${i+1}">Т${i+1} — ${s.name}</option>`);
-  sk.innerHTML=o; sk.value='__all__';
+  if(runM) mIdx.forEach(i=>o+=`<option value="М${i+1}">М${i+1} — ${DB.mSkills[i].name}</option>`);
+  if(runT) tIdx.forEach(i=>o+=`<option value="Т${i+1}">Т${i+1} — ${DB.tSkills[i].name}</option>`);
+  sk.innerHTML=o;
+  const valid=(prev==='__all__')||(runM&&mIdx.map(i=>'М'+(i+1)).includes(prev))||(runT&&tIdx.map(i=>'Т'+(i+1)).includes(prev));
+  sk.value=valid?prev:'__all__';
 }
 function popRepSelects(){
   document.getElementById('repStu').innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
@@ -1739,6 +1755,7 @@ function rankRow(s,i,score,color){
 // BELOW AVERAGE TABLE
 // ═══════════════════════════════════════════════════════
 function renderBelow(){
+  popBelowSkills();
   const allDays=[1,2,3,4,5];
   const selDays=allDays.filter(d=>{const cb=document.getElementById('bCb'+d);return cb&&cb.checked;});
   const stuSel=document.getElementById('belowStu')?document.getElementById('belowStu').value:'__all__';
