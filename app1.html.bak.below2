@@ -282,66 +282,6 @@ tr:last-child td{border-bottom:none}
   .sidebar{display:none}
   .g2,.g3,.g4{grid-template-columns:1fr}
   .proto-grid{grid-template-columns:1fr}
-
-/* ═══ VECTOR_PROGS_V1 · Програма для батьків ═══ */
-.pg-cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.pg-btn{background:linear-gradient(135deg,#00C9A7,#00a98d);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 6px 18px rgba(0,201,167,.28)}
-.pg-btn:hover{filter:brightness(1.05)}
-.pg-q{font-size:.78rem;font-weight:800;color:#6B2D8B;letter-spacing:.02em;margin:14px 0 6px}
-.pg-seg{display:flex;gap:8px}
-.pg-seg-btn{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1.5px solid #ECECF1;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;font-size:.9rem;font-weight:700;color:#2A2A33;text-align:left}
-.pg-seg-btn small{font-weight:400;font-size:.72rem;color:#6B7280}
-.pg-seg-btn.active{border-color:#00C9A7;background:#EAF8F4;box-shadow:inset 0 0 0 1px #00C9A7}
-.pg-tg{display:flex;align-items:center;gap:10px;background:#F6EEFB;border-radius:10px;padding:9px 12px;cursor:pointer;font-size:.85rem;user-select:none}
-.pg-sw{width:38px;height:21px;border-radius:20px;background:#D6D6E0;position:relative;transition:.2s;flex-shrink:0}
-.pg-sw::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;transition:.2s}
-.pg-tg.on .pg-sw{background:#00C9A7}
-.pg-tg.on .pg-sw::after{transform:translateX(17px)}
-.pg-auto{background:#F6EEFB;border-radius:8px;padding:8px 11px;font-size:.8rem;color:#6B2D8B;margin:12px 0 4px}
-.pg-tag{font-size:.68rem;font-weight:700;background:#EAF8F4;color:#00a98d;border-radius:20px;padding:2px 8px;margin-left:6px}
-.pg-prev{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.pg-chip{background:#F7F6FB;border:1px solid #ECECF1;border-radius:8px;padding:7px 10px;font-size:.82rem;color:#2A2A33}
-.pg-chip b{color:#6B2D8B}
-/* документ */
-.pg-doc{background:#fff;border-radius:14px;padding:30px 32px;box-shadow:0 8px 30px rgba(40,20,60,.10);max-width:900px;margin:0 auto}
-.pg-rainbow{height:6px;border-radius:6px;background:linear-gradient(90deg,#E5484D,#F5B301,#00C9A7,#3FA9F5,#9B5BC0);margin-bottom:16px}
-.pg-h1{font-size:1.4rem;font-weight:900;color:#6B2D8B;margin:0 0 6px}
-.pg-meta{font-size:.82rem;color:#6B7280;margin-bottom:16px}
-.pg-guide{background:#F6EEFB;border-left:4px solid #9B5BC0;border-radius:10px;padding:12px 14px;font-size:.87rem;margin-bottom:14px}
-.pg-sec{font-size:.8rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#6B2D8B;margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid #E9D8F4}
-.pg-skill{border:1px solid #ECECF1;border-radius:12px;padding:12px 14px;margin-bottom:10px}
-.pg-skill h4{margin:0 0 6px;font-size:.95rem;color:#2A2A33}
-.pg-about{white-space:pre-line;font-size:.85rem;line-height:1.5;color:#2A2A33;margin:0}
-.pg-legend{background:#fff;border:1px solid #ECECF1;border-radius:12px;padding:14px 16px;margin:10px 0 6px;font-size:.86rem}
-.pg-lvl{border-radius:8px;padding:7px 11px;margin:6px 0;font-size:.84rem}
-.pg-lvl-red{background:#FDECEC;color:#B3282D;border-left:4px solid #E5484D}
-.pg-lvl-yellow{background:#FEF6E0;color:#7a5a00;border-left:4px solid #F5B301}
-.pg-lvl-green{background:#E7F7EF;color:#0d6b46;border-left:4px solid #1F9D6B}
-.pg-marker{background:#F6EEFB;border-radius:8px;padding:8px 11px;margin-top:8px;font-size:.82rem;color:#6B2D8B}
-.pg-note-sub{font-size:.78rem;color:#6B7280;margin-top:8px}
-.pg-cal{width:100%;border-collapse:collapse;font-size:.82rem}
-.pg-cal th{background:#6B2D8B;color:#fff;padding:6px 8px;text-align:left;font-size:.76rem}
-.pg-cal th.thd{width:96px}
-.pg-cal td{border:1px solid #ECECF1;padding:7px 9px;vertical-align:top}
-.pg-band{font-weight:800;font-size:.82rem;color:#fff;padding:6px 10px !important}
-.pg-cal .pg-d{width:96px;font-weight:700;color:#2A2A33;white-space:nowrap}
-.pg-cal tr.we{background:#F5FCFA}
-.pg-cal tr.we .pg-d{color:#00a98d}
-.pg-r{color:#6B7280;font-size:.78rem;margin-bottom:5px}
-.pg-e{margin:5px 0;border-left:3px solid #E9D8F4;padding-left:8px}
-.pg-e.red{border-left-color:#E5484D}
-.pg-e.yellow{border-left-color:#F5B301}
-.pg-e.green{border-left-color:#1F9D6B}
-.pg-desc{font-size:.78rem;color:#2A2A33;margin-top:1px}
-.pg-cr{color:#6B2D8B;font-weight:600;margin-top:5px;background:#F6EEFB;border-radius:6px;padding:5px 8px}
-.pg-ph{font-size:.66rem;color:#fff;background:#00a98d;border-radius:20px;padding:1px 8px;margin-left:4px;white-space:nowrap;font-weight:700;vertical-align:middle}
-.pg-ph.red{background:#E5484D}
-.pg-ph.yellow{background:#F5B301;color:#4a3600}
-.pg-ph.green{background:#1F9D6B}
-.pg-note-out{background:#FFFDF2;border:1px solid #F2E6B8;border-radius:10px;padding:12px 14px;font-size:.88rem;margin-top:12px}
-.pg-sign{margin-top:18px;padding-top:12px;border-top:1px solid #ECECF1;font-size:.75rem;color:#6B7280;text-align:center}
-.pg-row{display:flex;justify-content:space-between;align-items:center;border:1px solid #ECECF1;border-radius:10px;padding:12px 14px;margin-bottom:8px}
-@media print{.sidebar,.topbar,.pg-noprint{display:none !important}.pg-doc{box-shadow:none;max-width:100%}}
 }
 </style>
 <style>
@@ -377,7 +317,6 @@ body { margin: 0; }
       <div class="sidebar-item" onclick="gp('stu')" data-page="stu"><span class="si-icon">🙋</span> По учню</div>
       <div class="sidebar-item" onclick="gp('dyn')" data-page="dyn"><span class="si-icon">📈</span> Динаміка</div>
       <div class="sidebar-item" onclick="gp('below')" data-page="below"><span class="si-icon">⭐</span> Нижче середнього</div>
-      <div class="sidebar-item" onclick="gp('progs')" data-page="progs"><span class="si-icon">📄</span> Програми</div>
       <div class="sidebar-item" onclick="gp('reports')" data-page="reports"><span class="si-icon">📄</span> Звіти</div>
       <div class="sidebar-divider"></div>
       <div class="sidebar-section">Робота з даними</div>
@@ -494,7 +433,6 @@ body { margin: 0; }
             <div class="flex gap-10" style="flex-wrap:wrap;align-items:flex-end;gap:16px">
               <div class="fg"><label class="fl">Учень</label><select class="fc" id="analStuSel" style="max-width:280px" onchange="renderStuAnal()"></select></div>
               <div class="fg"><label class="fl">День</label><select class="fc" id="stuDay" style="width:150px" onchange="renderStuAnal()"></select></div>
-              <div class="pg-cta" style="margin-top:0"><button class="pg-btn" onclick="pgOpen('stu')">✨ Створити програму для батьків</button></div>
             </div>
           </div>
           <div class="g2">
@@ -564,7 +502,7 @@ body { margin: 0; }
             <!-- BELOW AVG -->
       <div class="page" id="page-below">
         <div class="section-header"><div class="section-title">⭐ Значення нижче середнього</div></div>
-        <div class="alert al-w mb-16">⭐ = значення нижче середнього по групі</div>
+        <div class="alert al-w mb-16">⭐ = значення нижче середнього по групі (бо немає середнього по дитині: ми рахуємо середнє тільки по 1 навичці кожного разу)</div>
         <div class="mb-16" style="font-size:0.82rem;color:var(--muted)">Наведи мишкою на зірочку — побачиш значення.</div>
         <div class="card">
           <div class="flex gap-10 mb-16" style="flex-wrap:wrap;align-items:center">
@@ -575,7 +513,7 @@ body { margin: 0; }
             <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb4" onchange="renderBelow()"> 4</label>
             <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb5" onchange="renderBelow()"> 5</label>
             <select class="fc" id="belowStu" style="max-width:200px" onchange="renderBelow()"></select>
-            <select class="fc" id="belowType" style="width:130px" onchange="renderBelow()">
+            <select class="fc" id="belowType" style="width:130px" onchange="popBelowSkills();renderBelow()">
               <option value="all">М + Т навички</option>
               <option value="M">М'які (М)</option>
               <option value="T">Тверді (Т)</option>
@@ -583,24 +521,6 @@ body { margin: 0; }
             <select class="fc" id="belowSkill" style="max-width:240px" onchange="renderBelow()"></select>
           </div>
           <div class="tw" id="belowTable"></div>
-          <div class="pg-cta"><button class="pg-btn" onclick="pgOpen('below')">✨ Створити програму для батьків</button></div>
-        </div>
-      </div>
-
-      
-      <!-- PROGRAMS (VECTOR_PROGS_V1) -->
-      <div class="page" id="page-progs">
-        <div class="section-header"><div class="section-title">📄 Програми для батьків</div></div>
-        <div id="pgResultWrap" class="hidden">
-          <div class="pg-cta pg-noprint">
-            <button class="btn btn-out" onclick="pgBack()">← Назад до списку</button>
-            <button class="btn btn-p" onclick="window.print()">🖨 Друк / PDF</button>
-          </div>
-          <div id="pgDoc" class="pg-doc"></div>
-        </div>
-        <div id="pgListWrap">
-          <div class="alert al-i mb-16">Програми створюються з аналітики: «По учню» або «Нижче середнього». Збережені програми зберігаються локально у цьому браузері.</div>
-          <div class="card"><div id="pgList"></div></div>
         </div>
       </div>
 
@@ -937,37 +857,6 @@ body { margin: 0; }
 
 
 
-
-<!-- PROGRAM MODAL (VECTOR_PROGS_V1) -->
-<div class="overlay" id="modProg">
-  <div class="modal" style="max-width:560px">
-    <div class="modal-title" id="pgTitle">✨ Програма для батьків</div>
-    <div style="font-size:.85rem;color:#6B7280;margin-top:-12px;margin-bottom:8px" id="pgSub"></div>
-
-    <div class="pg-q">1 · Рівень програми</div>
-    <div class="pg-seg">
-      <button type="button" class="pg-seg-btn active" data-d="lite" onclick="pgDepth('lite',this)">🌱 Лайт<small>3 навички · головне на вихідні</small></button>
-      <button type="button" class="pg-seg-btn" data-d="deep" onclick="pgDepth('deep',this)">🌳 Поглиблена<small>5 навичок · щодня + творчий задум</small></button>
-    </div>
-
-    <div class="pg-q">2 · Показувати бали дитини у файлі</div>
-    <div class="pg-tg" id="pgTgNums" onclick="pgTog()"><span class="pg-sw"></span> Показувати бали дитини</div>
-
-    <div class="pg-auto">✔ Автоматично включено: блок «дитина-провідник» і розклад на 6 тижнів.</div>
-
-    <div class="pg-q">НАВИЧКИ У ПРОГРАМІ <span class="pg-tag">авто · нижче середнього</span></div>
-    <div id="pgPrev" class="pg-prev"></div>
-
-    <div class="fg" style="margin-top:14px"><label class="fl">Нотатка для батьків (необов'язково)</label>
-      <textarea class="fc" id="pgNotes" rows="3" maxlength="500" placeholder="Коротка порада від педагога…"></textarea></div>
-
-    <div class="modal-act">
-      <button class="btn btn-out" onclick="closeModal('modProg')">Скасувати</button>
-      <button class="btn btn-p" onclick="pgBuild()">Сформувати програму</button>
-    </div>
-  </div>
-</div>
-
 <!-- PARENT PAGE -->
 </div>
 
@@ -1172,7 +1061,6 @@ function gp(p){
   if(p==='proto') renderProtoPage();
   if(p==='students') renderStuTable();
   if(p==='below') renderBelow();
-  if(p==='progs') pgRenderList();
   if(p==='reports') popRepSelects();
   if(p==='admin'){renderAdminStu();renderAdminParams();renderRecAdmin();}
 }
@@ -1214,26 +1102,10 @@ function popBelow(){
 function popBelowSkills(){
   const sk=document.getElementById('belowSkill'); if(!sk) return;
   const type=document.getElementById('belowType')?document.getElementById('belowType').value:'all';
-  const stuSel=document.getElementById('belowStu')?document.getElementById('belowStu').value:'__all__';
-  const runM=(type==='all'||type==='M'), runT=(type==='all'||type==='T');
-  const prev=sk.value;
-  let mIdx=DB.mSkills.map((_,i)=>i), tIdx=DB.tSkills.map((_,i)=>i);
-  if(stuSel!=='__all__'){
-    const selDays=[1,2,3,4,5].filter(d=>{const cb=document.getElementById('bCb'+d);return cb&&cb.checked;});
-    const gM={}, gT={};
-    selDays.forEach(d=>{gM[d]=DB.mSkills.map((_,i)=>grpSkillAvgM(i,String(d)));gT[d]=DB.tSkills.map((_,i)=>grpSkillAvgT(i,String(d)));});
-    const dayPs={};
-    selDays.forEach(d=>{dayPs[d]=getStuProtos(stuSel,String(d)).filter(p=>!p.absent);});
-    const below=(kind,i)=>selDays.some(d=>{const arr=dayPs[d].map(p=>(kind==='M'?p.mScores:p.tScores)[i]).filter(v=>v>0);const v=arr.length?avg(arr):0;return v>0&&v<(kind==='M'?gM:gT)[d][i];});
-    mIdx=mIdx.filter(i=>below('M',i));
-    tIdx=tIdx.filter(i=>below('T',i));
-  }
   let o='<option value="__all__">— Усі навички —</option>';
-  if(runM) mIdx.forEach(i=>o+=`<option value="М${i+1}">М${i+1} — ${DB.mSkills[i].name}</option>`);
-  if(runT) tIdx.forEach(i=>o+=`<option value="Т${i+1}">Т${i+1} — ${DB.tSkills[i].name}</option>`);
-  sk.innerHTML=o;
-  const valid=(prev==='__all__')||(runM&&mIdx.map(i=>'М'+(i+1)).includes(prev))||(runT&&tIdx.map(i=>'Т'+(i+1)).includes(prev));
-  sk.value=valid?prev:'__all__';
+  if(type==='all'||type==='M') DB.mSkills.forEach((s,i)=>o+=`<option value="М${i+1}">М${i+1} — ${s.name}</option>`);
+  if(type==='all'||type==='T') DB.tSkills.forEach((s,i)=>o+=`<option value="Т${i+1}">Т${i+1} — ${s.name}</option>`);
+  sk.innerHTML=o; sk.value='__all__';
 }
 function popRepSelects(){
   document.getElementById('repStu').innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
@@ -1344,9 +1216,7 @@ const barValueLabels = {
 // DASHBOARD
 // ═══════════════════════════════════════════════════════
 let dMC, dTC;
-const DAY_NAMES={1:'Збираємося в похід',2:'Будуємо місто',3:'Місто майстрів',4:'Розумнички',5:'Рух для життя'};
-const DAY_EX={M:{1:["3","4.2","6.1","1.2","6.2","11.1","9.2","8.2","4.3","7","9.4","4.1"],2:["1","2.2","3","6.1","6.2","6.3","9.1","11.1","12.1","12.2","12.3","13"],3:["1","10.3","8.2","2.1","2.2","10.2","8.1","3.3","2.4","4","2.3","10.1"],4:["1.2","8.2","7.4","5.3","5.2","6.2","1.3","2.2","2.1","6.3","1.4","3.1"],5:["7.2","12","8.1","10.3","6.3","1.2","3.1","1.1","11","9.2","5","2.2"]},T:{1:["8.1","9.3","1.4","1.1","5.2","11.2","2","5.3","10","1.3","9.1","5.1"],2:["2.1","2.3","4","5","6.4","7","8.1","8.2","9.2","10.1","10.2","11.2"],3:["11","6.3","5.3","5.1","6.2","7","3.2","3.1","9","12","5.2","6.1"],4:["3.3","7.1","3.4","8.1","6.1","2.3","3.2","7.2","5.1","1.1","4","7.3"],5:["6.1","2.1","6.2","8.2","7.1","9.1","10.2","10.1","4","10.4","2.3","3.2"]}};
-function exNum(day,kind,i){var a=DAY_EX[kind]&&DAY_EX[kind][day];if(a&&a[i]!=null)return a[i];var sk=(kind==='M'?DB.mSkills:DB.tSkills)[i];return sk?sk.code:'';}
+const DAY_NAMES={1:'Будуємо місто',2:'Місто майстрів'};
 function dayLabel(n){ if(!n) return ''; const nm=DAY_NAMES[n]; return nm?('День_'+n+'_'+nm):('День_'+n); }
 function lastConductedDay(){ const d=DB.protocols.map(p=>p.day); return d.length?Math.max(...d):0; }
 function renderDash(){
@@ -1479,7 +1349,7 @@ function renderProtoForm(ex, sid){
   DB.mSkills.forEach((sk,i)=>{
     const v=ex?ex.mScores[i]:0;
     const mBtns = [1,2,3].map(s=>'<button class="sb'+(v===s?' s'+s:'')+'" onclick="setSc(\'m\','+i+','+s+',this)">'+s+'</button>').join('');
-    mH+=`<div class="skill-row"><span class="skill-code">${exNum(selDay,'M',i)}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${mBtns}</div></div>`;
+    mH+=`<div class="skill-row"><span class="skill-code">${sk.code}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${mBtns}</div></div>`;
   });
   mH+='</div>';
 
@@ -1487,7 +1357,7 @@ function renderProtoForm(ex, sid){
   DB.tSkills.forEach((sk,i)=>{
     const v=ex?ex.tScores[i]:0;
     const tBtns = [1,2,3].map(s=>'<button class="sb'+(v===s?' s'+s:'')+'" onclick="setSc(\'t\','+i+','+s+',this)">'+s+'</button>').join('');
-    tH+=`<div class="skill-row"><span class="skill-code">${exNum(selDay,'T',i)}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${tBtns}</div></div>`;
+    tH+=`<div class="skill-row"><span class="skill-code">${sk.code}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${tBtns}</div></div>`;
   });
   tH+='</div>';
 
@@ -1869,7 +1739,6 @@ function rankRow(s,i,score,color){
 // BELOW AVERAGE TABLE
 // ═══════════════════════════════════════════════════════
 function renderBelow(){
-  popBelowSkills();
   const allDays=[1,2,3,4,5];
   const selDays=allDays.filter(d=>{const cb=document.getElementById('bCb'+d);return cb&&cb.checked;});
   const stuSel=document.getElementById('belowStu')?document.getElementById('belowStu').value:'__all__';
@@ -2352,8 +2221,8 @@ function getRoleLabel(){
 // ROLE PERMISSIONS
 // ═══════════════════════════════════════════════════════
 const ROLE_PERMS = {
-  admin:         {rank:1, grp:1, stu:1, dyn:1, dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:1, progs:1},
-  teacher:       {rank:1, grp:1, stu:1, dyn:1, dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0, progs:1},
+  admin:         {rank:1, grp:1, stu:1, dyn:1, dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:1},
+  teacher:       {rank:1, grp:1, stu:1, dyn:1, dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
 };
 
 function getApiRole(){
@@ -2720,281 +2589,4 @@ window.logout = function(){
   _origLogout();
 };
 </script>
-
-<script>
-/* ═══════════════════════════════════════════════
-   VECTOR_PROGS_V1 · Програма для батьків (T9)
-   Логіка згідно з архівом «Виробництво Програм».
-   ═══════════════════════════════════════════════ */
-var PG_BANK = null;              // банк рекомендацій (batьки)
-var pgDepthVal = 'lite';
-var pgShowNums = false;
-var pgSrc = 'below';             // звідки відкрито
-var pgStuId = null;
-
-const PG_DAYS = ['Понеділок','Вівторок','Середа','Четвер','П’ятниця','Субота','Неділя'];
-const PG_BANDS = ['#6B2D8B','#7E3BA0','#5B4BC4','#3E6FD0','#2E90D9','#00A98D'];
-
-async function pgLoadBank(){
-  if(PG_BANK) return PG_BANK;
-  try{
-    const r = await fetch('/data/bank.json', {cache:'force-cache'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const j = await r.json();
-    PG_BANK = j.parents || j;      // підтримка обох форматів
-    return PG_BANK;
-  }catch(e){
-    console.error('Банк не завантажено:', e);
-    alert('Не вдалося завантажити банк рекомендацій (/data/bank.json).');
-    return null;
-  }
-}
-
-/* Учень, обраний на активній сторінці */
-function pgCurrentStu(){
-  const id = (pgSrc==='stu')
-    ? (document.getElementById('analStuSel')||{}).value
-    : (document.getElementById('belowStu')||{}).value;
-  if(!id || id==='__all__') return null;
-  return DB.students.find(s=>s.id===id) || null;
-}
-
-/* Навички «нижче середнього» по дитині + бал (логіка як у popBelowSkills) */
-function pgBelowSkills(stuId){
-  const selDays = [1,2,3,4,5].filter(d=>{
-    const cb=document.getElementById('bCb'+d); return cb ? cb.checked : true;
-  });
-  const days = selDays.length ? selDays : [1,2,3,4,5];
-  const gM={}, gT={};
-  days.forEach(d=>{
-    gM[d]=DB.mSkills.map((_,i)=>grpSkillAvgM(i,String(d)));
-    gT[d]=DB.tSkills.map((_,i)=>grpSkillAvgT(i,String(d)));
-  });
-  const dayPs={};
-  days.forEach(d=>{ dayPs[d]=getStuProtos(stuId,String(d)).filter(p=>!p.absent); });
-
-  const out=[];
-  function scan(kind, list, gRef){
-    list.forEach((sk,i)=>{
-      const vals=[]; let isBelow=false;
-      days.forEach(d=>{
-        const arr=dayPs[d].map(p=>(kind==='M'?p.mScores:p.tScores)[i]).filter(v=>v>0);
-        const v=arr.length?avg(arr):0;
-        if(v>0){ vals.push(v); if(v < gRef[d][i]) isBelow=true; }
-      });
-      if(isBelow && vals.length){
-        out.push({ code:(kind==='M'?'М':'Т')+(i+1), name:sk.name, score:+(avg(vals).toFixed(2)) });
-      }
-    });
-  }
-  scan('M', DB.mSkills, gM);
-  scan('T', DB.tSkills, gT);
-  out.sort((a,b)=>a.score-b.score);     // найслабші першими
-  return out;
-}
-
-function pgSelected(){
-  const n = (pgDepthVal==='deep') ? 5 : 3;
-  return (window._pgBelow||[]).slice(0, n);
-}
-
-/* Рівень підтримки — ЗА БАЛОМ навички */
-function pgSup(score){
-  if(score < 1.5) return ['повна','red'];
-  if(score < 2.0) return ['часткова','yellow'];
-  return ['самостійна','green'];
-}
-
-/* Вправи «на крок вище» (ЗНР) + ритуал з Рівня 1 */
-function pgBankFor(code){
-  if(!PG_BANK || !PG_BANK[code]) return null;
-  return PG_BANK[code];
-}
-function pgExercises(code, score){
-  const b = pgBankFor(code); if(!b) return [];
-  // рівень дитини за балом: <1.5 → Р1, 1.5..2.4 → Р2, >=2.5 → Р3
-  const lvl = score < 1.5 ? 1 : (score < 2.5 ? 2 : 3);
-  const target = Math.min(lvl + 1, 3);   // ЗНР: завжди на крок вище
-  const acts = (b['L'+target]||{}).actions || [];
-  return acts.length ? acts : ((b.L3||{}).actions || (b.L2||{}).actions || []);
-}
-/* екранування для innerHTML (XSS) */
-function pgEsc(s){
-  return String(s==null?'':s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-function pgRitual(code){
-  const b = pgBankFor(code); if(!b) return 'щоденна увага до навички';
-  const a = ((b.L1||{}).actions||[])[0];
-  if(!a) return 'щоденна увага до навички';
-  const d = (a.d||'').split(/(?<=[.!?])\s/)[0] || '';
-  return a.t + (d ? ' — ' + d : '');
-}
-
-/* ─── Модалка ─── */
-async function pgOpen(src){
-  pgSrc = src;
-  const stu = pgCurrentStu();
-  if(!stu){ alert('Спершу оберіть конкретного учня у списку.'); return; }
-  const bank = await pgLoadBank(); if(!bank) return;
-
-  pgStuId = stu.id;
-  window._pgBelow = pgBelowSkills(stu.id);
-  if(!window._pgBelow.length){ alert('У цієї дитини немає навичок нижче середнього за обраними днями.'); return; }
-
-  pgDepthVal='lite'; pgShowNums=false;
-  document.getElementById('pgTgNums').classList.remove('on');
-  document.getElementById('pgNotes').value='';
-  document.querySelectorAll('.pg-seg-btn').forEach(b=>b.classList.toggle('active', b.dataset.d==='lite'));
-  document.getElementById('pgSub').textContent = stu.name + ' · перевірте параметри й сформуйте';
-  pgPreview();
-  document.getElementById('modProg').classList.add('open');
-}
-function pgDepth(d, el){
-  pgDepthVal=d;
-  document.querySelectorAll('.pg-seg-btn').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
-  pgPreview();
-}
-function pgTog(){
-  pgShowNums=!pgShowNums;
-  document.getElementById('pgTgNums').classList.toggle('on', pgShowNums);
-  pgPreview();
-}
-function pgPreview(){
-  const w=document.getElementById('pgPrev'); w.innerHTML='';
-  const sel=pgSelected();
-  if(!sel.length){ w.innerHTML='<div class="pg-chip">Немає навичок для програми</div>'; return; }
-  sel.forEach(s=>{
-    const sc = pgShowNums ? ' · бал '+s.score : '';
-    w.innerHTML += `<div class="pg-chip"><b>${pgEsc(s.code)}</b>${sc} · ${pgEsc(s.name)}</div>`;
-  });
-}
-
-/* ─── Документ ─── */
-function pgLegend(){
-  return `<div class="pg-legend">
-    <b>🪜 Рівні підтримки (скаффолдинг).</b> Спершу допомагаєте більше, згодом усе менше — поки дитина не робить сама:
-    <div class="pg-lvl pg-lvl-red">🔴 <b>Повна</b> — показуєте й робите разом із дитиною.</div>
-    <div class="pg-lvl pg-lvl-yellow">🟡 <b>Часткова</b> — дитина веде, ви лише підказуєте у складних місцях.</div>
-    <div class="pg-lvl pg-lvl-green">🟢 <b>Самостійна</b> — дитина робить сама, ви поруч як глядач.</div>
-    <div class="pg-marker">✅ <b>Маркер зняття:</b> щойно дитина впевнено робить без нагадувань і сама пропонує повторити — переходьте на легший рівень підтримки.</div>
-    <div class="pg-note-sub">Біля кожної вправи в розкладі стоїть її рівень підтримки тим самим кольором. Рівень залежить від складності: ритуали — переважно самостійні, а навички, де дитині поки важче (нижчий бал), довше йдуть із підтримкою.</div>
-  </div>`;
-}
-function pgExHTML(sk, w, mark){
-  const list = pgExercises(sk.code, sk.score);
-  if(!list.length) return '';
-  const ex = list[(w-1) % list.length];
-  const [st, cls] = pgSup(sk.score);
-  return `<div class="pg-e ${cls}"><div>${mark} <b>${pgEsc(sk.code)} · ${pgEsc(ex.t)}</b> <span class="pg-ph ${cls}">${st}</span></div><div class="pg-desc">${pgEsc(ex.d||'')}</div></div>`;
-}
-function pgSchedule(){
-  const sk = pgSelected();
-  let rows='';
-  for(let w=1; w<=6; w++){
-    rows += `<tr><td colspan="2" class="pg-band" style="background:${PG_BANDS[w-1]}">Тиждень ${w}</td></tr>`;
-    for(let d=0; d<7; d++){
-      const weekend = d>=5;
-      const rSk = sk[(w+d) % sk.length];
-      let items = `<div class="pg-r">🔔 <b>Ритуал:</b> ${pgRitual(rSk.code)} <span class="pg-ph green">без підтримки</span></div>`;
-      if(!weekend){
-        items += pgExHTML(sk[d % sk.length], w, '▫️');
-      } else {
-        const load = (pgDepthVal==='deep') ? 2 : (d===5 ? 3 : 1);
-        for(let i=0;i<load;i++) items += pgExHTML(sk[(d+i) % sk.length], w, '▪️');
-        if(pgDepthVal==='deep' && w>=5 && d===6)
-          items += `<div class="pg-cr">🌟 <b>Творчий задум:</b> дитина — автор ідеї, ви допомагаєте втілити її задум.</div>`;
-      }
-      rows += `<tr class="${weekend?'we':''}"><td class="pg-d">${PG_DAYS[d]}</td><td>${items}</td></tr>`;
-    }
-  }
-  return `<h3 style="font-size:1rem;color:#6B2D8B;margin:0 0 8px">🗓 Розклад на 6 тижнів</h3>
-    <table class="pg-cal"><thead><tr><th class="thd">День</th><th>Вправи дня (з повним описом)</th></tr></thead><tbody>${rows}</tbody></table>
-    <div class="pg-note-sub">Будні — легко (ритуал + 1 вправа), бо дитина працює в садочку. Вихідні — головне навантаження. Одна техніка тримається, поки не спрацює «маркер зняття»; форма щотижня змінюється, щоб було цікаво.</div>`;
-}
-function pgClean(t){ return (t||'').replace(/^💬\s*ПРО НАВИЧКУ ПРОСТИМИ СЛОВАМИ:\s*/,'').trim(); }
-
-function pgBuild(){
-  const stu = DB.students.find(s=>s.id===pgStuId);
-  if(!stu) return;
-  const sel = pgSelected();
-  const note = (document.getElementById('pgNotes').value||'').trim();
-  const depthName = (pgDepthVal==='deep') ? 'Поглиблена' : 'Лайт';
-  const today = new Date().toLocaleDateString('uk-UA');
-
-  const teacherName = (typeof user!=='undefined' && user) ? user : '—';
-  let html = `<div class="pg-rainbow"></div>
-    <div class="pg-h1">Програма розвитку для родини · ${depthName}</div>
-    <div class="pg-meta">${pgEsc(stu.name)} · педагог: ${pgEsc(teacherName)} · ${today}</div>
-    <div class="pg-guide">💜 <b>Ваша дитина — провідник.</b> ${pgEsc(stu.name.split(' ')[0])} вже знайома з нашими активностями — попросіть її навчити вас! Найкраще навчання — у грі та спільному задумі.</div>
-    <div class="pg-sec">Навички, з якими працюємо</div>`;
-
-  sel.forEach(s=>{
-    const b = pgBankFor(s.code);
-    const about = pgClean(b ? b.about : '');
-    const sc = pgShowNums ? ` <span style="color:#888;font-size:.8rem">(бал ${s.score})</span>` : '';
-    html += `<div class="pg-skill"><h4>${pgEsc(s.code)} · ${pgEsc(s.name)}${sc}</h4><p class="pg-about">${pgEsc(about)}</p></div>`;
-  });
-
-  html += pgLegend();
-  html += `<div class="pg-sec">Розклад (коли що робити)</div>` + pgSchedule();
-  if(note) html += `<div class="pg-note-out">✍️ <b>Від педагога:</b> ${note.replace(/</g,'&lt;')}</div>`;
-  html += `<div class="pg-sign">Starting the Rainbows® · модель ВЕКТОР «Впевнений СТАРТ» · сформовано в застосунку VECTOR</div>`;
-
-  document.getElementById('pgDoc').innerHTML = html;
-  closeModal('modProg');
-  pgSave({ id:'p'+Date.now(), stuId:stu.id, stuName:stu.name, depth:depthName, date:today, html:html });
-  pgGoto();                                   // перехід на сторінку БЕЗ рендеру списку
-  document.getElementById('pgListWrap').classList.add('hidden');
-  document.getElementById('pgResultWrap').classList.remove('hidden');
-}
-/* перехід на сторінку «Програми» без побудови списку */
-function pgGoto(){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-progs').classList.add('active');
-  document.querySelector('[data-page="progs"]')?.classList.add('active');
-}
-
-/* ─── Збереження (localStorage; TODO: перенести в БД) ─── */
-function pgAll(){
-  try{ return JSON.parse(localStorage.getItem('vector_progs')||'[]'); }catch(e){ return []; }
-}
-function pgSave(p){
-  const all = pgAll(); all.unshift(p);
-  try{ localStorage.setItem('vector_progs', JSON.stringify(all.slice(0,50))); }catch(e){ console.warn('localStorage full'); }
-}
-function pgDel(id){
-  if(!confirm('Видалити цю програму?')) return;
-  localStorage.setItem('vector_progs', JSON.stringify(pgAll().filter(p=>p.id!==id)));
-  pgRenderList();
-}
-function pgShow(id){
-  const p = pgAll().find(x=>x.id===id); if(!p) return;
-  document.getElementById('pgDoc').innerHTML = p.html;
-  document.getElementById('pgListWrap').classList.add('hidden');
-  document.getElementById('pgResultWrap').classList.remove('hidden');
-}
-function pgBack(){
-  pgRenderList();   // сама перемикає видимість
-}
-function pgRenderList(){
-  const wrap = document.getElementById('pgList'); if(!wrap) return;
-  document.getElementById('pgResultWrap').classList.add('hidden');
-  document.getElementById('pgListWrap').classList.remove('hidden');
-  const all = pgAll();
-  if(!all.length){ wrap.innerHTML = '<div style="color:#6B7280;font-size:.88rem;padding:8px">Ще немає збережених програм.</div>'; return; }
-  wrap.innerHTML = all.map(p=>`
-    <div class="pg-row">
-      <div><b>${pgEsc(p.stuName)}</b> · ${pgEsc(p.depth)}<div style="font-size:.78rem;color:#6B7280">${pgEsc(p.date)}</div></div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-out btn-sm" onclick="pgShow('${p.id}')">Відкрити</button>
-        <button class="btn btn-out btn-sm" onclick="pgDel('${p.id}')">🗑</button>
-      </div>
-    </div>`).join('');
-}
-</script>
-
 </body>

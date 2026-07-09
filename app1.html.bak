@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&display=swap" rel="stylesheet">
 <title>VECTOR — Протокол навичок</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -63,11 +62,8 @@ body{font-family:'Segoe UI',Arial,system-ui,sans-serif;background:var(--bg);colo
   height:58px;box-shadow:0 3px 16px rgba(123,45,139,0.25)}
 .topbar-brand{display:flex;align-items:center;gap:12px}
 .topbar-icon{font-size:1.5rem}
-.topbar-title{font-size:0.98rem;font-weight:700;letter-spacing:0;font-family:'Unbounded','Segoe UI',Arial,sans-serif}
-.topbar-subtitle{font-size:0.72rem;margin-top:2px}
-.topbar-subtitle .brand-str{font-family:'Unbounded','Segoe UI',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#00C9A7}
-.topbar-subtitle .sub-plain{opacity:.72}
-.topbar-logo-arrow{width:30px;height:30px;background:#00C9A7;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.topbar-title{font-size:1rem;font-weight:900;letter-spacing:-.01em}
+.topbar-subtitle{font-size:0.72rem;opacity:.75;margin-top:1px}
 .topbar-role{font-size:0.78rem;background:rgba(255,255,255,0.18);padding:4px 14px;border-radius:20px;font-weight:600}
 .btn-logout{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);
   color:#fff;padding:6px 16px;border-radius:10px;cursor:pointer;font-size:0.83rem;font-weight:600;transition:all .18s}
@@ -282,66 +278,6 @@ tr:last-child td{border-bottom:none}
   .sidebar{display:none}
   .g2,.g3,.g4{grid-template-columns:1fr}
   .proto-grid{grid-template-columns:1fr}
-
-/* ═══ VECTOR_PROGS_V1 · Програма для батьків ═══ */
-.pg-cta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-.pg-btn{background:linear-gradient(135deg,#00C9A7,#00a98d);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 6px 18px rgba(0,201,167,.28)}
-.pg-btn:hover{filter:brightness(1.05)}
-.pg-q{font-size:.78rem;font-weight:800;color:#6B2D8B;letter-spacing:.02em;margin:14px 0 6px}
-.pg-seg{display:flex;gap:8px}
-.pg-seg-btn{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1.5px solid #ECECF1;background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;font-size:.9rem;font-weight:700;color:#2A2A33;text-align:left}
-.pg-seg-btn small{font-weight:400;font-size:.72rem;color:#6B7280}
-.pg-seg-btn.active{border-color:#00C9A7;background:#EAF8F4;box-shadow:inset 0 0 0 1px #00C9A7}
-.pg-tg{display:flex;align-items:center;gap:10px;background:#F6EEFB;border-radius:10px;padding:9px 12px;cursor:pointer;font-size:.85rem;user-select:none}
-.pg-sw{width:38px;height:21px;border-radius:20px;background:#D6D6E0;position:relative;transition:.2s;flex-shrink:0}
-.pg-sw::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;transition:.2s}
-.pg-tg.on .pg-sw{background:#00C9A7}
-.pg-tg.on .pg-sw::after{transform:translateX(17px)}
-.pg-auto{background:#F6EEFB;border-radius:8px;padding:8px 11px;font-size:.8rem;color:#6B2D8B;margin:12px 0 4px}
-.pg-tag{font-size:.68rem;font-weight:700;background:#EAF8F4;color:#00a98d;border-radius:20px;padding:2px 8px;margin-left:6px}
-.pg-prev{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.pg-chip{background:#F7F6FB;border:1px solid #ECECF1;border-radius:8px;padding:7px 10px;font-size:.82rem;color:#2A2A33}
-.pg-chip b{color:#6B2D8B}
-/* документ */
-.pg-doc{background:#fff;border-radius:14px;padding:30px 32px;box-shadow:0 8px 30px rgba(40,20,60,.10);max-width:900px;margin:0 auto}
-.pg-rainbow{height:6px;border-radius:6px;background:linear-gradient(90deg,#E5484D,#F5B301,#00C9A7,#3FA9F5,#9B5BC0);margin-bottom:16px}
-.pg-h1{font-size:1.4rem;font-weight:900;color:#6B2D8B;margin:0 0 6px}
-.pg-meta{font-size:.82rem;color:#6B7280;margin-bottom:16px}
-.pg-guide{background:#F6EEFB;border-left:4px solid #9B5BC0;border-radius:10px;padding:12px 14px;font-size:.87rem;margin-bottom:14px}
-.pg-sec{font-size:.8rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:#6B2D8B;margin:22px 0 8px;padding-bottom:4px;border-bottom:2px solid #E9D8F4}
-.pg-skill{border:1px solid #ECECF1;border-radius:12px;padding:12px 14px;margin-bottom:10px}
-.pg-skill h4{margin:0 0 6px;font-size:.95rem;color:#2A2A33}
-.pg-about{white-space:pre-line;font-size:.85rem;line-height:1.5;color:#2A2A33;margin:0}
-.pg-legend{background:#fff;border:1px solid #ECECF1;border-radius:12px;padding:14px 16px;margin:10px 0 6px;font-size:.86rem}
-.pg-lvl{border-radius:8px;padding:7px 11px;margin:6px 0;font-size:.84rem}
-.pg-lvl-red{background:#FDECEC;color:#B3282D;border-left:4px solid #E5484D}
-.pg-lvl-yellow{background:#FEF6E0;color:#7a5a00;border-left:4px solid #F5B301}
-.pg-lvl-green{background:#E7F7EF;color:#0d6b46;border-left:4px solid #1F9D6B}
-.pg-marker{background:#F6EEFB;border-radius:8px;padding:8px 11px;margin-top:8px;font-size:.82rem;color:#6B2D8B}
-.pg-note-sub{font-size:.78rem;color:#6B7280;margin-top:8px}
-.pg-cal{width:100%;border-collapse:collapse;font-size:.82rem}
-.pg-cal th{background:#6B2D8B;color:#fff;padding:6px 8px;text-align:left;font-size:.76rem}
-.pg-cal th.thd{width:96px}
-.pg-cal td{border:1px solid #ECECF1;padding:7px 9px;vertical-align:top}
-.pg-band{font-weight:800;font-size:.82rem;color:#fff;padding:6px 10px !important}
-.pg-cal .pg-d{width:96px;font-weight:700;color:#2A2A33;white-space:nowrap}
-.pg-cal tr.we{background:#F5FCFA}
-.pg-cal tr.we .pg-d{color:#00a98d}
-.pg-r{color:#6B7280;font-size:.78rem;margin-bottom:5px}
-.pg-e{margin:5px 0;border-left:3px solid #E9D8F4;padding-left:8px}
-.pg-e.red{border-left-color:#E5484D}
-.pg-e.yellow{border-left-color:#F5B301}
-.pg-e.green{border-left-color:#1F9D6B}
-.pg-desc{font-size:.78rem;color:#2A2A33;margin-top:1px}
-.pg-cr{color:#6B2D8B;font-weight:600;margin-top:5px;background:#F6EEFB;border-radius:6px;padding:5px 8px}
-.pg-ph{font-size:.66rem;color:#fff;background:#00a98d;border-radius:20px;padding:1px 8px;margin-left:4px;white-space:nowrap;font-weight:700;vertical-align:middle}
-.pg-ph.red{background:#E5484D}
-.pg-ph.yellow{background:#F5B301;color:#4a3600}
-.pg-ph.green{background:#1F9D6B}
-.pg-note-out{background:#FFFDF2;border:1px solid #F2E6B8;border-radius:10px;padding:12px 14px;font-size:.88rem;margin-top:12px}
-.pg-sign{margin-top:18px;padding-top:12px;border-top:1px solid #ECECF1;font-size:.75rem;color:#6B7280;text-align:center}
-.pg-row{display:flex;justify-content:space-between;align-items:center;border:1px solid #ECECF1;border-radius:10px;padding:12px 14px;margin-bottom:8px}
-@media print{.sidebar,.topbar,.pg-noprint{display:none !important}.pg-doc{box-shadow:none;max-width:100%}}
 }
 </style>
 <style>
@@ -355,10 +291,10 @@ body { margin: 0; }
 <div id="appPage" class="hidden">
   <div class="topbar">
     <div class="topbar-brand">
-      <div class="topbar-logo-arrow"><svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="#0F0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="topbar-icon">🎯</span>
       <div>
-        <div class="topbar-title">ВЕКТОР динаміки педагогічного впливу</div>
-        <div class="topbar-subtitle"><span class="brand-str">STARTING THE RAINBOWS</span><span class="sub-plain"> · модуль діагностики</span></div>
+        <div class="topbar-title">Вектор — Протокол навичок</div>
+        <div class="topbar-subtitle">Впевнений СТАРТ · Оцінювання навичок</div>
       </div>
     </div>
     <div class="flex gap-10" style="align-items:center">
@@ -369,24 +305,18 @@ body { margin: 0; }
   <div class="layout">
     <div class="sidebar">
       <div class="sidebar-section">Головне</div>
-      <div class="sidebar-item active" onclick="gp('dash')" data-page="dash"><span class="si-icon">🏠</span> Огляд: група</div>
-      <div class="sidebar-item" onclick="gp('rank')" data-page="rank"><span class="si-icon">🏆</span> Рейтинг: діти</div>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-section">Аналітика</div>
-      <div class="sidebar-item" onclick="gp('grp')" data-page="grp"><span class="si-icon">📊</span> По групі</div>
-      <div class="sidebar-item" onclick="gp('stu')" data-page="stu"><span class="si-icon">🙋</span> По учню</div>
-      <div class="sidebar-item" onclick="gp('dyn')" data-page="dyn"><span class="si-icon">📈</span> Динаміка</div>
-      <div class="sidebar-item" onclick="gp('below')" data-page="below"><span class="si-icon">⭐</span> Нижче середнього</div>
-      <div class="sidebar-item" onclick="gp('progs')" data-page="progs"><span class="si-icon">📄</span> Програми</div>
-      <div class="sidebar-item" onclick="gp('reports')" data-page="reports"><span class="si-icon">📄</span> Звіти</div>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-section">Робота з даними</div>
+      <div class="sidebar-item active" onclick="gp('dash')" data-page="dash"><span class="si-icon">🏠</span> Дашборд</div>
+      <div class="sidebar-item" onclick="gp('proto')" data-page="proto" id="nav-proto"><span class="si-icon">📝</span> Протокол</div>
       <div class="sidebar-item" onclick="gp('students')" data-page="students"><span class="si-icon">👧</span> Учні</div>
-      <div class="sidebar-item" onclick="gp('proto')" data-page="proto" id="nav-proto"><span class="si-icon">📝</span> Протоколи</div>
       <div class="sidebar-divider"></div>
-      <div class="sidebar-section">Матеріали</div>
+      <div class="sidebar-section">Аналіз</div>
+      <div class="sidebar-item" onclick="gp('analytics')" data-page="analytics"><span class="si-icon">📊</span> Аналітика</div>
+      <div class="sidebar-item" onclick="gp('below')" data-page="below"><span class="si-icon">⭐</span> Нижче середнього</div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">Інше</div>
       <div class="sidebar-item" onclick="gp('posters')" data-page="posters"><span class="si-icon">🖼️</span> Плакати</div>
       <div class="sidebar-item" onclick="gp('course')" data-page="course" id="nav-course"><span class="si-icon">📚</span> Курс ВЕКТОР</div>
+      <div class="sidebar-item" onclick="gp('reports')" data-page="reports"><span class="si-icon">📄</span> Звіти PDF</div>
       <div class="sidebar-item hidden" onclick="gp('admin')" data-page="admin" id="nav-admin"><span class="si-icon">⚙️</span> Адміністрування</div>
     </div>
     <div class="main">
@@ -396,11 +326,11 @@ body { margin: 0; }
         <div class="dash-banner">
           <div class="dash-banner-text">
             <h2 id="dashGreet">Ласкаво просимо!</h2>
-            <p>Бажаємо гарної динаміки м'яких та твердих навичок у дітей Вашої групи!</p>
+            <p>Протокол оцінювання м-яких та твердих навичок · Впевнений СТАРТ</p>
           </div>
           <div style="display:flex;gap:12px;align-items:center">
             <button class="btn btn-g" onclick="gp('proto')" id="btnNewProto">➕ Новий протокол</button>
-            <div class="dash-banner-emoji" style="display:flex;align-items:center"><span style="width:48px;height:48px;background:#00C9A7;border-radius:12px;display:inline-flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="#0F0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="dash-banner-emoji">🎯</div>
           </div>
         </div>
         <div class="g4 mb-16">
@@ -409,7 +339,6 @@ body { margin: 0; }
           <div class="stat s-purple"><div class="stat-lbl">Сер. М-навички</div><div class="stat-val cm" id="stM">—</div><div class="stat-sub">балів (макс. 3)</div></div>
           <div class="stat s-yellow"><div class="stat-lbl">Сер. Т-навички</div><div class="stat-val ct" id="stT">—</div><div class="stat-sub">балів (макс. 3)</div></div>
         </div>
-        <div id="dashDayLabel" style="margin:-6px 0 14px;color:var(--muted);font-size:13px;font-weight:600;"></div>
         <div class="g2">
           <div class="card"><div class="card-title"><span class="badge bM">М</span> М'які навички — середнє по групі</div><div class="ch"><canvas id="dMChart"></canvas></div></div>
           <div class="card"><div class="card-title"><span class="badge bT">Т</span> Тверді навички — середнє по групі</div><div class="ch"><canvas id="dTChart"></canvas></div></div>
@@ -458,11 +387,24 @@ body { margin: 0; }
       <div class="page" id="page-analytics">
         <div class="section-header">
           <div><div class="section-title">Аналітика</div></div>
+          <div class="flex gap-10" style="align-items:center">
+            <label class="fl" style="margin:0">День:</label>
+            <select class="fc" id="analDay" style="width:130px" onchange="renderAnalytics()">
+              <option value="all">Всі дні</option>
+              <option value="1">День 1</option><option value="2">День 2</option>
+              <option value="3">День 3</option><option value="4">День 4</option><option value="5">День 5</option>
+            </select>
+          </div>
+        </div>
+        <div class="tabs">
+          <button class="tab active" onclick="swATab('grp')">По групі</button>
+          <button class="tab" onclick="swATab('stu')">По учню</button>
+          <button class="tab" onclick="swATab('dyn')">Динаміка</button>
+          <button class="tab" onclick="swATab('rank')">Рейтинг</button>
         </div>
 
         <!-- GROUP -->
         <div id="aGrp">
-          <div class="flex gap-10 mb-16" style="align-items:center"><label class="fl" style="margin:0">День:</label><select class="fc" id="grpDay" style="width:150px" onchange="renderGrpAnal()"></select></div>
           <div class="alert al-i mb-16">Гістограма заг. варіант 1: стовпчики М та Т, відсортовані за рейтингом дітей. Варіант 2 — за списком відвідування.</div>
           <div class="tabs" style="margin-bottom:12px">
             <button class="tab active btn-sm" onclick="swGTab('v1')">Варіант 1 (ранжування)</button>
@@ -491,11 +433,7 @@ body { margin: 0; }
         <!-- STUDENT -->
         <div id="aGrp_stu" class="hidden">
           <div class="card">
-            <div class="flex gap-10" style="flex-wrap:wrap;align-items:flex-end;gap:16px">
-              <div class="fg"><label class="fl">Учень</label><select class="fc" id="analStuSel" style="max-width:280px" onchange="renderStuAnal()"></select></div>
-              <div class="fg"><label class="fl">День</label><select class="fc" id="stuDay" style="width:150px" onchange="renderStuAnal()"></select></div>
-              <div class="pg-cta" style="margin-top:0"><button class="pg-btn" onclick="pgOpen('stu')">✨ Створити програму для батьків</button></div>
-            </div>
+            <div class="fg"><label class="fl">Учень</label><select class="fc" id="analStuSel" style="max-width:280px" onchange="renderStuAnal()"></select></div>
           </div>
           <div class="g2">
             <div class="card"><div class="card-title"><span class="badge bM">М</span> М'які навички учня</div><div class="ch"><canvas id="sMChart"></canvas></div></div>
@@ -512,35 +450,12 @@ body { margin: 0; }
           <div class="card">
             <div class="card-title">📈 Динаміка по групі — М та Т навички по оціночних днях</div>
             <div class="alert al-i mb-16">З 2-го дня відображається % зміни відносно попереднього дня</div>
-            <div style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
-              <span style="font-size:0.85rem;color:var(--muted);align-self:center;">Порівнювати дні:</span>
-              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb1" checked onchange="renderDyn()"> День 1</label>
-              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb2" checked onchange="renderDyn()"> День 2</label>
-              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb3" onchange="renderDyn()"> День 3</label>
-              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb4" onchange="renderDyn()"> День 4</label>
-              <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;cursor:pointer;"><input type="checkbox" id="dCb5" onchange="renderDyn()"> День 5</label>
-            </div>
             <div class="ch tall"><canvas id="dynGrpChart"></canvas></div>
           </div>
           <div class="card">
             <div class="card-title">📈 Динаміка навичок по учню</div>
-            <div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
-              <select class="fc" id="dynStuSel" style="max-width:220px" onchange="renderDynStu()"></select>
-              <span style="font-size:0.82rem;color:var(--muted);">Дні:</span>
-              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb1" checked onchange="renderDynStu()"> 1</label>
-              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb2" checked onchange="renderDynStu()"> 2</label>
-              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb3" onchange="renderDynStu()"> 3</label>
-              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb4" onchange="renderDynStu()"> 4</label>
-              <label style="font-size:0.82rem;cursor:pointer;display:flex;align-items:center;gap:3px;"><input type="checkbox" id="sCb5" onchange="renderDynStu()"> 5</label>
-              <select id="dynStuMode" onchange="renderDynStu()" style="font-size:0.82rem;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border);">
-                <option value="M">М\'які навички</option>
-                <option value="T">Тверді навички</option>
-                <option value="MT">М та Т навички</option>
-                <option value="total">Загальний бал</option>
-              </select>
-            </div>
-            <div id="dynStuSparkWrap"></div>
-            <canvas id="dynStuChart" style="display:none;"></canvas>
+            <div class="fg"><select class="fc" id="dynStuSel" style="max-width:280px" onchange="renderDynStu()"></select></div>
+            <div class="ch"><canvas id="dynStuChart"></canvas></div>
           </div>
           <div class="card" id="dynChangeCard">
             <div class="card-title">📊 % зміни середнього по групі між днями</div>
@@ -548,65 +463,40 @@ body { margin: 0; }
           </div>
         </div>
 
-      </div>
-
-      <!-- RANKING (Головне) -->
-      <div class="page" id="page-rank">
-        <div class="section-header"><div><div class="section-title">Рейтинг: діти</div></div></div>
-        <div id="rankDayLabel" style="margin:0 0 14px;color:var(--muted);font-size:13px;font-weight:600;"></div>
+        <!-- RANKING -->
+        <div id="aGrp_rank" class="hidden">
           <div class="g2">
             <div class="card"><div class="card-title">🏆 Рейтинг — М'які навички</div><div id="rankM"></div></div>
             <div class="card"><div class="card-title">🏆 Рейтинг — Тверді навички</div><div id="rankT"></div></div>
           </div>
           <div class="card"><div class="card-title">📊 Загальний рейтинг по балах</div><div class="ch tall"><canvas id="rankChart"></canvas></div></div>
+        </div>
       </div>
 
-            <!-- BELOW AVG -->
+      <!-- BELOW AVG -->
       <div class="page" id="page-below">
         <div class="section-header"><div class="section-title">⭐ Значення нижче середнього</div></div>
-        <div class="alert al-w mb-16">⭐ = значення нижче середнього по групі</div>
-        <div class="mb-16" style="font-size:0.82rem;color:var(--muted)">Наведи мишкою на зірочку — побачиш значення.</div>
+        <div class="alert al-w mb-16">⭐ = значення нижче середнього і по групі, і у дитини одночасно</div>
         <div class="card">
           <div class="flex gap-10 mb-16" style="flex-wrap:wrap;align-items:center">
-            <span style="font-size:0.82rem;color:var(--muted)">Дні:</span>
-            <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb1" onchange="renderBelow()"> 1</label>
-            <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb2" onchange="renderBelow()"> 2</label>
-            <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb3" onchange="renderBelow()"> 3</label>
-            <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb4" onchange="renderBelow()"> 4</label>
-            <label style="font-size:0.85rem;cursor:pointer;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bCb5" onchange="renderBelow()"> 5</label>
-            <select class="fc" id="belowStu" style="max-width:200px" onchange="renderBelow()"></select>
+            <select class="fc" id="belowDay" style="width:130px" onchange="renderBelow()">
+              <option value="all">Всі дні</option>
+              <option value="1">День 1</option><option value="2">День 2</option>
+              <option value="3">День 3</option><option value="4">День 4</option><option value="5">День 5</option>
+            </select>
             <select class="fc" id="belowType" style="width:130px" onchange="renderBelow()">
               <option value="all">М + Т навички</option>
               <option value="M">М'які (М)</option>
               <option value="T">Тверді (Т)</option>
             </select>
-            <select class="fc" id="belowSkill" style="max-width:240px" onchange="renderBelow()"></select>
           </div>
           <div class="tw" id="belowTable"></div>
-          <div class="pg-cta"><button class="pg-btn" onclick="pgOpen('below')">✨ Створити програму для батьків</button></div>
-        </div>
-      </div>
-
-      
-      <!-- PROGRAMS (VECTOR_PROGS_V1) -->
-      <div class="page" id="page-progs">
-        <div class="section-header"><div class="section-title">📄 Програми для батьків</div></div>
-        <div id="pgResultWrap" class="hidden">
-          <div class="pg-cta pg-noprint">
-            <button class="btn btn-out" onclick="pgBack()">← Назад до списку</button>
-            <button class="btn btn-p" onclick="window.print()">🖨 Друк / PDF</button>
-          </div>
-          <div id="pgDoc" class="pg-doc"></div>
-        </div>
-        <div id="pgListWrap">
-          <div class="alert al-i mb-16">Програми створюються з аналітики: «По учню» або «Нижче середнього». Збережені програми зберігаються локально у цьому браузері.</div>
-          <div class="card"><div id="pgList"></div></div>
         </div>
       </div>
 
       <!-- REPORTS -->
       <div class="page" id="page-reports">
-        <div class="section-header"><div class="section-title">Звіти</div></div>
+        <div class="section-header"><div class="section-title">Звіти PDF</div></div>
         <div class="g2">
           <div class="card">
             <div class="card-title">📄 Звіт по учню</div>
@@ -937,37 +827,6 @@ body { margin: 0; }
 
 
 
-
-<!-- PROGRAM MODAL (VECTOR_PROGS_V1) -->
-<div class="overlay" id="modProg">
-  <div class="modal" style="max-width:560px">
-    <div class="modal-title" id="pgTitle">✨ Програма для батьків</div>
-    <div style="font-size:.85rem;color:#6B7280;margin-top:-12px;margin-bottom:8px" id="pgSub"></div>
-
-    <div class="pg-q">1 · Рівень програми</div>
-    <div class="pg-seg">
-      <button type="button" class="pg-seg-btn active" data-d="lite" onclick="pgDepth('lite',this)">🌱 Лайт<small>3 навички · головне на вихідні</small></button>
-      <button type="button" class="pg-seg-btn" data-d="deep" onclick="pgDepth('deep',this)">🌳 Поглиблена<small>5 навичок · щодня + творчий задум</small></button>
-    </div>
-
-    <div class="pg-q">2 · Показувати бали дитини у файлі</div>
-    <div class="pg-tg" id="pgTgNums" onclick="pgTog()"><span class="pg-sw"></span> Показувати бали дитини</div>
-
-    <div class="pg-auto">✔ Автоматично включено: блок «дитина-провідник» і розклад на 6 тижнів.</div>
-
-    <div class="pg-q">НАВИЧКИ У ПРОГРАМІ <span class="pg-tag">авто · нижче середнього</span></div>
-    <div id="pgPrev" class="pg-prev"></div>
-
-    <div class="fg" style="margin-top:14px"><label class="fl">Нотатка для батьків (необов'язково)</label>
-      <textarea class="fc" id="pgNotes" rows="3" maxlength="500" placeholder="Коротка порада від педагога…"></textarea></div>
-
-    <div class="modal-act">
-      <button class="btn btn-out" onclick="closeModal('modProg')">Скасувати</button>
-      <button class="btn btn-p" onclick="pgBuild()">Сформувати програму</button>
-    </div>
-  </div>
-</div>
-
 <!-- PARENT PAGE -->
 </div>
 
@@ -1031,11 +890,11 @@ function setLandRole(r){
     const el=document.getElementById('land'+x);
     if(el) el.style.display='none';
   });
-  const map={teacher:'Педагог',admin:'Адміністратор',parent:'Батьки'};
+  const map={teacher:'Expert',admin:'Admin',parent:'Parent',expert:'Expert'};
   const el=document.getElementById('land'+(map[r]||'Expert'));
   if(el) el.style.display='block';
   document.querySelectorAll('.land-login-tab').forEach((t,i)=>{
-    t.classList.toggle('active',['teacher','admin','parent'][i]===r);
+    t.classList.toggle('active',['expert','admin','parent'][i]===r);
   });
 }
 function scrollToOrder(pkg){
@@ -1082,29 +941,18 @@ function authHeaders(){
 // shape the rest of the app expects from the old localStorage-backed DB object.
 async function loadDB(){
   const headers = authHeaders();
-  const safe = async (url) => {
-    try {
-      const r = await fetch(url, {headers});
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      return r.json();
-    } catch(e) {
-      console.warn('loadDB fetch error:', url, e);
-      return null;
-    }
-  };
   const [students, skillsRes, protocols, recsRes] = await Promise.all([
-    safe(API_URL+'/students'),
-    safe(API_URL+'/skills'),
-    safe(API_URL+'/protocols'),
-    safe(API_URL+'/recommendations'),
+    fetch(API_URL+'/students', {headers}).then(r=>r.json()),
+    fetch(API_URL+'/skills', {headers}).then(r=>r.json()),
+    fetch(API_URL+'/protocols', {headers}).then(r=>r.json()),
+    fetch(API_URL+'/recommendations', {headers}).then(r=>r.json()),
   ]);
-  if(!students || !skillsRes || !protocols) throw new Error('API unavailable');
   return {
-    students: students||[],
-    mSkills: skillsRes?.M||[],
-    tSkills: skillsRes?.T||[],
-    protocols: protocols||[],
-    recommendations: recsRes||[],
+    students,
+    mSkills: skillsRes.M,
+    tSkills: skillsRes.T,
+    protocols,
+    recommendations: recsRes,
   };
 }
 
@@ -1161,18 +1009,14 @@ function logout(){
 // NAVIGATION
 // ═══════════════════════════════════════════════════════
 function gp(p){
-  const subMap={grp:'grp',stu:'stu',dyn:'dyn'};
-  const page=subMap[p]?'analytics':p;
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.sidebar-item').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
+  document.getElementById('page-'+p).classList.add('active');
   document.querySelector(`[data-page="${p}"]`)?.classList.add('active');
-  if(page==='analytics'){ if(subMap[p]) swATab(subMap[p]); else renderAnalytics(); }
-  if(p==='rank') renderRank();
+  if(p==='analytics') renderAnalytics();
   if(p==='proto') renderProtoPage();
   if(p==='students') renderStuTable();
   if(p==='below') renderBelow();
-  if(p==='progs') pgRenderList();
   if(p==='reports') popRepSelects();
   if(p==='admin'){renderAdminStu();renderAdminParams();renderRecAdmin();}
 }
@@ -1181,59 +1025,10 @@ function gp(p){
 // SELECTS
 // ═══════════════════════════════════════════════════════
 function popSelects(){
-  const dynEl=document.getElementById('dynStuSel');
-  if(dynEl){dynEl.innerHTML='<option value="__group__">— Уся група —</option>'+DB.students.map(s=>'<option value="'+s.id+'">'+s.name+'</option>').join('');}
-  ['protoStu','analStuSel','repStu'].forEach(id=>{
+  ['protoStu','analStuSel','dynStuSel','repStu'].forEach(id=>{
     const el=document.getElementById(id); if(!el) return;
     el.innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
   });
-  popAnalDays();
-  popBelow();
-}
-function popAnalDays(){
-  const days=[...new Set(DB.protocols.map(p=>p.day))].sort((a,b)=>a-b);
-  const last=lastConductedDay();
-  const gd=document.getElementById('grpDay');
-  if(gd){
-    gd.innerHTML='<option value="all">Всі дні</option>'+days.map(d=>`<option value="${d}">День ${d}</option>`).join('');
-    gd.value=last?String(last):'all';
-  }
-  const sd=document.getElementById('stuDay');
-  if(sd){
-    sd.innerHTML=days.map(d=>`<option value="${d}">День ${d}</option>`).join('');
-    sd.value=last?String(last):(days.length?String(days[0]):'');
-  }
-}
-function popBelow(){
-  const sel=document.getElementById('belowStu');
-  if(sel) sel.innerHTML='<option value="__all__">— Усі діти —</option>'+DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
-  popBelowSkills();
-  const last=lastConductedDay();
-  [1,2,3,4,5].forEach(d=>{const cb=document.getElementById('bCb'+d);if(cb)cb.checked=(d===last);});
-}
-function popBelowSkills(){
-  const sk=document.getElementById('belowSkill'); if(!sk) return;
-  const type=document.getElementById('belowType')?document.getElementById('belowType').value:'all';
-  const stuSel=document.getElementById('belowStu')?document.getElementById('belowStu').value:'__all__';
-  const runM=(type==='all'||type==='M'), runT=(type==='all'||type==='T');
-  const prev=sk.value;
-  let mIdx=DB.mSkills.map((_,i)=>i), tIdx=DB.tSkills.map((_,i)=>i);
-  if(stuSel!=='__all__'){
-    const selDays=[1,2,3,4,5].filter(d=>{const cb=document.getElementById('bCb'+d);return cb&&cb.checked;});
-    const gM={}, gT={};
-    selDays.forEach(d=>{gM[d]=DB.mSkills.map((_,i)=>grpSkillAvgM(i,String(d)));gT[d]=DB.tSkills.map((_,i)=>grpSkillAvgT(i,String(d)));});
-    const dayPs={};
-    selDays.forEach(d=>{dayPs[d]=getStuProtos(stuSel,String(d)).filter(p=>!p.absent);});
-    const below=(kind,i)=>selDays.some(d=>{const arr=dayPs[d].map(p=>(kind==='M'?p.mScores:p.tScores)[i]).filter(v=>v>0);const v=arr.length?avg(arr):0;return v>0&&v<(kind==='M'?gM:gT)[d][i];});
-    mIdx=mIdx.filter(i=>below('M',i));
-    tIdx=tIdx.filter(i=>below('T',i));
-  }
-  let o='<option value="__all__">— Усі навички —</option>';
-  if(runM) mIdx.forEach(i=>o+=`<option value="М${i+1}">М${i+1} — ${DB.mSkills[i].name}</option>`);
-  if(runT) tIdx.forEach(i=>o+=`<option value="Т${i+1}">Т${i+1} — ${DB.tSkills[i].name}</option>`);
-  sk.innerHTML=o;
-  const valid=(prev==='__all__')||(runM&&mIdx.map(i=>'М'+(i+1)).includes(prev))||(runT&&tIdx.map(i=>'Т'+(i+1)).includes(prev));
-  sk.value=valid?prev:'__all__';
 }
 function popRepSelects(){
   document.getElementById('repStu').innerHTML=DB.students.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
@@ -1310,115 +1105,47 @@ function barOpts(maxY=3, showLegend=false){
   };
 }
 
-// Власний плагін: цифри-підписи над стовпчиками + (опц.) зірочка внизу для нижче-середнього
-const barValueLabels = {
-  id:'barValueLabels',
-  afterDatasetsDraw(chart){
-    const ctx=chart.ctx;
-    const star=chart.config.options && chart.config.options.$starBelow;
-    chart.data.datasets.forEach((ds,di)=>{
-      const meta=chart.getDatasetMeta(di);
-      if(meta.hidden) return;
-      meta.data.forEach((bar,i)=>{
-        const v=ds.data[i];
-        if(v!=null && v>0){
-          ctx.save();
-          ctx.font='600 11px "Segoe UI",Arial,sans-serif';
-          ctx.fillStyle='#1e293b'; ctx.textAlign='center'; ctx.textBaseline='bottom';
-          ctx.fillText(Number(v).toFixed(2), bar.x, bar.y-3);
-          ctx.restore();
-        }
-        if(star && star[i] && chart.data.datasets.length===1){
-          ctx.save();
-          ctx.font='13px "Segoe UI",Arial,sans-serif';
-          ctx.textAlign='center'; ctx.textBaseline='bottom';
-          ctx.fillText('⭐', bar.x, chart.chartArea.bottom-2);
-          ctx.restore();
-        }
-      });
-    });
-  }
-};
-
 // ═══════════════════════════════════════════════════════
 // DASHBOARD
 // ═══════════════════════════════════════════════════════
 let dMC, dTC;
-const DAY_NAMES={1:'Збираємося в похід',2:'Будуємо місто',3:'Місто майстрів',4:'Розумнички',5:'Рух для життя'};
-const DAY_EX={M:{1:["3","4.2","6.1","1.2","6.2","11.1","9.2","8.2","4.3","7","9.4","4.1"],2:["1","2.2","3","6.1","6.2","6.3","9.1","11.1","12.1","12.2","12.3","13"],3:["1","10.3","8.2","2.1","2.2","10.2","8.1","3.3","2.4","4","2.3","10.1"],4:["1.2","8.2","7.4","5.3","5.2","6.2","1.3","2.2","2.1","6.3","1.4","3.1"],5:["7.2","12","8.1","10.3","6.3","1.2","3.1","1.1","11","9.2","5","2.2"]},T:{1:["8.1","9.3","1.4","1.1","5.2","11.2","2","5.3","10","1.3","9.1","5.1"],2:["2.1","2.3","4","5","6.4","7","8.1","8.2","9.2","10.1","10.2","11.2"],3:["11","6.3","5.3","5.1","6.2","7","3.2","3.1","9","12","5.2","6.1"],4:["3.3","7.1","3.4","8.1","6.1","2.3","3.2","7.2","5.1","1.1","4","7.3"],5:["6.1","2.1","6.2","8.2","7.1","9.1","10.2","10.1","4","10.4","2.3","3.2"]}};
-function exNum(day,kind,i){var a=DAY_EX[kind]&&DAY_EX[kind][day];if(a&&a[i]!=null)return a[i];var sk=(kind==='M'?DB.mSkills:DB.tSkills)[i];return sk?sk.code:'';}
-function dayLabel(n){ if(!n) return ''; const nm=DAY_NAMES[n]; return nm?('День_'+n+'_'+nm):('День_'+n); }
-function lastConductedDay(){ const d=DB.protocols.map(p=>p.day); return d.length?Math.max(...d):0; }
 function renderDash(){
-  const dayNums=DB.protocols.map(p=>p.day);
-  const days=new Set(dayNums).size;
-  const lastDay=dayNums.length?Math.max(...dayNums):0;
+  const days=new Set(DB.protocols.map(p=>p.day)).size;
   document.getElementById('stU').textContent=DB.students.length;
   document.getElementById('stD').textContent=days;
-  const gM=grpAvgM(lastDay); const gT=grpAvgT(lastDay);
+  const gM=grpAvgM(); const gT=grpAvgT();
   document.getElementById('stM').textContent=gM>0?gM.toFixed(2):'—';
   document.getElementById('stT').textContent=gT>0?gT.toFixed(2):'—';
-  const dl=document.getElementById('dashDayLabel'); if(dl) dl.textContent=lastDay?('Показники за: '+dayLabel(lastDay)):'';
   renderDashCharts(); renderDayProg();
 }
 
 function renderDashCharts(){
   if(dMC) dMC.destroy(); if(dTC) dTC.destroy();
-  const _dn=DB.protocols.map(p=>p.day); const _ld=_dn.length?Math.max(..._dn):'all';
-  const mPairs=DB.mSkills.map((s,i)=>({code:'М'+(i+1),name:s.name,val:grpSkillAvgM(i,_ld)})).sort((a,b)=>b.val-a.val);
-  const tPairs=DB.tSkills.map((s,i)=>({code:'Т'+(i+1),name:s.name,val:grpSkillAvgT(i,_ld)})).sort((a,b)=>b.val-a.val);
-  const optM=barOpts(3); optM.layout={padding:{top:18}};
-  optM.plugins.tooltip.callbacks.title=items=>mPairs[items[0].dataIndex].name;
-  optM.plugins.tooltip.callbacks.label=ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2);
-  const optT=barOpts(3); optT.layout={padding:{top:18}};
-  optT.plugins.tooltip.callbacks.title=items=>tPairs[items[0].dataIndex].name;
-  optT.plugins.tooltip.callbacks.label=ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2);
+  const mData=DB.mSkills.map((_,i)=>grpSkillAvgM(i));
+  const tData=DB.tSkills.map((_,i)=>grpSkillAvgT(i));
   dMC=new Chart(document.getElementById('dMChart'),{
     type:'bar',
-    data:{labels:mPairs.map(p=>p.code),datasets:[{label:'Сер. бал',data:mPairs.map(p=>p.val),backgroundColor:'rgba(124,58,237,0.7)',borderRadius:5}]},
-    options:optM, plugins:[barValueLabels]
+    data:{labels:DB.mSkills.map((s,i)=>`М${i+1}`),datasets:[{label:'Сер. бал',data:mData,backgroundColor:'rgba(124,58,237,0.7)',borderRadius:5}]},
+    options:barOpts(3)
   });
   dTC=new Chart(document.getElementById('dTChart'),{
     type:'bar',
-    data:{labels:tPairs.map(p=>p.code),datasets:[{label:'Сер. бал',data:tPairs.map(p=>p.val),backgroundColor:'rgba(3,105,161,0.7)',borderRadius:5}]},
-    options:optT, plugins:[barValueLabels]
+    data:{labels:DB.tSkills.map((s,i)=>`Т${i+1}`),datasets:[{label:'Сер. бал',data:tData,backgroundColor:'rgba(3,105,161,0.7)',borderRadius:5}]},
+    options:barOpts(3)
   });
 }
 
 function renderDayProg(){
   const w=document.getElementById('dayProg');
-  const total=DB.students.length;
-  const RAINBOW=['#FF6B6B','#FF922B','#FCC419','#51CF66','#00C9A7'];
-  const cnt=[], doneArr=[];
-  for(let d=1;d<=5;d++){ const dp=DB.protocols.filter(p=>p.day===d).length; cnt[d]=dp; doneArr[d]=(total>0&&dp===total); }
-  let current=0; for(let d=1;d<=5;d++){ if(!doneArr[d]){ current=d; break; } }
-  const doneCount=doneArr.filter(Boolean).length;
-  let strip='<div style="display:flex;gap:5px;margin-bottom:18px">';
-  for(let d=1;d<=5;d++){ const c=RAINBOW[d-1]; strip+=`<div style="flex:1;height:12px;border-radius:6px;background:${doneArr[d]?c:c+'2e'}"></div>`; }
-  strip+='</div>';
-  const head=`<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px"><span style="font-weight:700">🌈 Райдуга вашої групи</span><span style="font-size:0.82rem;color:var(--muted)">${doneCount} з 5 днів пройдено</span></div>`;
-  let cards='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">';
+  let h='<div style="display:flex;flex-direction:column;gap:11px">';
   for(let d=1;d<=5;d++){
-    const name=DAY_NAMES[d];
-    let bg,bd,emoji,titleColor,sub,countLine;
-    if(doneArr[d]){
-      bg='var(--green-l)'; bd='0.5px solid #bfe6cb'; emoji='✅'; titleColor='var(--green-d)';
-      sub=name||('День '+d); countLine=`${cnt[d]}/${total} діток`;
-    } else if(d===current){
-      bg='#e6faf5'; bd='2px solid #00C9A7'; emoji='🚀'; titleColor='var(--purple)';
-      sub=name||'Зараз тут'; countLine=`${cnt[d]}/${total} — поїхали!`;
-    } else {
-      bg='#f4f4f7'; bd='0.5px solid #e5e5ee'; emoji='🔒'; titleColor='var(--muted)';
-      sub=name||'Ще попереду'; countLine='скоро відкриється';
-    }
-    cards+=`<div style="background:${bg};border:${bd};border-radius:12px;padding:12px">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px"><span style="font-size:1.1rem">${emoji}</span><span style="font-weight:700;font-size:0.9rem;color:${titleColor}">День ${d}</span></div>
-      <div style="font-size:0.85rem;color:var(--text);margin-bottom:3px">${sub}</div>
-      <div style="font-size:0.78rem;color:var(--muted)">${countLine}</div>
-    </div>`;
+    const dp=DB.protocols.filter(p=>p.day===d);
+    const pct=Math.round((dp.length/Math.max(DB.students.length,1))*100);
+    const done=dp.length===DB.students.length&&DB.students.length>0;
+    h+=`<div><div class="fb mb-16" style="margin-bottom:5px"><span class="fw7">День ${d}</span><span class="tm">${dp.length}/${DB.students.length} учнів ${done?'✅':''}</span></div>
+    <div class="pbar"><div class="pbfill" style="width:${pct}%;background:${done?'var(--ok)':'var(--t)'}"></div></div></div>`;
   }
-  cards+='</div>';
-  w.innerHTML=head+strip+cards;
+  h+='</div>'; w.innerHTML=h;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1479,7 +1206,7 @@ function renderProtoForm(ex, sid){
   DB.mSkills.forEach((sk,i)=>{
     const v=ex?ex.mScores[i]:0;
     const mBtns = [1,2,3].map(s=>'<button class="sb'+(v===s?' s'+s:'')+'" onclick="setSc(\'m\','+i+','+s+',this)">'+s+'</button>').join('');
-    mH+=`<div class="skill-row"><span class="skill-code">${exNum(selDay,'M',i)}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${mBtns}</div></div>`;
+    mH+=`<div class="skill-row"><span class="skill-code">${sk.code}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${mBtns}</div></div>`;
   });
   mH+='</div>';
 
@@ -1487,7 +1214,7 @@ function renderProtoForm(ex, sid){
   DB.tSkills.forEach((sk,i)=>{
     const v=ex?ex.tScores[i]:0;
     const tBtns = [1,2,3].map(s=>'<button class="sb'+(v===s?' s'+s:'')+'" onclick="setSc(\'t\','+i+','+s+',this)">'+s+'</button>').join('');
-    tH+=`<div class="skill-row"><span class="skill-code">${exNum(selDay,'T',i)}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${tBtns}</div></div>`;
+    tH+=`<div class="skill-row"><span class="skill-code">${sk.code}</span><span class="skill-name">${sk.name}</span><div class="score-btns">${tBtns}</div></div>`;
   });
   tH+='</div>';
 
@@ -1585,7 +1312,8 @@ var aTab='grp', gTab='v1';
 
 function swATab(t){
   aTab=t;
-  ['grp','stu','dyn'].forEach(x=>document.getElementById('aGrp'+(x==='grp'?'':'_'+x))?.classList.toggle('hidden',x!==t));
+  ['grp','stu','dyn','rank'].forEach(x=>document.getElementById('aGrp'+(x==='grp'?'':'_'+x))?.classList.toggle('hidden',x!==t));
+  document.querySelectorAll('#page-analytics>.tabs .tab').forEach((b,i)=>b.classList.toggle('active',['grp','stu','dyn','rank'][i]===t));
   renderAnalytics();
 }
 
@@ -1598,13 +1326,14 @@ function swGTab(t){
 }
 
 function renderAnalytics(){
-  if(aTab==='grp') renderGrpAnal();
+  const day=document.getElementById('analDay').value;
+  if(aTab==='grp') renderGrpAnal(day);
   if(aTab==='stu') renderStuAnal();
   if(aTab==='dyn') renderDyn();
+  if(aTab==='rank') renderRank(day);
 }
 
-function renderGrpAnal(){
-  const day=document.getElementById('grpDay')?document.getElementById('grpDay').value:'all';
+function renderGrpAnal(day){
   dc('gV1Chart'); dc('gV2Chart'); dc('gTChart'); dc('gMChart');
 
   const activeStu=DB.students.filter(s=>!getStuProtos(s.id,day).find(p=>p.absent)||getStuProtos(s.id,day).filter(p=>!p.absent).length>0);
@@ -1639,65 +1368,51 @@ function renderGrpAnal(){
   });
 
   // T skills ranked
-  const tSkData=DB.tSkills.map((sk,i)=>({name:sk.name,code:'Т'+(i+1),avg:grpSkillAvgT(i,day)})).sort((a,b)=>b.avg-a.avg);
-  const mSkData=DB.mSkills.map((sk,i)=>({name:sk.name,code:'М'+(i+1),avg:grpSkillAvgM(i,day)})).sort((a,b)=>b.avg-a.avg);
-  const _gT=grpAvgT(day), _gM=grpAvgM(day);
-  const tOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>tSkData[items[0].dataIndex].name,label:ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2)}}}};
-  tOpt.$starBelow=tSkData.map(x=>x.avg>0 && x.avg<_gT);
-  const mOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>mSkData[items[0].dataIndex].name,label:ctx=>'Сер. бал: '+ctx.parsed.y.toFixed(2)}}}};
-  mOpt.$starBelow=mSkData.map(x=>x.avg>0 && x.avg<_gM);
+  const tSkData=DB.tSkills.map((sk,i)=>({name:sk.name.substring(0,25),code:sk.code,avg:grpSkillAvgT(i,day)})).sort((a,b)=>b.avg-a.avg);
+  const mSkData=DB.mSkills.map((sk,i)=>({name:sk.name.substring(0,25),code:sk.code,avg:grpSkillAvgM(i,day)})).sort((a,b)=>b.avg-a.avg);
+
   CI['gTChart']=new Chart(document.getElementById('gTChart'),{
     type:'bar',
-    data:{labels:tSkData.map(x=>x.code),datasets:[{label:'Сер. бал',data:tSkData.map(x=>x.avg),backgroundColor:tSkData.map(x=>x.avg<_gT?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
-    options:tOpt, plugins:[barValueLabels]
+    data:{labels:tSkData.map(x=>`${x.code}`),datasets:[{label:'Сер. бал',data:tSkData.map(x=>x.avg),backgroundColor:tSkData.map(x=>x.avg<grpAvgT(day)?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
+    options:{...barOpts(3),plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const sk=tSkData[ctx.dataIndex];return `${sk.name}: ${ctx.parsed.y.toFixed(2)}`;}}}}},
   });
   CI['gMChart']=new Chart(document.getElementById('gMChart'),{
     type:'bar',
-    data:{labels:mSkData.map(x=>x.code),datasets:[{label:'Сер. бал',data:mSkData.map(x=>x.avg),backgroundColor:mSkData.map(x=>x.avg<_gM?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
-    options:mOpt, plugins:[barValueLabels]
+    data:{labels:mSkData.map(x=>`${x.code}`),datasets:[{label:'Сер. бал',data:mSkData.map(x=>x.avg),backgroundColor:mSkData.map(x=>x.avg<grpAvgM(day)?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
+    options:{...barOpts(3),plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const sk=mSkData[ctx.dataIndex];return `${sk.name}: ${ctx.parsed.y.toFixed(2)}`;}}}}},
   });
 }
 
 function renderStuAnal(){
   const sid=document.getElementById('analStuSel').value; if(!sid) return;
-  const _sd=document.getElementById('stuDay');
-  const day=(_sd&&_sd.value)?_sd.value:String(lastConductedDay());
   dc('sMChart'); dc('sTChart');
-  const ps=getStuProtos(sid,day).filter(p=>!p.absent);
+  const ps=getStuProtos(sid).filter(p=>!p.absent);
   const mA=DB.mSkills.map((_,i)=>ps.length?avg(ps.map(p=>p.mScores[i]).filter(v=>v>0)):0);
   const tA=DB.tSkills.map((_,i)=>ps.length?avg(ps.map(p=>p.tScores[i]).filter(v=>v>0)):0);
-  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i,day));
-  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i,day));
-
-  // Графіки «По учню»: ранжування за спаданням, канонічні коди М#/Т#, цифри над стовпцями,
-  // тултіп = назва навички, ⭐ під стовпцями нижче середнього ПО ГРУПІ (по цій навичці)
-  const mSk=DB.mSkills.map((sk,i)=>({name:sk.name,code:'М'+(i+1),val:mA[i],gAvg:gMSkAvg[i]})).sort((a,b)=>b.val-a.val);
-  const tSk=DB.tSkills.map((sk,i)=>({name:sk.name,code:'Т'+(i+1),val:tA[i],gAvg:gTSkAvg[i]})).sort((a,b)=>b.val-a.val);
-  const mOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>mSk[items[0].dataIndex].name,label:ctx=>'Бал учня: '+ctx.parsed.y.toFixed(2)}}}};
-  mOpt.$starBelow=mSk.map(x=>x.val>0 && x.val<x.gAvg);
-  const tOpt={...barOpts(3),layout:{padding:{top:18}},plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>tSk[items[0].dataIndex].name,label:ctx=>'Бал учня: '+ctx.parsed.y.toFixed(2)}}}};
-  tOpt.$starBelow=tSk.map(x=>x.val>0 && x.val<x.gAvg);
+  const gMAvg=grpAvgM(), gTAvg=grpAvgT();
 
   CI['sMChart']=new Chart(document.getElementById('sMChart'),{
     type:'bar',
-    data:{labels:mSk.map(x=>x.code),datasets:[{label:'Бал',data:mSk.map(x=>x.val),backgroundColor:mSk.map(x=>x.val>0&&x.val<x.gAvg?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
-    options:mOpt, plugins:[barValueLabels]
+    data:{labels:DB.mSkills.map((s,i)=>`М${i+1}`),datasets:[{label:'Бал',data:mA,backgroundColor:mA.map(v=>v<gMAvg?'rgba(220,38,38,0.7)':'rgba(124,58,237,0.7)'),borderRadius:5}]},
+    options:barOpts(3)
   });
   CI['sTChart']=new Chart(document.getElementById('sTChart'),{
     type:'bar',
-    data:{labels:tSk.map(x=>x.code),datasets:[{label:'Бал',data:tSk.map(x=>x.val),backgroundColor:tSk.map(x=>x.val>0&&x.val<x.gAvg?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
-    options:tOpt, plugins:[barValueLabels]
+    data:{labels:DB.tSkills.map((s,i)=>`Т${i+1}`),datasets:[{label:'Бал',data:tA,backgroundColor:tA.map(v=>v<gTAvg?'rgba(220,38,38,0.7)':'rgba(3,105,161,0.7)'),borderRadius:5}]},
+    options:barOpts(3)
   });
 
-  // Детальні бали по навичках — колонка Код = канонічний номер навички (М#/Т#), не номер вправи дня
+  // Detail table
+  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i));
+  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i));
   let h=`<table><thead><tr><th>Тип</th><th>Код</th><th>Навичка</th><th>Бал учня</th><th>Сер. по групі</th><th>Маркер</th></tr></thead><tbody>`;
   DB.mSkills.forEach((sk,i)=>{
     const below=mA[i]>0&&mA[i]<gMSkAvg[i];
-    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bM">М</span></td><td>М${i+1}</td><td>${sk.name}</td><td>${mA[i]>0?mA[i].toFixed(2):'—'}</td><td>${gMSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
+    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bM">М</span></td><td>${sk.code}</td><td>${sk.name}</td><td>${mA[i]>0?mA[i].toFixed(2):'—'}</td><td>${gMSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
   });
   DB.tSkills.forEach((sk,i)=>{
     const below=tA[i]>0&&tA[i]<gTSkAvg[i];
-    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bT">Т</span></td><td>Т${i+1}</td><td>${sk.name}</td><td>${tA[i]>0?tA[i].toFixed(2):'—'}</td><td>${gTSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
+    h+=`<tr class="${below?'below-avg':''}"><td><span class="badge bT">Т</span></td><td>${sk.code}</td><td>${sk.name}</td><td>${tA[i]>0?tA[i].toFixed(2):'—'}</td><td>${gTSkAvg[i].toFixed(2)}</td><td>${below?'<span class="star">⭐</span>':''}</td></tr>`;
   });
   h+='</tbody></table>';
   document.getElementById('stuDetailTable').innerHTML=h;
@@ -1705,22 +1420,23 @@ function renderStuAnal(){
 
 function renderDyn(){
   dc('dynGrpChart'); dc('dynStuChart');
-  const allDays=[1,2,3,4,5];
-  const selDays=allDays.filter(d=>{const cb=document.getElementById('dCb'+d);return cb&&cb.checked;});
-  if(selDays.length===0){renderDynStu();return;}
-  const mByDay=selDays.map(d=>{const v=grpAvgM(String(d));return v>0?v:null;});
-  const tByDay=selDays.map(d=>{const v=grpAvgT(String(d));return v>0?v:null;});
-  const mPct=mByDay.map((v,i)=>{if(i===0||v===null)return null;const prev=mByDay[i-1];return prev!==null&&prev>0?((v-prev)/prev*100).toFixed(1):null;});
-  const tPct=tByDay.map((v,i)=>{if(i===0||v===null)return null;const prev=tByDay[i-1];return prev!==null&&prev>0?((v-prev)/prev*100).toFixed(1):null;});
+  const days=[1,2,3,4,5];
+  const mByDay=days.map(d=>grpAvgM(String(d)));
+  const tByDay=days.map(d=>grpAvgT(String(d)));
+
+  // % change labels
+  const mPct=mByDay.map((v,i)=>i===0?null:mByDay[i-1]>0?((v-mByDay[i-1])/mByDay[i-1]*100).toFixed(1):null);
+  const tPct=tByDay.map((v,i)=>i===0?null:tByDay[i-1]>0?((v-tByDay[i-1])/tByDay[i-1]*100).toFixed(1):null);
+
   CI['dynGrpChart']=new Chart(document.getElementById('dynGrpChart'),{
     type:'line',
-    data:{labels:selDays.map((d,i)=>{
+    data:{labels:days.map((d,i)=>{
       const mp=mPct[i]!==null?` (М:${mPct[i]>0?'+':''}${mPct[i]}%)`:'';
       const tp=tPct[i]!==null?` (Т:${tPct[i]>0?'+':''}${tPct[i]}%)`:'';
       return `День ${d}${mp}${tp}`;
     }),datasets:[
-      {label:"М'які",data:mByDay,borderColor:'rgba(124,58,237,1)',backgroundColor:'rgba(124,58,237,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:false},
-      {label:'Тверді',data:tByDay,borderColor:'rgba(3,105,161,1)',backgroundColor:'rgba(3,105,161,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:false}
+      {label:"М'які",data:mByDay,borderColor:'rgba(124,58,237,1)',backgroundColor:'rgba(124,58,237,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true},
+      {label:'Тверді',data:tByDay,borderColor:'rgba(3,105,161,1)',backgroundColor:'rgba(3,105,161,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true}
     ]},
     options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,max:3}},plugins:{legend:{display:true}}}
   });
@@ -1744,100 +1460,25 @@ function renderDyn(){
   renderDynStu();
 }
 
-function dynSparkSVG(vals,color,w){
-  const h=44,padX=8,padTop=4,padBot=14,min=1,max=3;
-  if(!vals||vals.length===0) return '';
-  const n=vals.length;
-  const xFor=i=> n===1 ? padX : (padX+(i/(n-1))*(w-2*padX));
-  const yFor=v=> padTop+(1-(v-min)/(max-min))*(h-padTop-padBot);
-  const idx=[]; for(let i=0;i<n;i++) if(vals[i]!=null) idx.push(i);
-  if(idx.length===0) return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"></svg>';
-  const lastI=idx[idx.length-1];
-  const poly = idx.length>1 ? '<polyline points="'+idx.map(i=>xFor(i).toFixed(1)+','+yFor(vals[i]).toFixed(1)).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="1.8" stroke-linejoin="round"/>' : '';
-  const dots = idx.map(i=>'<circle cx="'+xFor(i).toFixed(1)+'" cy="'+yFor(vals[i]).toFixed(1)+'" r="'+(i===lastI?4:2.5)+'" fill="'+color+'" opacity="'+(i===lastI?1:0.7)+'"/>').join('');
-  const labs = idx.map(i=>'<text x="'+xFor(i).toFixed(1)+'" y="'+(h-2)+'" font-size="9" fill="'+color+'" text-anchor="middle">'+vals[i].toFixed(1)+'</text>').join('');
-  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">'+poly+dots+labs+'</svg>';
-}
-
-function dynPct(a,b){
-  if(a==null||b==null||a===0) return {html:'—',val:0};
-  const v=((b-a)/a*100);
-  const up=v>=0;
-  return {html:'<span style="color:'+(up?'#0F6E56':'#534AB7')+';font-weight:500;">'+(up?'+':'')+v.toFixed(1)+'%</span>',val:v};
-}
 function renderDynStu(){
   const sid=document.getElementById('dynStuSel').value; if(!sid) return;
-  const mode=document.getElementById('dynStuMode')?.value||'M';
-  const selDays=[1,2,3,4,5].filter(d=>{const cb=document.getElementById('sCb'+d);return cb&&cb.checked;});
-  if(selDays.length===0) return;
-  const wrap=document.getElementById('dynStuSparkWrap');
-  if(!wrap) return;
-  const sw=mode==='MT'?130:180;
-  if(sid==='__group__'){
-    const rows=DB.students.map(s=>{
-      const mV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgM(p):null;});
-      const tV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?avgT(p):null;});
-      const totV=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===s.id&&pr.day===d&&!pr.absent);return p?(avgM(p)+avgT(p))/2:null;});
-      let cv=0;
-      const _ch=a=>{const nn=a.filter(v=>v!=null);return nn.length>1?(nn[nn.length-1]-nn[0])/nn[0]*100:0;};
-      if(mode==='M') cv=_ch(mV);
-      else if(mode==='T') cv=_ch(tV);
-      else if(mode==='MT') cv=(_ch(mV)+_ch(tV))/2;
-      else if(mode==='total') cv=_ch(totV);
-      return {s,mV,tV,totV,cv};
-    }).sort((a,b)=>b.cv-a.cv);
-    let colHdr='';
-    if(mode==='M') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М\'які навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
-    else if(mode==='T') colHdr='<th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
-    else if(mode==='MT') colHdr='<th style="padding:6px 8px;text-align:center;color:#7F77DD;font-weight:500;">М\'які навички</th><th style="padding:6px 8px;text-align:center;color:#1D9E75;font-weight:500;">Тверді навички</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">М</th><th style="padding:6px 8px;text-align:center;width:50px;color:var(--muted);font-weight:500;">Т</th>';
-    else colHdr='<th style="padding:6px 8px;text-align:center;color:#888780;font-weight:500;">Загальний бал</th><th style="padding:6px 8px;text-align:center;width:65px;color:var(--muted);font-weight:500;">Зміна</th>';
-    let html='<div style="border:0.5px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">';
-    html+='<thead><tr style="background:var(--bg2);"><th style="padding:6px 10px;text-align:left;font-weight:500;color:var(--muted);width:120px;">Дитина</th>'+colHdr+'</tr></thead><tbody>';
-    html+=rows.map(({s,mV,tV,totV,cv})=>{
-      const grew=cv>0;
-      const bg=grew?'#E1F5EE':'#EEEDFE';
-      const bdr=grew?'#9FE1CB':'#CECBF6';
-      let cells='';
-      if(mode==='M'){const p=dynPct(mV[0],mV[mV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
-      else if(mode==='T'){const p=dynPct(tV[0],tV[tV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
-      else if(mode==='MT'){const pm=dynPct(mV[0],mV[mV.length-1]);const pt=dynPct(tV[0],tV[tV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(mV,'#7F77DD',sw)+'</td><td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(tV,'#1D9E75',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+pm.html+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+pt.html+'</td>';}
-      else{const p=dynPct(totV[0],totV[totV.length-1]);cells='<td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(totV,'#888780',sw)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td>';}
-      return '<tr style="border-top:0.5px solid '+bdr+';background:'+bg+';"><td style="padding:5px 10px;font-weight:500;">'+s.name+'</td>'+cells+'</tr>';
-    }).join('');
-    html+='</tbody></table></div>';
-    wrap.innerHTML=html;
-  } else {
-    const skillRows=[];
-    if(mode==='M'||mode==='MT'||mode==='total'){
-      DB.mSkills.forEach((sk,i)=>{
-        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.mScores)return null;return p.mScores[i]??null;});
-        if(vals.some(v=>v!=null)) skillRows.push({code:'М'+(i+1),name:sk.name,vals,color:'#7F77DD'});
-      });
-    }
-    if(mode==='T'||mode==='MT'||mode==='total'){
-      DB.tSkills.forEach((sk,i)=>{
-        const vals=selDays.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);if(!p||!p.tScores)return null;return p.tScores[i]??null;});
-        if(vals.some(v=>v!=null)) skillRows.push({code:'Т'+(i+1),name:sk.name,vals,color:'#1D9E75'});
-      });
-    }
-    let html='<div style="border:0.5px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px;"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed;">';
-    html+='<thead><tr style="background:var(--bg2);"><th style="padding:6px 10px;text-align:left;font-weight:500;color:var(--muted);">Навичка</th><th style="padding:6px 8px;text-align:center;font-weight:500;width:45px;color:var(--muted);">Код</th><th style="padding:6px 8px;text-align:center;font-weight:500;color:var(--muted);">Динаміка</th><th style="padding:6px 8px;text-align:center;font-weight:500;width:65px;color:var(--muted);">Зміна</th></tr></thead><tbody>';
-    html+=skillRows.map(({code,name,vals,color})=>{
-      const p=dynPct(vals[0],vals[vals.length-1]);
-      const grew=p.val>0;
-      const bg=grew?'#E1F5EE':'#EEEDFE';
-      const bdr=grew?'#9FE1CB':'#CECBF6';
-      return '<tr style="border-top:0.5px solid '+bdr+';background:'+bg+';"><td style="padding:5px 10px;">'+name+'</td><td style="padding:5px 8px;text-align:center;font-size:10px;font-weight:500;color:'+color+';">'+code+'</td><td style="padding:3px 6px;text-align:center;">'+dynSparkSVG(vals,color,160)+'</td><td style="padding:3px 6px;text-align:center;font-size:11px;">'+p.html+'</td></tr>';
-    }).join('');
-    html+='</tbody></table></div>';
-    wrap.innerHTML=html;
-  }
+  dc('dynStuChart');
+  const days=[1,2,3,4,5];
+  const mD=days.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);return p?avgM(p):null;});
+  const tD=days.map(d=>{const p=DB.protocols.find(pr=>pr.studentId===sid&&pr.day===d&&!pr.absent);return p?avgT(p):null;});
+  const stu=DB.students.find(s=>s.id===sid);
+  CI['dynStuChart']=new Chart(document.getElementById('dynStuChart'),{
+    type:'line',
+    data:{labels:days.map(d=>`День ${d}`),datasets:[
+      {label:"М'які",data:mD,borderColor:'rgba(124,58,237,1)',backgroundColor:'rgba(124,58,237,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true},
+      {label:'Тверді',data:tD,borderColor:'rgba(3,105,161,1)',backgroundColor:'rgba(3,105,161,0.1)',tension:.4,fill:true,pointRadius:6,spanGaps:true}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,max:3}},plugins:{legend:{display:true},title:{display:true,text:stu?.name||''}}}
+  });
 }
 
 function renderRank(day){
-  if(day===undefined||day===null) day=lastConductedDay();
   dc('rankChart');
-  const _rdl=document.getElementById('rankDayLabel'); if(_rdl) _rdl.textContent=day?('Рейтинг за: '+dayLabel(day)):'';
   const data=DB.students.map(s=>({
     name:s.name.split(' ')[0], fullName:s.name,
     mA:stuAvgM(s.id,day), tA:stuAvgT(s.id,day)
@@ -1869,52 +1510,47 @@ function rankRow(s,i,score,color){
 // BELOW AVERAGE TABLE
 // ═══════════════════════════════════════════════════════
 function renderBelow(){
-  popBelowSkills();
-  const allDays=[1,2,3,4,5];
-  const selDays=allDays.filter(d=>{const cb=document.getElementById('bCb'+d);return cb&&cb.checked;});
-  const stuSel=document.getElementById('belowStu')?document.getElementById('belowStu').value:'__all__';
+  const day=document.getElementById('belowDay').value;
   const type=document.getElementById('belowType').value;
-  const skillSel=document.getElementById('belowSkill')?document.getElementById('belowSkill').value:'__all__';
-  const specSkill=(skillSel!=='__all__');
-  const specKind=specSkill?(skillSel.charAt(0)==='М'?'M':'T'):null;
-  const specIdx=specSkill?(parseInt(skillSel.slice(1),10)-1):null;
-  const showStu=(stuSel==='__all__');
-  const students=showStu?DB.students:DB.students.filter(s=>s.id===stuSel);
-  const colcount=(showStu?1:0)+3+selDays.length;
+  const gMSkAvg=DB.mSkills.map((_,i)=>grpSkillAvgM(i,day));
+  const gTSkAvg=DB.tSkills.map((_,i)=>grpSkillAvgT(i,day));
 
-  const gM={}, gT={};
-  selDays.forEach(d=>{gM[d]=DB.mSkills.map((_,i)=>grpSkillAvgM(i,String(d)));gT[d]=DB.tSkills.map((_,i)=>grpSkillAvgT(i,String(d)));});
-
-  const dayCols=selDays.map(d=>`<th style="text-align:center">День ${d}</th>`).join('');
-  let h=`<table class="below-table"><thead><tr>${showStu?'<th>Учень</th>':''}<th>Тип</th><th>Код</th><th>Навичка</th>${dayCols}</tr></thead><tbody>`;
+  let h=`<table class="below-table"><thead><tr><th>Учень</th><th>Тип</th><th>Код</th><th>Навичка</th><th>Бал</th><th>Сер. гр.</th><th>⭐</th></tr></thead><tbody>`;
   let hasData=false;
 
-  students.forEach(s=>{
-    const dayPs={};
-    selDays.forEach(d=>{dayPs[d]=getStuProtos(s.id,String(d)).filter(p=>!p.absent);});
-    function emit(kind,skills,gAvg,badge){
-      skills.forEach((sk,i)=>{
-        if(specSkill && !(kind===specKind && i===specIdx)) return;
-        const cells=selDays.map(d=>{
-          const arr=dayPs[d].map(p=>(kind==='M'?p.mScores:p.tScores)[i]).filter(v=>v>0);
-          const v=arr.length?avg(arr):0;
-          return {below:(v>0&&v<gAvg[d][i]), v:v};
-        });
-        if(!cells.some(c=>c.below)) return;
-        hasData=true;
-        const code=(kind==='M'?'М':'Т')+(i+1);
-        const tds=cells.map(c=>`<td style="text-align:center">${c.below?`<span class="star" title="Бал: ${c.v.toFixed(2)}">⭐</span>`:''}</td>`).join('');
-        h+=`<tr>${showStu?`<td>${s.name}</td>`:''}<td>${badge}</td><td>${code}</td><td>${sk.name}</td>${tds}</tr>`;
+  DB.students.forEach(s=>{
+    const ps=getStuProtos(s.id,day).filter(p=>!p.absent);
+    if(!ps.length) return;
+    const mA=DB.mSkills.map((_,i)=>avg(ps.map(p=>p.mScores[i]).filter(v=>v>0)));
+    const tA=DB.tSkills.map((_,i)=>avg(ps.map(p=>p.tScores[i]).filter(v=>v>0)));
+    const gMAvg=grpAvgM(day), gTAvg=grpAvgT(day);
+
+    if(type==='all'||type==='M'){
+      mA.forEach((v,i)=>{
+        const belowBoth=v>0&&v<gMSkAvg[i]&&gMSkAvg[i]<gMAvg;
+        const belowStu=v>0&&v<gMSkAvg[i];
+        if(belowStu){
+          hasData=true;
+          h+=`<tr class="${belowBoth?'below-avg':''}"><td>${s.name}</td><td><span class="badge bM">М</span></td><td>${DB.mSkills[i].code}</td>
+          <td>${DB.mSkills[i].name}</td><td>${v.toFixed(2)}</td><td>${gMSkAvg[i].toFixed(2)}</td>
+          <td>${belowBoth?'<span class="star">⭐</span>':''}</td></tr>`;
+        }
       });
     }
-    const runM=(type==='all'||type==='M');
-    const runT=(type==='all'||type==='T');
-    if(runM) emit('M',DB.mSkills,gM,'<span class="badge bM">М</span>');
-    if(runT) emit('T',DB.tSkills,gT,'<span class="badge bT">Т</span>');
+    if(type==='all'||type==='T'){
+      tA.forEach((v,i)=>{
+        const belowBoth=v>0&&v<gTSkAvg[i]&&gTSkAvg[i]<gTAvg;
+        const belowStu=v>0&&v<gTSkAvg[i];
+        if(belowStu){
+          hasData=true;
+          h+=`<tr class="${belowBoth?'below-avg':''}"><td>${s.name}</td><td><span class="badge bT">Т</span></td><td>${DB.tSkills[i].code}</td>
+          <td>${DB.tSkills[i].name}</td><td>${v.toFixed(2)}</td><td>${gTSkAvg[i].toFixed(2)}</td>
+          <td>${belowBoth?'<span class="star">⭐</span>':''}</td></tr>`;
+        }
+      });
+    }
   });
-
-  if(selDays.length===0) h+=`<tr><td colspan="${colcount}" style="text-align:center;padding:20px;color:var(--muted)">Оберіть хоча б один день</td></tr>`;
-  else if(!hasData) h+=`<tr><td colspan="${colcount}" style="text-align:center;padding:20px;color:var(--muted)">Немає значень нижче середнього</td></tr>`;
+  if(!hasData) h+=`<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Немає даних нижче середнього</td></tr>`;
   h+='</tbody></table>';
   document.getElementById('belowTable').innerHTML=h;
 }
@@ -2344,7 +1980,7 @@ function showReportModal(html, type, day){
 // ══════════════════════════════════════════
 function getRoleLabel(){
   const apiRole = getApiRole();
-        const labels = {admin:'🔧 Адміністратор',teacher:'👩‍🏫 Педагог',parent:'👨‍👩‍👧 Батьки'};
+  const labels = {admin:'🔧 Адміністратор',director:'🏫 Директор',methodologist:'📋 Керівник МО',expert:'🎯 Експерт',teacher:'🎯 Експерт',parent:'👨‍👩‍👧 Батьки'};
   return (labels[apiRole]||'👁') + ' · ' + user;
 }
 
@@ -2352,8 +1988,11 @@ function getRoleLabel(){
 // ROLE PERMISSIONS
 // ═══════════════════════════════════════════════════════
 const ROLE_PERMS = {
-  admin:         {rank:1, grp:1, stu:1, dyn:1, dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:1, progs:1},
-  teacher:       {rank:1, grp:1, stu:1, dyn:1, dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0, progs:1},
+  admin:         {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:1},
+  director:      {dash:1, proto:0, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+  methodologist: {dash:1, proto:0, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+  teacher:       {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
+  expert:        {dash:1, proto:1, students:1, analytics:1, below:1, posters:1, course:1, reports:1, admin:0},
 };
 
 function getApiRole(){
@@ -2399,7 +2038,6 @@ function showApp(){
   applyRolePerms();
   popSelects();
   renderDash();
-  renderRank();
   renderStuTable();
   renderAdminStu();
   renderAdminParams();
@@ -2607,9 +2245,9 @@ function showInlineLogin(){
   overlay.innerHTML = `
     <div style="background:#fff;border-radius:20px;padding:40px;width:380px;max-width:92vw;box-shadow:0 30px 80px rgba(0,0,0,0.3)">
       <div style="text-align:center;margin-bottom:24px">
-        <div style="width:54px;height:54px;background:#00C9A7;border-radius:13px;display:inline-flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2V9" stroke="#0F0E17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div style="font-size:2.5rem">🎯</div>
         <h2 style="font-size:1.3rem;font-weight:900;color:#7B2D8B;margin:8px 0 4px">VECTOR</h2>
-        <p style="font-size:0.82rem;color:#64748b;margin:0">Starting the Rainbows · модуль діагностики</p>
+        <p style="font-size:0.82rem;color:#64748b;margin:0">Starting the Rainbows · Протокол навичок</p>
       </div>
       <div id="vErrorMsg" style="display:none;background:#fef2f2;border:1px solid #fca5a5;color:#dc2626;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px"></div>
       <div style="margin-bottom:12px">
@@ -2651,7 +2289,7 @@ async function vApiLogin(){
     localStorage.setItem('vector_user', JSON.stringify(data.user));
 
     // Встановити роль і користувача
-    const roleMap = {admin:'admin', teacher:'teacher', parent:'parent'};
+    const roleMap = {admin:'admin', expert:'teacher', director:'admin', methodologist:'admin', parent:'parent'};
     role = roleMap[data.user.role] || 'teacher';
     user = data.user.full_name;
 
@@ -2691,7 +2329,7 @@ document.addEventListener('DOMContentLoaded', async function(){
   if(savedUser && savedToken){
     try{
       const u = JSON.parse(savedUser);
-      const roleMap = {admin:'admin', teacher:'teacher', parent:'parent'};
+      const roleMap = {admin:'admin', expert:'teacher', director:'admin', methodologist:'admin', parent:'parent'};
       role = roleMap[u.role] || 'teacher';
       user = u.full_name;
       DB = await loadDB();
@@ -2720,281 +2358,4 @@ window.logout = function(){
   _origLogout();
 };
 </script>
-
-<script>
-/* ═══════════════════════════════════════════════
-   VECTOR_PROGS_V1 · Програма для батьків (T9)
-   Логіка згідно з архівом «Виробництво Програм».
-   ═══════════════════════════════════════════════ */
-var PG_BANK = null;              // банк рекомендацій (batьки)
-var pgDepthVal = 'lite';
-var pgShowNums = false;
-var pgSrc = 'below';             // звідки відкрито
-var pgStuId = null;
-
-const PG_DAYS = ['Понеділок','Вівторок','Середа','Четвер','П’ятниця','Субота','Неділя'];
-const PG_BANDS = ['#6B2D8B','#7E3BA0','#5B4BC4','#3E6FD0','#2E90D9','#00A98D'];
-
-async function pgLoadBank(){
-  if(PG_BANK) return PG_BANK;
-  try{
-    const r = await fetch('/data/bank.json', {cache:'force-cache'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const j = await r.json();
-    PG_BANK = j.parents || j;      // підтримка обох форматів
-    return PG_BANK;
-  }catch(e){
-    console.error('Банк не завантажено:', e);
-    alert('Не вдалося завантажити банк рекомендацій (/data/bank.json).');
-    return null;
-  }
-}
-
-/* Учень, обраний на активній сторінці */
-function pgCurrentStu(){
-  const id = (pgSrc==='stu')
-    ? (document.getElementById('analStuSel')||{}).value
-    : (document.getElementById('belowStu')||{}).value;
-  if(!id || id==='__all__') return null;
-  return DB.students.find(s=>s.id===id) || null;
-}
-
-/* Навички «нижче середнього» по дитині + бал (логіка як у popBelowSkills) */
-function pgBelowSkills(stuId){
-  const selDays = [1,2,3,4,5].filter(d=>{
-    const cb=document.getElementById('bCb'+d); return cb ? cb.checked : true;
-  });
-  const days = selDays.length ? selDays : [1,2,3,4,5];
-  const gM={}, gT={};
-  days.forEach(d=>{
-    gM[d]=DB.mSkills.map((_,i)=>grpSkillAvgM(i,String(d)));
-    gT[d]=DB.tSkills.map((_,i)=>grpSkillAvgT(i,String(d)));
-  });
-  const dayPs={};
-  days.forEach(d=>{ dayPs[d]=getStuProtos(stuId,String(d)).filter(p=>!p.absent); });
-
-  const out=[];
-  function scan(kind, list, gRef){
-    list.forEach((sk,i)=>{
-      const vals=[]; let isBelow=false;
-      days.forEach(d=>{
-        const arr=dayPs[d].map(p=>(kind==='M'?p.mScores:p.tScores)[i]).filter(v=>v>0);
-        const v=arr.length?avg(arr):0;
-        if(v>0){ vals.push(v); if(v < gRef[d][i]) isBelow=true; }
-      });
-      if(isBelow && vals.length){
-        out.push({ code:(kind==='M'?'М':'Т')+(i+1), name:sk.name, score:+(avg(vals).toFixed(2)) });
-      }
-    });
-  }
-  scan('M', DB.mSkills, gM);
-  scan('T', DB.tSkills, gT);
-  out.sort((a,b)=>a.score-b.score);     // найслабші першими
-  return out;
-}
-
-function pgSelected(){
-  const n = (pgDepthVal==='deep') ? 5 : 3;
-  return (window._pgBelow||[]).slice(0, n);
-}
-
-/* Рівень підтримки — ЗА БАЛОМ навички */
-function pgSup(score){
-  if(score < 1.5) return ['повна','red'];
-  if(score < 2.0) return ['часткова','yellow'];
-  return ['самостійна','green'];
-}
-
-/* Вправи «на крок вище» (ЗНР) + ритуал з Рівня 1 */
-function pgBankFor(code){
-  if(!PG_BANK || !PG_BANK[code]) return null;
-  return PG_BANK[code];
-}
-function pgExercises(code, score){
-  const b = pgBankFor(code); if(!b) return [];
-  // рівень дитини за балом: <1.5 → Р1, 1.5..2.4 → Р2, >=2.5 → Р3
-  const lvl = score < 1.5 ? 1 : (score < 2.5 ? 2 : 3);
-  const target = Math.min(lvl + 1, 3);   // ЗНР: завжди на крок вище
-  const acts = (b['L'+target]||{}).actions || [];
-  return acts.length ? acts : ((b.L3||{}).actions || (b.L2||{}).actions || []);
-}
-/* екранування для innerHTML (XSS) */
-function pgEsc(s){
-  return String(s==null?'':s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-function pgRitual(code){
-  const b = pgBankFor(code); if(!b) return 'щоденна увага до навички';
-  const a = ((b.L1||{}).actions||[])[0];
-  if(!a) return 'щоденна увага до навички';
-  const d = (a.d||'').split(/(?<=[.!?])\s/)[0] || '';
-  return a.t + (d ? ' — ' + d : '');
-}
-
-/* ─── Модалка ─── */
-async function pgOpen(src){
-  pgSrc = src;
-  const stu = pgCurrentStu();
-  if(!stu){ alert('Спершу оберіть конкретного учня у списку.'); return; }
-  const bank = await pgLoadBank(); if(!bank) return;
-
-  pgStuId = stu.id;
-  window._pgBelow = pgBelowSkills(stu.id);
-  if(!window._pgBelow.length){ alert('У цієї дитини немає навичок нижче середнього за обраними днями.'); return; }
-
-  pgDepthVal='lite'; pgShowNums=false;
-  document.getElementById('pgTgNums').classList.remove('on');
-  document.getElementById('pgNotes').value='';
-  document.querySelectorAll('.pg-seg-btn').forEach(b=>b.classList.toggle('active', b.dataset.d==='lite'));
-  document.getElementById('pgSub').textContent = stu.name + ' · перевірте параметри й сформуйте';
-  pgPreview();
-  document.getElementById('modProg').classList.add('open');
-}
-function pgDepth(d, el){
-  pgDepthVal=d;
-  document.querySelectorAll('.pg-seg-btn').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
-  pgPreview();
-}
-function pgTog(){
-  pgShowNums=!pgShowNums;
-  document.getElementById('pgTgNums').classList.toggle('on', pgShowNums);
-  pgPreview();
-}
-function pgPreview(){
-  const w=document.getElementById('pgPrev'); w.innerHTML='';
-  const sel=pgSelected();
-  if(!sel.length){ w.innerHTML='<div class="pg-chip">Немає навичок для програми</div>'; return; }
-  sel.forEach(s=>{
-    const sc = pgShowNums ? ' · бал '+s.score : '';
-    w.innerHTML += `<div class="pg-chip"><b>${pgEsc(s.code)}</b>${sc} · ${pgEsc(s.name)}</div>`;
-  });
-}
-
-/* ─── Документ ─── */
-function pgLegend(){
-  return `<div class="pg-legend">
-    <b>🪜 Рівні підтримки (скаффолдинг).</b> Спершу допомагаєте більше, згодом усе менше — поки дитина не робить сама:
-    <div class="pg-lvl pg-lvl-red">🔴 <b>Повна</b> — показуєте й робите разом із дитиною.</div>
-    <div class="pg-lvl pg-lvl-yellow">🟡 <b>Часткова</b> — дитина веде, ви лише підказуєте у складних місцях.</div>
-    <div class="pg-lvl pg-lvl-green">🟢 <b>Самостійна</b> — дитина робить сама, ви поруч як глядач.</div>
-    <div class="pg-marker">✅ <b>Маркер зняття:</b> щойно дитина впевнено робить без нагадувань і сама пропонує повторити — переходьте на легший рівень підтримки.</div>
-    <div class="pg-note-sub">Біля кожної вправи в розкладі стоїть її рівень підтримки тим самим кольором. Рівень залежить від складності: ритуали — переважно самостійні, а навички, де дитині поки важче (нижчий бал), довше йдуть із підтримкою.</div>
-  </div>`;
-}
-function pgExHTML(sk, w, mark){
-  const list = pgExercises(sk.code, sk.score);
-  if(!list.length) return '';
-  const ex = list[(w-1) % list.length];
-  const [st, cls] = pgSup(sk.score);
-  return `<div class="pg-e ${cls}"><div>${mark} <b>${pgEsc(sk.code)} · ${pgEsc(ex.t)}</b> <span class="pg-ph ${cls}">${st}</span></div><div class="pg-desc">${pgEsc(ex.d||'')}</div></div>`;
-}
-function pgSchedule(){
-  const sk = pgSelected();
-  let rows='';
-  for(let w=1; w<=6; w++){
-    rows += `<tr><td colspan="2" class="pg-band" style="background:${PG_BANDS[w-1]}">Тиждень ${w}</td></tr>`;
-    for(let d=0; d<7; d++){
-      const weekend = d>=5;
-      const rSk = sk[(w+d) % sk.length];
-      let items = `<div class="pg-r">🔔 <b>Ритуал:</b> ${pgRitual(rSk.code)} <span class="pg-ph green">без підтримки</span></div>`;
-      if(!weekend){
-        items += pgExHTML(sk[d % sk.length], w, '▫️');
-      } else {
-        const load = (pgDepthVal==='deep') ? 2 : (d===5 ? 3 : 1);
-        for(let i=0;i<load;i++) items += pgExHTML(sk[(d+i) % sk.length], w, '▪️');
-        if(pgDepthVal==='deep' && w>=5 && d===6)
-          items += `<div class="pg-cr">🌟 <b>Творчий задум:</b> дитина — автор ідеї, ви допомагаєте втілити її задум.</div>`;
-      }
-      rows += `<tr class="${weekend?'we':''}"><td class="pg-d">${PG_DAYS[d]}</td><td>${items}</td></tr>`;
-    }
-  }
-  return `<h3 style="font-size:1rem;color:#6B2D8B;margin:0 0 8px">🗓 Розклад на 6 тижнів</h3>
-    <table class="pg-cal"><thead><tr><th class="thd">День</th><th>Вправи дня (з повним описом)</th></tr></thead><tbody>${rows}</tbody></table>
-    <div class="pg-note-sub">Будні — легко (ритуал + 1 вправа), бо дитина працює в садочку. Вихідні — головне навантаження. Одна техніка тримається, поки не спрацює «маркер зняття»; форма щотижня змінюється, щоб було цікаво.</div>`;
-}
-function pgClean(t){ return (t||'').replace(/^💬\s*ПРО НАВИЧКУ ПРОСТИМИ СЛОВАМИ:\s*/,'').trim(); }
-
-function pgBuild(){
-  const stu = DB.students.find(s=>s.id===pgStuId);
-  if(!stu) return;
-  const sel = pgSelected();
-  const note = (document.getElementById('pgNotes').value||'').trim();
-  const depthName = (pgDepthVal==='deep') ? 'Поглиблена' : 'Лайт';
-  const today = new Date().toLocaleDateString('uk-UA');
-
-  const teacherName = (typeof user!=='undefined' && user) ? user : '—';
-  let html = `<div class="pg-rainbow"></div>
-    <div class="pg-h1">Програма розвитку для родини · ${depthName}</div>
-    <div class="pg-meta">${pgEsc(stu.name)} · педагог: ${pgEsc(teacherName)} · ${today}</div>
-    <div class="pg-guide">💜 <b>Ваша дитина — провідник.</b> ${pgEsc(stu.name.split(' ')[0])} вже знайома з нашими активностями — попросіть її навчити вас! Найкраще навчання — у грі та спільному задумі.</div>
-    <div class="pg-sec">Навички, з якими працюємо</div>`;
-
-  sel.forEach(s=>{
-    const b = pgBankFor(s.code);
-    const about = pgClean(b ? b.about : '');
-    const sc = pgShowNums ? ` <span style="color:#888;font-size:.8rem">(бал ${s.score})</span>` : '';
-    html += `<div class="pg-skill"><h4>${pgEsc(s.code)} · ${pgEsc(s.name)}${sc}</h4><p class="pg-about">${pgEsc(about)}</p></div>`;
-  });
-
-  html += pgLegend();
-  html += `<div class="pg-sec">Розклад (коли що робити)</div>` + pgSchedule();
-  if(note) html += `<div class="pg-note-out">✍️ <b>Від педагога:</b> ${note.replace(/</g,'&lt;')}</div>`;
-  html += `<div class="pg-sign">Starting the Rainbows® · модель ВЕКТОР «Впевнений СТАРТ» · сформовано в застосунку VECTOR</div>`;
-
-  document.getElementById('pgDoc').innerHTML = html;
-  closeModal('modProg');
-  pgSave({ id:'p'+Date.now(), stuId:stu.id, stuName:stu.name, depth:depthName, date:today, html:html });
-  pgGoto();                                   // перехід на сторінку БЕЗ рендеру списку
-  document.getElementById('pgListWrap').classList.add('hidden');
-  document.getElementById('pgResultWrap').classList.remove('hidden');
-}
-/* перехід на сторінку «Програми» без побудови списку */
-function pgGoto(){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.sidebar-item').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-progs').classList.add('active');
-  document.querySelector('[data-page="progs"]')?.classList.add('active');
-}
-
-/* ─── Збереження (localStorage; TODO: перенести в БД) ─── */
-function pgAll(){
-  try{ return JSON.parse(localStorage.getItem('vector_progs')||'[]'); }catch(e){ return []; }
-}
-function pgSave(p){
-  const all = pgAll(); all.unshift(p);
-  try{ localStorage.setItem('vector_progs', JSON.stringify(all.slice(0,50))); }catch(e){ console.warn('localStorage full'); }
-}
-function pgDel(id){
-  if(!confirm('Видалити цю програму?')) return;
-  localStorage.setItem('vector_progs', JSON.stringify(pgAll().filter(p=>p.id!==id)));
-  pgRenderList();
-}
-function pgShow(id){
-  const p = pgAll().find(x=>x.id===id); if(!p) return;
-  document.getElementById('pgDoc').innerHTML = p.html;
-  document.getElementById('pgListWrap').classList.add('hidden');
-  document.getElementById('pgResultWrap').classList.remove('hidden');
-}
-function pgBack(){
-  pgRenderList();   // сама перемикає видимість
-}
-function pgRenderList(){
-  const wrap = document.getElementById('pgList'); if(!wrap) return;
-  document.getElementById('pgResultWrap').classList.add('hidden');
-  document.getElementById('pgListWrap').classList.remove('hidden');
-  const all = pgAll();
-  if(!all.length){ wrap.innerHTML = '<div style="color:#6B7280;font-size:.88rem;padding:8px">Ще немає збережених програм.</div>'; return; }
-  wrap.innerHTML = all.map(p=>`
-    <div class="pg-row">
-      <div><b>${pgEsc(p.stuName)}</b> · ${pgEsc(p.depth)}<div style="font-size:.78rem;color:#6B7280">${pgEsc(p.date)}</div></div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-out btn-sm" onclick="pgShow('${p.id}')">Відкрити</button>
-        <button class="btn btn-out btn-sm" onclick="pgDel('${p.id}')">🗑</button>
-      </div>
-    </div>`).join('');
-}
-</script>
-
 </body>
