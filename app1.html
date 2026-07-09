@@ -342,6 +342,9 @@ tr:last-child td{border-bottom:none}
 .pg-note-out{background:#FFFDF2;border:1px solid #F2E6B8;border-radius:10px;padding:12px 14px;font-size:.88rem;margin-top:10px}
 .pg-sign{margin-top:18px;padding-top:12px;border-top:1px solid #ECECF1;font-size:.75rem;color:#6B7280;text-align:center}
 .pg-row{display:flex;justify-content:space-between;align-items:center;border:1px solid #ECECF1;border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.pg-back{display:inline-block;margin:0 0 14px;color:#6B2D8B;font-size:.86rem;cursor:pointer;background:none;border:0;font-weight:700;padding:0}
+.pg-banner{background:#FFF8E6;border:1px solid #F2E2A8;border-radius:10px;padding:9px 13px;font-size:.8rem;color:#7a5b00;margin-bottom:14px}
+.pg-res-actions{display:flex;gap:10px;justify-content:center;margin:18px auto 0;max-width:720px}
 @media print{.sidebar,.topbar,.pg-noprint{display:none !important}.pg-doc{box-shadow:none;max-width:100%}}
 </style>
 <style>
@@ -592,11 +595,13 @@ body { margin: 0; }
       <div class="page" id="page-progs">
         <div class="section-header"><div class="section-title">📄 Програми для батьків</div></div>
         <div id="pgResultWrap" class="hidden">
-          <div class="pg-cta pg-noprint">
-            <button class="btn btn-out" onclick="pgBack()">← Назад до списку</button>
-            <button class="btn btn-p" onclick="window.print()">🖨 Друк / PDF</button>
-          </div>
+          <button class="pg-back pg-noprint" onclick="pgBack()">← Назад до списку</button>
+          <div class="pg-banner pg-noprint">📁 Програму збережено у вкладці «Програми». Її можна роздрукувати чи завантажити будь-коли.</div>
           <div id="pgDoc" class="pg-doc"></div>
+          <div class="pg-res-actions pg-noprint">
+            <button class="btn btn-out" onclick="window.print()">🖨 Друк</button>
+            <button class="btn btn-p" onclick="window.print()">⬇ Зберегти на диск</button>
+          </div>
         </div>
         <div id="pgListWrap">
           <div class="alert al-i mb-16">Програми створюються з аналітики: «По учню» або «Нижче середнього». Збережені програми зберігаються локально у цьому браузері.</div>
