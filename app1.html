@@ -346,49 +346,6 @@ tr:last-child td{border-bottom:none}
 .pg-banner{background:#FFF8E6;border:1px solid #F2E2A8;border-radius:10px;padding:9px 13px;font-size:.8rem;color:#7a5b00;margin-bottom:14px}
 .pg-res-actions{display:flex;gap:10px;justify-content:center;margin:18px auto 0;max-width:720px}
 @media print{.sidebar,.topbar,.pg-noprint{display:none !important}.pg-doc{box-shadow:none;max-width:100%}}
-
-/* ═══ DELTA_BALANCE_V1 · Баланс навичок групи ═══ */
-.bal-card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow-sm);padding:24px;border:1px solid var(--border);margin-bottom:18px}
-.bal-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
-.bal-title{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:9px;color:var(--text)}
-.bal-day{font-size:.8rem;color:var(--muted);font-weight:600}
-.bal-empty{color:var(--muted);font-size:.88rem;padding:10px 0}
-.scale-wrap{display:flex;justify-content:center;padding:8px 0 4px}
-.bal-bars{position:relative;height:190px;margin:6px 0 0;padding:0 20px}
-.bal-grid{position:absolute;inset:0;pointer-events:none}
-.bal-gl{position:absolute;left:0;right:0;border-top:1px dashed #ece6f2;font-size:.7rem;color:#b9b3c4}
-.bal-gl span{position:absolute;left:-4px;top:-8px;background:var(--card);padding:0 4px}
-.bal-eq{position:absolute;left:8px;right:8px;border-top:1.5px dashed var(--muted);z-index:2}
-.bal-eq-lbl{position:absolute;right:0;top:-19px;font-size:.72rem;color:var(--muted);font-weight:700;background:var(--card);padding:0 6px}
-.bal-row{position:absolute;left:0;right:0;bottom:0;height:100%;display:flex;justify-content:center;align-items:flex-end;gap:70px}
-.bal-bar{width:72px;border-radius:5px 5px 0 0;position:relative;transition:height .45s}
-.bal-bar.m{background:var(--purple)}
-.bal-bar.t{background:var(--blue)}
-.bal-val{position:absolute;top:-24px;left:0;right:0;text-align:center;font-size:.9rem;font-weight:800}
-.bal-bar.m .bal-val{color:var(--purple)}
-.bal-bar.t .bal-val{color:var(--blue)}
-.bal-lbl{position:absolute;bottom:-26px;left:0;right:0;text-align:center;font-size:.78rem;color:var(--muted);font-weight:600}
-.bal-base{margin-top:34px;border-top:1px solid var(--border)}
-.bal-axis{position:relative;height:58px;margin:22px 8px 0}
-.bal-ax-line{position:absolute;top:26px;left:0;right:0;height:1px;background:var(--border)}
-.bal-ax-zero{position:absolute;top:12px;left:50%;width:2px;height:28px;background:var(--muted);transform:translateX(-1px)}
-.bal-ax-fill{position:absolute;top:20px;height:12px;border-radius:3px;transition:all .45s}
-.bal-ax-dot{position:absolute;top:19px;width:14px;height:14px;border-radius:50%;border:2.5px solid var(--card);transition:left .45s}
-.bal-ax-side{position:absolute;top:0;font-size:.74rem;color:var(--muted)}
-.bal-ax-eq{position:absolute;top:46px;left:50%;transform:translateX(-50%);font-size:.72rem;color:var(--muted)}
-.bal-ax-delta{position:absolute;top:0;font-size:.8rem;font-weight:800;transform:translateX(-50%);transition:left .45s}
-.bal-verdict{border-radius:10px;padding:14px 18px;margin-top:24px}
-.bal-verdict.vt{background:var(--blue-l)}
-.bal-verdict.vm{background:var(--purple-l)}
-.bal-verdict.veq{background:var(--green-l)}
-.bal-v-main{font-size:.98rem;font-weight:700}
-.bal-verdict.vt .bal-v-main{color:#0d47a1}
-.bal-verdict.vm .bal-v-main{color:var(--purple-d)}
-.bal-verdict.veq .bal-v-main{color:#1b5e20}
-.bal-v-sub{font-size:.84rem;margin-top:3px;opacity:.85}
-.bal-verdict.vt .bal-v-sub{color:var(--blue)}
-.bal-verdict.vm .bal-v-sub{color:var(--purple)}
-.bal-verdict.veq .bal-v-sub{color:var(--green-d)}
 </style>
 <style>
 /* App-specific overrides */
@@ -509,56 +466,6 @@ body { margin: 0; }
         <!-- GROUP -->
         <div id="aGrp">
           <div class="flex gap-10 mb-16" style="align-items:center"><label class="fl" style="margin:0">День:</label><select class="fc" id="grpDay" style="width:150px" onchange="renderGrpAnal()"></select></div>
-          <div class="bal-card" id="balCard">
-            <div class="bal-head">
-              <div class="bal-title">⚖️ Баланс навичок групи</div>
-              <div class="bal-day" id="balDay"></div>
-            </div>
-            <div class="bal-empty hidden" id="balEmpty">Немає даних за обраний день.</div>
-            <div id="balBody">
-              <div class="scale-wrap">
-                <svg width="300" height="132" viewBox="0 0 300 132">
-                  <path d="M110 118 L190 118 L181 126 L119 126 Z" fill="var(--text)" opacity=".18"/>
-                  <line x1="150" y1="118" x2="150" y2="46" stroke="var(--text)" stroke-width="2.5" opacity=".55"/>
-                  <line id="balBeam" x1="70" y1="40" x2="230" y2="52" stroke="var(--text)" stroke-width="2.6" stroke-linecap="round"/>
-                  <line id="balRodM" x1="70" y1="40" x2="70" y2="62" stroke="var(--text)" stroke-width="1" opacity=".45"/>
-                  <line id="balRodT" x1="230" y1="52" x2="230" y2="74" stroke="var(--text)" stroke-width="1" opacity=".45"/>
-                  <circle id="balPanM" cx="70" cy="74" r="15" fill="#7B2D8B"/>
-                  <circle id="balPanT" cx="230" cy="86" r="15" fill="#1565C0"/>
-                  <text id="balTxtM" x="70" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">М</text>
-                  <text id="balTxtT" x="230" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Т</text>
-                  <circle cx="150" cy="46" r="4" fill="var(--text)" opacity=".65"/>
-                </svg>
-              </div>
-              <div class="bal-bars">
-                <div class="bal-grid">
-                  <div class="bal-gl" style="top:0"><span>3.0</span></div>
-                  <div class="bal-gl" style="top:47.5%"><span>2.0</span></div>
-                  <div class="bal-gl" style="top:95%"><span>1.0</span></div>
-                </div>
-                <div class="bal-eq" id="balEqLine"><span class="bal-eq-lbl" id="balEqLbl"></span></div>
-                <div class="bal-row">
-                  <div class="bal-bar m" id="balBarM"><span class="bal-val" id="balValM">—</span><span class="bal-lbl">м'які</span></div>
-                  <div class="bal-bar t" id="balBarT"><span class="bal-val" id="balValT">—</span><span class="bal-lbl">тверді</span></div>
-                </div>
-              </div>
-              <div class="bal-base"></div>
-              <div class="bal-axis">
-                <div class="bal-ax-line"></div>
-                <div class="bal-ax-zero"></div>
-                <div class="bal-ax-fill" id="balAxFill"></div>
-                <div class="bal-ax-dot" id="balAxDot"></div>
-                <div class="bal-ax-side" style="left:0">м'які</div>
-                <div class="bal-ax-side" style="right:0">тверді</div>
-                <div class="bal-ax-eq">рівновага</div>
-                <div class="bal-ax-delta" id="balAxDelta"></div>
-              </div>
-              <div class="bal-verdict veq" id="balVerdict">
-                <div class="bal-v-main" id="balVMain"></div>
-                <div class="bal-v-sub" id="balVSub"></div>
-              </div>
-            </div>
-          </div>
           <div class="alert al-i mb-16">Гістограма заг. варіант 1: стовпчики М та Т, відсортовані за рейтингом дітей. Варіант 2 — за списком відвідування.</div>
           <div class="tabs" style="margin-bottom:12px">
             <button class="tab active btn-sm" onclick="swGTab('v1')">Варіант 1 (ранжування)</button>
@@ -1704,7 +1611,6 @@ function renderAnalytics(){
 function renderGrpAnal(){
   const day=document.getElementById('grpDay')?document.getElementById('grpDay').value:'all';
   dc('gV1Chart'); dc('gV2Chart'); dc('gTChart'); dc('gMChart');
-  renderBalance(day);
 
   const activeStu=DB.students.filter(s=>!getStuProtos(s.id,day).find(p=>p.absent)||getStuProtos(s.id,day).filter(p=>!p.absent).length>0);
 
@@ -2819,105 +2725,6 @@ window.logout = function(){
   _origLogout();
 };
 </script>
-
-<script>
-/* ═══ DELTA_BALANCE_V1 · Vision: баланс мʼяких і твердих навичок групи ═══
-   Рівновага — власне середнє групи. Норми немає: педагог бачить свою різницю.
-   Шкала фіксована 1..3, тому падіння рівня видно навіть при тому самому нахилі. */
-var BAL_EQ_THRESHOLD = 0.05;   // менша різниця вважається рівновагою
-var BAL_TILT_MAX = 16;          // стеля нахилу коромисла, px
-var BAL_TILT_K = 42;            // px нахилу на 1.0 різниці
-var BAL_AXIS_MAX = 1.0;         // різниця, що заповнює половину осі
-
-function balPct(v){ return Math.max(0, Math.min(100, ((v - 1) / 2) * 100)); }
-
-function balSetTilt(d){
-  var tilt = Math.max(-BAL_TILT_MAX, Math.min(BAL_TILT_MAX, d * BAL_TILT_K));
-  var yM = 46 - tilt, yT = 46 + tilt;
-  var g = function(id){ return document.getElementById(id); };
-  if(!g('balBeam')) return;
-  g('balBeam').setAttribute('y1', yM);
-  g('balBeam').setAttribute('y2', yT);
-  g('balRodM').setAttribute('y1', yM); g('balRodM').setAttribute('y2', yM + 22);
-  g('balRodT').setAttribute('y1', yT); g('balRodT').setAttribute('y2', yT + 22);
-  g('balPanM').setAttribute('cy', yM + 34);
-  g('balPanT').setAttribute('cy', yT + 34);
-  g('balTxtM').setAttribute('y', yM + 40);
-  g('balTxtT').setAttribute('y', yT + 40);
-}
-
-function renderBalance(day){
-  var card = document.getElementById('balCard');
-  if(!card || typeof DB === 'undefined' || !DB) return;
-
-  var m = grpAvgM(day), t = grpAvgT(day);
-  var body = document.getElementById('balBody'),
-      empty = document.getElementById('balEmpty');
-
-  if(!(m > 0 && t > 0)){
-    body.classList.add('hidden'); empty.classList.remove('hidden');
-    document.getElementById('balDay').textContent = '';
-    document.getElementById('balVMain').textContent = '';
-    document.getElementById('balVSub').textContent = '';
-    return;
-  }
-  body.classList.remove('hidden'); empty.classList.add('hidden');
-
-  var d = t - m, eq = (m + t) / 2;
-  document.getElementById('balDay').textContent =
-    (day === 'all') ? 'Усі дні' : (typeof dayLabel === 'function' ? dayLabel(parseInt(day)) : 'День ' + day);
-
-  document.getElementById('balValM').textContent = m.toFixed(2);
-  document.getElementById('balValT').textContent = t.toFixed(2);
-  document.getElementById('balBarM').style.height = balPct(m) + '%';
-  document.getElementById('balBarT').style.height = balPct(t) + '%';
-
-  document.getElementById('balEqLine').style.bottom = balPct(eq) + '%';
-  document.getElementById('balEqLbl').textContent = 'рівновага ' + eq.toFixed(2);
-
-  balSetTilt(d);
-
-  var half = 46;
-  var off = Math.max(-half, Math.min(half, (d / BAL_AXIS_MAX) * half));
-  var fill = document.getElementById('balAxFill'),
-      dot = document.getElementById('balAxDot'),
-      delta = document.getElementById('balAxDelta'),
-      verdict = document.getElementById('balVerdict'),
-      vMain = document.getElementById('balVMain'),
-      vSub = document.getElementById('balVSub');
-
-  var sub = "м'які " + m.toFixed(2) + ' · тверді ' + t.toFixed(2) + ' · різниця ' + Math.abs(d).toFixed(2);
-
-  if(Math.abs(d) < BAL_EQ_THRESHOLD){
-    fill.style.left = '50%'; fill.style.width = '0';
-    dot.style.left = 'calc(50% - 7px)'; dot.style.background = 'var(--green)';
-    delta.style.left = '50%'; delta.style.color = 'var(--green)'; delta.textContent = '0.00';
-    verdict.className = 'bal-verdict veq';
-    vMain.textContent = 'Ваш вплив урівноважений';
-    vSub.textContent = sub;
-    return;
-  }
-
-  var isT = d > 0;
-  var col = isT ? 'var(--blue)' : 'var(--purple)';
-  fill.style.background = col;
-  dot.style.background = col;
-  delta.style.color = col;
-  delta.textContent = (isT ? '+' : '−') + Math.abs(d).toFixed(2);
-
-  if(isT){ fill.style.left = '50%'; fill.style.width = Math.abs(off) + '%'; }
-  else { fill.style.left = (50 - Math.abs(off)) + '%'; fill.style.width = Math.abs(off) + '%'; }
-  dot.style.left = 'calc(' + (50 + off) + '% - 7px)';
-  delta.style.left = (50 + off) + '%';
-
-  verdict.className = 'bal-verdict ' + (isT ? 'vt' : 'vm');
-  vMain.textContent = isT
-    ? 'Ваш вплив зміщений у тверді навички'
-    : "Ваш вплив зміщений у м'які навички";
-  vSub.textContent = sub;
-}
-</script>
-
 
 <script>
 /* ═══════════════════════════════════════════════
